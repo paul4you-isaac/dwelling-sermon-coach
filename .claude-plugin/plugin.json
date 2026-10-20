@@ -1,6 +1,6 @@
 {
   "name": "dwelling-sermon-coach",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "한 주 동안 본문과 동행하며 묵상 중심으로 설교를 준비하는 7단계 워크플로우 코치. 빠른 분석이 아닌 천천히 본문에 머무르는 설교 준비를 지원합니다.",
   "author": {
     "name": "Dwelling Sermon Coach"

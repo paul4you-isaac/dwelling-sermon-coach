@@ -11,6 +11,9 @@
 |---|---|---|
 | `~~preacher-name` | 설교자 이름 | `홍길동 목사` |
 | `~~church-name` | 교회 이름 | `○○교회` |
+| `~~church-slogan` | 교회 슬로건 (확장판) | `말씀으로 세워지는 교회` |
+| `~~sermon-vault` | 설교 Obsidian 볼트 경로 (확장판) | `/Users/me/SERMONS` |
+| `~~shared-folder` | HTML 공유용 iCloud 폴더 (확장판, 선택) | `~/Library/Mobile Documents/com~apple~CloudDocs/sermon-shared` |
 
 ## 교체 방법
 
@@ -27,6 +30,8 @@ church-name을 [교회 이름]으로 설정해 주세요.
 
 `skills/dwelling-sermon-coach/references/output-templates.md` 파일을 열어
 `~~preacher-name`과 `~~church-name`을 직접 교체합니다.
+확장판(`skills/dwelling-sermon-coach-2/`)은 `SKILL.md`와 `references/` 아래 모든 파일에서
+위 표의 플레이스홀더를 일괄 교체합니다.
 
 ## 기본 번역 설정 (선택)
 
