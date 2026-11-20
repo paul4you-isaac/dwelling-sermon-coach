@@ -219,9 +219,13 @@ h2{margin-top:30px}
 <p class="preacher-text">설정 파일은 <code>~/.config/dsc/dsc.config.json</code>입니다. 볼트 경로(<code>vault_root</code> = <code>output</code> 폴더), 자료 폴더, Logos 브리지, 작업창 포트, 설교자·교회 이름을 둡니다. 주석 자료 폴더(<code>materials_dirs</code>)를 쓰시려면 여기에 경로를 넣으십시오.</p>
 
 <h2>6. 되돌리기</h2>
-<p class="preacher-text">문제가 생기면 터미널에서 한 줄로 구판 v0.4.0으로 돌아갑니다.</p>
-<div class="card"><div class="card-b"><code>claude plugin disable dwelling-sermon-coach@dsc-local</code><br><small class="meta">다시 켜기: <code>claude plugin enable dwelling-sermon-coach@dsc-local</code> · 새 대화부터 적용</small></div></div>
-<p class="notice">claude.ai 계정의 구판(My Uploads v0.4.0)은 지우지 마십시오. 되돌릴 때 이것이 다시 쓰입니다.</p>
+<p class="preacher-text">claude.ai 「사용자 지정 → 플러그인 → 내 항목」에서 바꿉니다. 데스크톱 앱은 이 계정 설정을 읽습니다.</p>
+<ol>
+ <li class="preacher-text"><b>Dwelling sermon coach (dwelling-sermon-coach)</b> 「…」 → 끄기</li>
+ <li class="preacher-text"><b>Dwelling sermon coach (로컬 업로드)</b> 「…」 → 켜기</li>
+ <li class="preacher-text">앱을 완전히 끄고(⌘Q) 다시 켠 뒤 새 대화를 엽니다. 「7단계」 문구가 나오면 구판입니다.</li>
+</ol>
+<p class="notice">구판(로컬 업로드)과 예전 스킬 dwelling-sermon-coach (2)는 지우지 말고 꺼 두십시오. 되돌릴 때 다시 켭니다. 자세한 절차는 ROLLBACK.md에 있습니다.</p>
 
 </main>
 <footer class="dsc-foot">머무르는 설교 코치 v1.0.0 · 개인용</footer>

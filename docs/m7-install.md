@@ -28,3 +28,11 @@
 - 의문 1건: `~/.claude/plugins/cache/dsc-local/…/1.0.0`에 설치 때의 사본이 있어 「폴더를 바로 읽는다」가 확실한지 물었습니다.
   → 새 세션에서 스킬을 불러 확인하니 Base directory가 `…/dwelling-sermon-coach_versions/v1.0.0/skills/dwelling-sermon-coach`였습니다. 폴더를 바로 읽습니다.
   고친 것이 반영되지 않으면 `claude plugin marketplace update dsc-local` 뒤 새 대화를 엽니다(ROLLBACK.md에도 적음).
+
+## 데스크톱 앱 전환 (GitHub, 2026-11-20 추가)
+- 데스크톱 앱 새 대화가 7단계로 시작했습니다. 앱이 `~/.claude`가 아니라 **claude.ai 계정 플러그인**(My Uploads v0.4.0)을 읽고 있었습니다(스킬 Base directory가 앱의 `rpm/plugin_01H2…`).
+- GitHub 공개 저장소 `paul4you-isaac/dwelling-sermon-coach`에 v1.0.0을 올렸습니다(v0.3.0 기록 위에 커밋 하나, 태그 `v1.0.0`). 저장소 자체가 마켓플레이스입니다.
+  - 성경 번역 본문이 든 시안·견본 HTML 2개는 저작권 때문에 빼고 `.gitignore`에 넣었습니다. 문서의 내 컴퓨터 경로는 `~`로 바꿨습니다.
+- claude.ai 「사용자 지정 → 플러그인 → 추가 → 마켓플레이스 추가」로 이 저장소를 넣고 v1.0.0을 설치했습니다(Skills 1 · 에이전트 2, 켜짐). 자동 동기화는 GitHub 앱 권한이 필요해 켜지 않았습니다.
+- 설교자 확인을 받고 구판 「Dwelling sermon coach (로컬 업로드)」를 껐습니다(지우지 않음).
+- 되돌리기 절차를 이 구조로 다시 썼습니다(ROLLBACK.md · manual.html §6).
