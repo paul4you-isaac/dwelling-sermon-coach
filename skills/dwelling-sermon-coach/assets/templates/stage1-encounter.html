@@ -1,0 +1,422 @@
+<!doctype html>
+<!-- dsc.css v1.0.0 -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{본문}} 본문만남</title>
+<style data-dsc="css">
+/* dsc.css v1.0.0 — 머무르는 설교 코치 공통 디자인 (시안 B 「작업대」) */
+:root{
+ --font-body:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;
+ --font-greek:"SBL Greek","New Athena Unicode","Cardo","Gentium Plus","Times New Roman","Noto Serif",Georgia,serif;
+ --font-hebrew:"SBL Hebrew","Ezra SIL","Taamey Frank CLM","Noto Serif Hebrew","David Libre","Times New Roman","Arial Hebrew",serif;
+ --lh:1.75;--r:12px;--r-s:8px;
+ --bg:#f6f7f9;--card:#ffffff;--soft:#eef1f5;--ink:#15191e;--muted:#5d6672;--line:#dde2e8;
+ --accent:#1f5fae;--on-accent:#ffffff;
+ --ai:#6a3fb5;--ai-bg:#f1ebfb;--ai-line:#c9b5ec;
+ --syn-subject:#1e6091;--syn-verb:#a83232;--syn-sub:#2d6a4f;
+ --n-intro:#1565c0;--n-rise:#e65100;--n-dev:#2e7d32;--n-crisis:#c62828;--n-climax:#f57f17;--n-end:#4527a0;
+ --shade:#eceff3;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --bg:#0f1318;--card:#171c23;--soft:#1d242d;--ink:#e7ebf0;--muted:#98a3b0;--line:#2a333e;
+ --accent:#6fa8ef;--on-accent:#0f1318;--ai:#c3a6f5;--ai-bg:#271f38;--ai-line:#4e3d70;
+ --syn-subject:#7cb5e0;--syn-verb:#f08b8b;--syn-sub:#7bc9a3;--shade:#141a21;--n-intro:#7fb2f0;--n-rise:#ffab6e;--n-dev:#7fcf86;--n-crisis:#f08b8b;--n-climax:#ffd166;--n-end:#b7a4f0}}
+:root[data-theme="dark"]{
+ --bg:#0f1318;--card:#171c23;--soft:#1d242d;--ink:#e7ebf0;--muted:#98a3b0;--line:#2a333e;
+ --accent:#6fa8ef;--on-accent:#0f1318;--ai:#c3a6f5;--ai-bg:#271f38;--ai-line:#4e3d70;
+ --syn-subject:#7cb5e0;--syn-verb:#f08b8b;--syn-sub:#7bc9a3;--shade:#141a21;--n-intro:#7fb2f0;--n-rise:#ffab6e;--n-dev:#7fcf86;--n-crisis:#f08b8b;--n-climax:#ffd166;--n-end:#b7a4f0}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);
+ line-height:var(--lh);word-break:keep-all;overflow-wrap:anywhere}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 80px}
+header.dsc-head{padding-bottom:12px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+h1{font-size:1.35rem;font-weight:800;letter-spacing:-.02em;margin:0 0 4px}
+h2{font-size:1.08rem;font-weight:800;margin:26px 0 8px}
+h3{font-size:.95rem;font-weight:700;margin:18px 0 6px}
+.meta{font-size:.78rem;color:var(--muted)}
+footer.dsc-foot{margin-top:28px;font-size:.72rem;color:var(--muted)}
+
+/* 설교자 원문 / AI 문장 */
+.preacher-text{color:var(--ink)}
+.claude-text{color:var(--ai)}
+.ai-badge{display:inline-block;font-size:.64rem;font-weight:700;line-height:1.5;padding:0 6px;margin-right:5px;
+ border-radius:3px;background:var(--ai-bg);color:var(--ai);border:1px solid var(--ai-line);vertical-align:.12em;font-style:normal}
+.persona-block{margin:14px 0;padding:14px 16px;background:var(--card);border:1px solid var(--line);
+ border-left:4px solid var(--accent);border-radius:var(--r);line-height:1.95}
+.legend-bar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:.74rem;color:var(--muted);
+ padding:8px 10px;margin:12px 0;background:var(--soft);border-radius:var(--r)}
+.legend-bar .sw{display:inline-block;width:.8em;height:.8em;border-radius:2px;vertical-align:-.05em;margin-right:4px}
+
+/* 본문 시각화 (김상훈 배열) */
+.c-s{color:var(--syn-subject);font-weight:700}
+.c-v{color:var(--syn-verb);font-weight:700}
+.c-g{color:var(--syn-sub)}
+.ln{display:block}
+.ln.i1{padding-left:1.4em}.ln.i2{padding-left:2.8em}.ln.i3{padding-left:4.2em}
+.greek{font-family:var(--font-greek);font-size:1.2em;line-height:1.7}
+.hebrew{font-family:var(--font-hebrew);font-size:1.2em;line-height:1.8;direction:rtl;text-align:right}
+.hebrew .ln.i1{padding-left:0;padding-right:1.4em}.hebrew .ln.i2{padding-left:0;padding-right:2.8em}.hebrew .ln.i3{padding-left:0;padding-right:4.2em}
+
+/* 카드·블록 */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:14px 0;
+ box-shadow:0 1px 2px rgba(0,0,0,.04);overflow:hidden}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;
+ padding:10px 14px;font-size:.84rem;font-weight:700;color:var(--muted);border-bottom:1px solid var(--line)}
+.card-b{padding:12px 14px}
+.vn{font-weight:800;color:var(--accent);padding:10px 14px 0}
+.vrow{padding:10px 14px;border-top:1px solid var(--line)}
+.vrow:first-of-type{border-top:0}
+.tr{font-size:.68rem;font-weight:700;color:var(--muted);letter-spacing:.04em;margin-bottom:2px}
+.missing{color:var(--muted);font-style:normal}
+.guide{background:var(--soft);border-left:4px solid var(--accent);border-radius:0 var(--r-s) var(--r-s) 0;
+ padding:12px 14px;margin:14px 0;font-size:.9rem}
+.question{margin-top:22px;background:var(--card);border:2px solid var(--accent);border-radius:var(--r);padding:16px}
+.question h2{margin:0 0 8px;font-size:.95rem;color:var(--accent)}
+.notice{font-size:.8rem;color:var(--muted);padding:8px 12px;border:1px dashed var(--line);border-radius:var(--r-s);margin:12px 0}
+
+/* Stage 5 페리코프 3단 */
+.peri{border-radius:var(--r);padding:14px;margin:12px 0;border:1px solid var(--line);background:var(--shade)}
+.peri.main{background:var(--card);border:2px solid var(--accent);font-size:1.06rem}
+.peri-h{font-size:.8rem;font-weight:800;color:var(--muted);margin-bottom:6px}
+.peri.main .peri-h{color:var(--accent)}
+
+/* 설교개요 6단계 서사 */
+.narr{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;margin:10px 0}
+.narr span{font-size:.68rem;text-align:center;padding:6px 0;border-radius:var(--r-s);color:#fff;font-weight:700}
+.n-intro{--n:var(--n-intro)}.n-rise{--n:var(--n-rise)}.n-dev{--n:var(--n-dev)}
+.n-crisis{--n:var(--n-crisis)}.n-climax{--n:var(--n-climax)}.n-end{--n:var(--n-end)}
+.narr span{background:var(--n)}
+.narr .n-rise,.narr .n-climax{color:#1a1a1a}
+:root[data-theme="dark"] .narr span{color:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .narr span{color:#111}}
+.move{border-left:5px solid var(--n);background:var(--card);border-radius:0 var(--r) var(--r) 0;
+ padding:12px 14px;margin:12px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.move-h{font-size:.78rem;font-weight:800;color:var(--n)}
+
+/* 낭독(TTS) 조절 */
+.dsc-tts{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.8rem;margin:10px 0;
+ padding:8px 10px;background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+.dsc-tts select,.dsc-tts button,.dsc-play{font:inherit;font-size:.8rem;padding:5px 10px;border-radius:var(--r-s);
+ border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;max-width:100%}
+.dsc-tts select.dsc-voice{max-width:220px}
+.dsc-play{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.dsc-play:disabled,.dsc-tts button:disabled{opacity:.45;cursor:not-allowed}
+.dsc-tts-msg{color:var(--muted);font-size:.74rem}
+.dsc-speaking{background:var(--soft);border-radius:var(--r-s);outline:2px solid var(--accent);outline-offset:2px}
+
+@media (max-width:480px){
+ .wrap{padding:18px 16px 70px}
+ h1{font-size:1.2rem}
+ .ln.i1{padding-left:1em}.ln.i2{padding-left:2em}.ln.i3{padding-left:3em}
+ .hebrew .ln.i1,.hebrew .ln.i2,.hebrew .ln.i3{padding-left:0}
+ .hebrew .ln.i1{padding-right:1em}.hebrew .ln.i2{padding-right:2em}.hebrew .ln.i3{padding-right:3em}
+ .dsc-tts select.dsc-voice{max-width:100%;flex:1 1 100%}
+}
+@media print{.dsc-tts,.dsc-play{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="dsc-head">
+ <h1>{{본문}} — 본문만남</h1>
+ <div class="meta">{{설교일}} 주일 · Stage 1 본문만남 · {{설교자}}</div>
+</header>
+
+<div class="guide">
+ <p>처음에는 <b>소리 내어</b> 읽고, 한 번은 <b>들어</b> 보십시오.</p>
+ <p>해석하지 않고, 멈춰진 단어 하나만 기억해 주십시오.</p>
+</div>
+
+<div class="legend-bar">
+ <span><i class="sw" style="background:var(--ink)"></i>성경 본문</span>
+ <span><span class="ai-badge">【AI】</span>직역 (클로드)</span>
+ <span><i class="sw" style="background:var(--syn-subject)"></i>주어</span>
+ <span><i class="sw" style="background:var(--syn-verb)"></i>주동사</span>
+ <span><i class="sw" style="background:var(--syn-sub)"></i>종속절·인용·분사</span>
+</div>
+
+<!-- 원어는 낭독하지 않습니다. 번역별 듣기 버튼만 둡니다. -->
+<div class="dsc-tts" data-tts-lang="ko-KR">
+ <select class="dsc-voice" aria-label="성우"></select>
+ <select class="dsc-rate" aria-label="속도"><option value="0.85">0.85×</option><option value="1" selected>1.0×</option><option value="1.15">1.15×</option></select>
+ <button class="dsc-stop" type="button">■ 멈춤</button>
+ <span class="dsc-tts-msg"></span>
+ <span style="flex-basis:100%;height:0"></span>
+ <button class="dsc-play" type="button" data-target='[data-tr="nhkr"]'>▶ 새한글</button>
+ <button class="dsc-play" type="button" data-target='[data-tr="rnksv"]'>▶ 새번역</button>
+ <button class="dsc-play" type="button" data-target='[data-tr="ctkkr"]'>▶ 공동번역</button>
+ <button class="dsc-play" type="button" data-target='[data-tr="nkrv"]'>▶ 개역개정</button>
+</div>
+
+<!-- ① 앞 페리코페 (개역개정). 없으면 「앞 페리코페 없음 (책의 첫 단락)」 -->
+<section class="card">
+ <div class="card-h">앞 페리코페 · {{범위}} (개역개정)</div>
+ <div class="card-b preacher-text">
+  <span class="ln">{{문장 단위 줄}}</span>
+ </div>
+</section>
+
+<!-- ② 본문 절별 비교. 절마다 아래 section을 반복합니다.
+     순서: 원어 → 직역【AI】 → 새한글 → 새번역 → 공동번역 → 개역개정.
+     빠진 번역은 <span class="missing">[미제공]</span>.
+     히브리어는 class="greek" 대신 class="hebrew". -->
+<section class="card" id="v{{절}}">
+ <div class="vn">{{절}}절</div>
+ <div class="vrow"><div class="tr">{{NA28 또는 BHS}}</div><div class="greek">
+  <span class="ln">{{원어 주절}} <span class="c-v">{{주동사}}</span></span>
+  <span class="ln i1 c-g">{{원어 종속절}}</span></div></div>
+ <div class="vrow claude-text"><div class="tr"><span class="ai-badge">【AI】</span>직역</div>
+  <span class="ln">{{원어 어순 직역}}</span></div>
+ <div class="vrow preacher-text" data-tr="nhkr" data-tts-unit><div class="tr">새한글</div>
+  <span class="ln"><span class="c-s">{{주어}}</span> {{…}} <span class="c-v">{{주동사}}</span></span></div>
+ <div class="vrow preacher-text" data-tr="rnksv" data-tts-unit><div class="tr">새번역</div>
+  <span class="ln">{{문장 단위 줄}}</span></div>
+ <div class="vrow preacher-text" data-tr="ctkkr" data-tts-unit><div class="tr">공동번역</div>
+  <span class="ln">{{문장 단위 줄}}</span></div>
+ <div class="vrow preacher-text" data-tr="nkrv" data-tts-unit><div class="tr">개역개정</div>
+  <span class="ln">{{문장 단위 줄}}</span></div>
+</section>
+
+<!-- ③ 뒤 페리코페 (개역개정). 없으면 「뒤 페리코페 없음 (책의 끝 단락)」 -->
+<section class="card">
+ <div class="card-h">뒤 페리코페 · {{범위}} (개역개정)</div>
+ <div class="card-b preacher-text">
+  <span class="ln">{{문장 단위 줄}}</span>
+ </div>
+</section>
+
+<div class="question">
+ <h2>Stage 1의 단 하나의 질문</h2>
+ <p>처음 입과 귀로 통과시켰을 때, 가장 먼저 마음에 걸린 단어 하나를 말씀해 주십시오.</p>
+</div>
+
+<footer class="dsc-foot">본문 출처: 대한성서공회(새한글·새번역·공동번역·개역개정) · {{원어 출처}} · 직역은 【AI】 · 머무르는 설교 코치 v1.0.0</footer>
+</div>
+<script data-dsc="tts">
+/* dsc-tts.js v1.0.0 — 머무르는 설교 코치 공통 낭독
+ * 울림 방지 4규칙: ① voice와 lang을 함께 지정하지 않음 ② 단위별 onend 순차 발화
+ * ③ 로컬 음성 우선 ④ 성우 선택 상자 · 성우/속도 변경 시 즉시 멈춤. pitch는 1.0 고정.
+ *
+ * 마크업
+ *  <div class="dsc-tts" data-tts-lang="ko-KR">            조절 막대 (페이지에 하나)
+ *    <select class="dsc-voice"></select> <select class="dsc-rate">…</select>
+ *    <button class="dsc-stop" type="button">■ 멈춤</button> <span class="dsc-tts-msg"></span></div>
+ *  <button class="dsc-play" data-target="선택자">▶ 듣기</button>  선택자에 맞는 요소들(또는 그 안의 [data-tts-unit])을 차례로 읽음
+ *  속성(단위 또는 그 조상에): data-voice="minsu|jian|yuna"  data-rate="0.85"(사용자 속도에 곱함)
+ *  단위에: data-pause="5000"(다음 단위 전 쉼, ms)   읽지 않음: .ai-badge .tr [data-tts-skip]
+ */
+(function (w, d) {
+  "use strict";
+  var S = w.speechSynthesis;
+  var HINTS = {
+    jian: ["jian", "지안", "yuna", "유나"],
+    yuna: ["yuna", "유나"],
+    minsu: ["minsu", "민수"],
+    samantha: ["samantha"]
+  };
+  var DEFAULT_HINT = { ko: "jian", en: "samantha" };
+  var PREMIUM = /premium|enhanced|프리미엄|고품질/i;
+  var st = { voices: [], run: 0, rate: 1.0, lang: "ko-KR", panel: null, current: null, btn: null, utter: null, dog: 0 };
+
+  function loadVoices() {
+    return new Promise(function (resolve) {
+      var v = S.getVoices();
+      if (v.length) { resolve(v); return; }
+      var done = false;
+      function fin() { if (!done) { done = true; resolve(S.getVoices()); } }
+      S.addEventListener("voiceschanged", fin, { once: true });
+      setTimeout(fin, 1500);
+    });
+  }
+
+  function base(lang) { return String(lang || "").toLowerCase().split(/[-_]/)[0]; }
+
+  // 규칙 3: 로컬 음성 우선, 같은 조건이면 프리미엄 우선
+  function sortVoices(list) {
+    return list.slice().sort(function (a, b) {
+      if (a.localService !== b.localService) return a.localService ? -1 : 1;
+      var pa = PREMIUM.test(a.name), pb = PREMIUM.test(b.name);
+      return pa === pb ? 0 : (pa ? -1 : 1);
+    });
+  }
+
+  function voicesFor(lang) {
+    var b = base(lang);
+    return sortVoices(st.voices.filter(function (v) { return base(v.lang) === b; }));
+  }
+
+  function byHint(lang, hint) {
+    var keys = HINTS[hint] || [];
+    var list = voicesFor(lang);
+    for (var k = 0; k < keys.length; k++) {
+      for (var i = 0; i < list.length; i++) {
+        if (list[i].name.toLowerCase().indexOf(keys[k]) !== -1) return list[i];
+      }
+    }
+    return null;
+  }
+
+  function label(v) { return v.name + " (" + v.lang + ")" + (v.localService === false ? " (네트워크)" : ""); }
+
+  function selectedVoice() {
+    var sel = st.panel && st.panel.querySelector(".dsc-voice");
+    if (!sel || !sel.value) return null;
+    for (var i = 0; i < st.voices.length; i++) if (st.voices[i].voiceURI === sel.value) return st.voices[i];
+    return null;
+  }
+
+  function msg(t) { var m = st.panel && st.panel.querySelector(".dsc-tts-msg"); if (m) m.textContent = t || ""; }
+
+  function clearMark() {
+    var on = d.querySelectorAll(".dsc-speaking");
+    for (var i = 0; i < on.length; i++) on[i].classList.remove("dsc-speaking");
+  }
+
+  function markButton(btn) {
+    if (st.btn) {
+      st.btn.setAttribute("aria-pressed", "false");
+      if (st.btn.getAttribute("data-label")) st.btn.textContent = st.btn.getAttribute("data-label");
+    }
+    st.btn = btn || null;
+    if (btn) {
+      if (!btn.getAttribute("data-label")) btn.setAttribute("data-label", btn.textContent);
+      btn.setAttribute("aria-pressed", "true");
+      btn.textContent = "■ " + btn.getAttribute("data-label").replace(/^▶\s*/, "");
+    }
+  }
+
+  function stop() {
+    st.run++;
+    clearTimeout(st.dog);
+    if (S) S.cancel();
+    st.utter = null;
+    clearMark();
+    markButton(null);
+    st.current = null;
+    msg("");
+  }
+
+  function unitsOf(sel) {
+    var out = [], t = d.querySelectorAll(sel);
+    for (var i = 0; i < t.length; i++) {
+      var u = t[i].querySelectorAll("[data-tts-unit]");
+      if (u.length) out = out.concat(Array.prototype.slice.call(u)); else out.push(t[i]);
+    }
+    return out;
+  }
+
+  function textOf(el) {
+    var c = el.cloneNode(true);
+    var skip = c.querySelectorAll(".ai-badge,.tr,[data-tts-skip]");
+    for (var i = 0; i < skip.length; i++) skip[i].parentNode.removeChild(skip[i]);
+    return c.textContent.replace(/[「」『』]/g, " ").replace(/\s+/g, " ").trim();
+  }
+
+  function attr(el, name) {
+    var h = el.closest ? el.closest("[" + name + "]") : (el.hasAttribute(name) ? el : null);
+    return h ? h.getAttribute(name) : null;
+  }
+
+  function play(sel, lang, btn) {
+    stop();
+    var token = st.run, units = unitsOf(sel), i = 0;
+    if (!units.length) return;
+    st.current = sel;
+    markButton(btn);
+    function next(ms) { if (token === st.run) { clearTimeout(st.dog); setTimeout(step, ms); } }
+    function step() {
+      if (token !== st.run) return;
+      clearMark();
+      if (i >= units.length) { st.utter = null; markButton(null); st.current = null; msg(""); return; }
+      var el = units[i++], text = textOf(el);
+      if (!text) { step(); return; }
+      var sv = selectedVoice();
+      if (sv && base(sv.lang) !== base(lang)) sv = byHint(lang, DEFAULT_HINT[base(lang)]) || voicesFor(lang)[0] || null;
+      var hint = attr(el, "data-voice");
+      var vo = (hint && byHint(lang, hint)) || sv;
+      var utter = new SpeechSynthesisUtterance(text);
+      if (vo) utter.voice = vo;        // 규칙 1: 음성을 지정하면 lang 생략
+      else utter.lang = lang;          // 폴백일 때만 lang
+      var unitRate = parseFloat(attr(el, "data-rate"));
+      utter.rate = Math.min(2, Math.max(0.5, (unitRate > 0 ? unitRate : 1) * st.rate));
+      utter.pitch = 1.0;               // 고정
+      var p = parseInt(el.getAttribute("data-pause"), 10);
+      var pause = isNaN(p) ? 120 : p;
+      utter.onend = function () { clearTimeout(st.dog); setTimeout(step, pause); };   // 규칙 2: 다음 단위
+      utter.onerror = function () { next(120); };
+      st.utter = utter;                // 참조를 잡아 두어야 onend가 사라지지 않음
+      el.classList.add("dsc-speaking");
+      msg("읽는 중 " + i + "/" + units.length);
+      clearTimeout(st.dog);            // onend가 끝내 오지 않을 때를 대비한 감시
+      st.dog = setTimeout(function () { if (token === st.run) { S.cancel(); next(120); } },
+        8000 + text.length * 400 / utter.rate);
+      if (S.paused) S.resume();
+      S.speak(utter);
+    }
+    setTimeout(step, 60);              // cancel 직후 바로 speak하면 Safari가 삼킴
+  }
+
+  function fillVoices() {
+    var sel = st.panel.querySelector(".dsc-voice");
+    if (!sel) return;
+    var keep = sel.value, list = voicesFor(st.lang);
+    sel.innerHTML = "";
+    list.forEach(function (v) {
+      var o = d.createElement("option");
+      o.value = v.voiceURI; o.textContent = label(v);
+      sel.appendChild(o);
+    });
+    var def = byHint(st.lang, DEFAULT_HINT[base(st.lang)]) || list[0];
+    if (keep && list.some(function (v) { return v.voiceURI === keep; })) sel.value = keep;
+    else if (def) sel.value = def.voiceURI;
+    if (!list.length) {
+      var o = d.createElement("option");
+      o.value = ""; o.textContent = "기본 음성 (" + st.lang + ")";
+      sel.appendChild(o);
+      msg("이 기기에서 " + st.lang + " 음성 목록을 아직 받지 못했습니다. 기본 음성으로 읽습니다.");
+    } else msg("");
+  }
+
+  function disable(text) {
+    var b = d.querySelectorAll(".dsc-play,.dsc-tts button,.dsc-tts select");
+    for (var i = 0; i < b.length; i++) b[i].disabled = true;
+    msg(text);
+  }
+
+  function init() {
+    st.panel = d.querySelector(".dsc-tts");
+    if (!st.panel) return;
+    st.lang = st.panel.getAttribute("data-tts-lang") || "ko-KR";
+    if (!S || !w.SpeechSynthesisUtterance) { disable("이 브라우저는 낭독을 지원하지 않습니다."); return; }
+    var rate = st.panel.querySelector(".dsc-rate");
+    if (rate) { st.rate = parseFloat(rate.value) || 1.0;
+      rate.addEventListener("change", function () { st.rate = parseFloat(rate.value) || 1.0; stop(); }); }
+    var sel = st.panel.querySelector(".dsc-voice");
+    if (sel) sel.addEventListener("change", stop);       // 규칙 4: 바꾸면 즉시 멈춤
+    var sb = st.panel.querySelector(".dsc-stop");
+    if (sb) sb.addEventListener("click", stop);
+    d.addEventListener("click", function (e) {
+      var btn = e.target.closest && e.target.closest(".dsc-play");
+      if (!btn || btn.disabled) return;
+      var target = btn.getAttribute("data-target");
+      if (!target) return;
+      if (st.current === target) { stop(); return; }
+      play(target, btn.getAttribute("data-lang") || st.lang, btn);
+    });
+    loadVoices().then(function (v) { st.voices = v || []; fillVoices(); });
+    // iOS는 음성 목록을 늦게 채우기도 합니다. 올 때마다 다시 채웁니다.
+    S.addEventListener("voiceschanged", function () { st.voices = S.getVoices(); fillVoices(); });
+    w.addEventListener("pagehide", stop);   // stop() 안에서 speechSynthesis.cancel()
+  }
+
+  w.DSC = w.DSC || {};
+  w.DSC.tts = { stop: stop, play: play, version: "1.0.0" };
+  if (d.readyState === "loading") d.addEventListener("DOMContentLoaded", init); else init();
+})(window, document);
+</script>
+</body>
+</html>

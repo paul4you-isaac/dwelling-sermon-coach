@@ -1,0 +1,230 @@
+<!doctype html>
+<!-- dsc.css v1.0.0 -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>머무르는 설교 코치 사용 안내</title>
+<style data-dsc="css">
+/* dsc.css v1.0.0 — 머무르는 설교 코치 공통 디자인 (시안 B 「작업대」) */
+:root{
+ --font-body:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;
+ --font-greek:"SBL Greek","New Athena Unicode","Cardo","Gentium Plus","Times New Roman","Noto Serif",Georgia,serif;
+ --font-hebrew:"SBL Hebrew","Ezra SIL","Taamey Frank CLM","Noto Serif Hebrew","David Libre","Times New Roman","Arial Hebrew",serif;
+ --lh:1.75;--r:12px;--r-s:8px;
+ --bg:#f6f7f9;--card:#ffffff;--soft:#eef1f5;--ink:#15191e;--muted:#5d6672;--line:#dde2e8;
+ --accent:#1f5fae;--on-accent:#ffffff;
+ --ai:#6a3fb5;--ai-bg:#f1ebfb;--ai-line:#c9b5ec;
+ --syn-subject:#1e6091;--syn-verb:#a83232;--syn-sub:#2d6a4f;
+ --n-intro:#1565c0;--n-rise:#e65100;--n-dev:#2e7d32;--n-crisis:#c62828;--n-climax:#f57f17;--n-end:#4527a0;
+ --shade:#eceff3;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --bg:#0f1318;--card:#171c23;--soft:#1d242d;--ink:#e7ebf0;--muted:#98a3b0;--line:#2a333e;
+ --accent:#6fa8ef;--on-accent:#0f1318;--ai:#c3a6f5;--ai-bg:#271f38;--ai-line:#4e3d70;
+ --syn-subject:#7cb5e0;--syn-verb:#f08b8b;--syn-sub:#7bc9a3;--shade:#141a21;--n-intro:#7fb2f0;--n-rise:#ffab6e;--n-dev:#7fcf86;--n-crisis:#f08b8b;--n-climax:#ffd166;--n-end:#b7a4f0}}
+:root[data-theme="dark"]{
+ --bg:#0f1318;--card:#171c23;--soft:#1d242d;--ink:#e7ebf0;--muted:#98a3b0;--line:#2a333e;
+ --accent:#6fa8ef;--on-accent:#0f1318;--ai:#c3a6f5;--ai-bg:#271f38;--ai-line:#4e3d70;
+ --syn-subject:#7cb5e0;--syn-verb:#f08b8b;--syn-sub:#7bc9a3;--shade:#141a21;--n-intro:#7fb2f0;--n-rise:#ffab6e;--n-dev:#7fcf86;--n-crisis:#f08b8b;--n-climax:#ffd166;--n-end:#b7a4f0}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);
+ line-height:var(--lh);word-break:keep-all;overflow-wrap:anywhere}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 80px}
+header.dsc-head{padding-bottom:12px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+h1{font-size:1.35rem;font-weight:800;letter-spacing:-.02em;margin:0 0 4px}
+h2{font-size:1.08rem;font-weight:800;margin:26px 0 8px}
+h3{font-size:.95rem;font-weight:700;margin:18px 0 6px}
+.meta{font-size:.78rem;color:var(--muted)}
+footer.dsc-foot{margin-top:28px;font-size:.72rem;color:var(--muted)}
+
+/* 설교자 원문 / AI 문장 */
+.preacher-text{color:var(--ink)}
+.claude-text{color:var(--ai)}
+.ai-badge{display:inline-block;font-size:.64rem;font-weight:700;line-height:1.5;padding:0 6px;margin-right:5px;
+ border-radius:3px;background:var(--ai-bg);color:var(--ai);border:1px solid var(--ai-line);vertical-align:.12em;font-style:normal}
+.persona-block{margin:14px 0;padding:14px 16px;background:var(--card);border:1px solid var(--line);
+ border-left:4px solid var(--accent);border-radius:var(--r);line-height:1.95}
+.legend-bar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:.74rem;color:var(--muted);
+ padding:8px 10px;margin:12px 0;background:var(--soft);border-radius:var(--r)}
+.legend-bar .sw{display:inline-block;width:.8em;height:.8em;border-radius:2px;vertical-align:-.05em;margin-right:4px}
+
+/* 본문 시각화 (김상훈 배열) */
+.c-s{color:var(--syn-subject);font-weight:700}
+.c-v{color:var(--syn-verb);font-weight:700}
+.c-g{color:var(--syn-sub)}
+.ln{display:block}
+.ln.i1{padding-left:1.4em}.ln.i2{padding-left:2.8em}.ln.i3{padding-left:4.2em}
+.greek{font-family:var(--font-greek);font-size:1.2em;line-height:1.7}
+.hebrew{font-family:var(--font-hebrew);font-size:1.2em;line-height:1.8;direction:rtl;text-align:right}
+.hebrew .ln.i1{padding-left:0;padding-right:1.4em}.hebrew .ln.i2{padding-left:0;padding-right:2.8em}.hebrew .ln.i3{padding-left:0;padding-right:4.2em}
+
+/* 카드·블록 */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:14px 0;
+ box-shadow:0 1px 2px rgba(0,0,0,.04);overflow:hidden}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;
+ padding:10px 14px;font-size:.84rem;font-weight:700;color:var(--muted);border-bottom:1px solid var(--line)}
+.card-b{padding:12px 14px}
+.vn{font-weight:800;color:var(--accent);padding:10px 14px 0}
+.vrow{padding:10px 14px;border-top:1px solid var(--line)}
+.vrow:first-of-type{border-top:0}
+.tr{font-size:.68rem;font-weight:700;color:var(--muted);letter-spacing:.04em;margin-bottom:2px}
+.missing{color:var(--muted);font-style:normal}
+.guide{background:var(--soft);border-left:4px solid var(--accent);border-radius:0 var(--r-s) var(--r-s) 0;
+ padding:12px 14px;margin:14px 0;font-size:.9rem}
+.question{margin-top:22px;background:var(--card);border:2px solid var(--accent);border-radius:var(--r);padding:16px}
+.question h2{margin:0 0 8px;font-size:.95rem;color:var(--accent)}
+.notice{font-size:.8rem;color:var(--muted);padding:8px 12px;border:1px dashed var(--line);border-radius:var(--r-s);margin:12px 0}
+
+/* Stage 5 페리코프 3단 */
+.peri{border-radius:var(--r);padding:14px;margin:12px 0;border:1px solid var(--line);background:var(--shade)}
+.peri.main{background:var(--card);border:2px solid var(--accent);font-size:1.06rem}
+.peri-h{font-size:.8rem;font-weight:800;color:var(--muted);margin-bottom:6px}
+.peri.main .peri-h{color:var(--accent)}
+
+/* 설교개요 6단계 서사 */
+.narr{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;margin:10px 0}
+.narr span{font-size:.68rem;text-align:center;padding:6px 0;border-radius:var(--r-s);color:#fff;font-weight:700}
+.n-intro{--n:var(--n-intro)}.n-rise{--n:var(--n-rise)}.n-dev{--n:var(--n-dev)}
+.n-crisis{--n:var(--n-crisis)}.n-climax{--n:var(--n-climax)}.n-end{--n:var(--n-end)}
+.narr span{background:var(--n)}
+.narr .n-rise,.narr .n-climax{color:#1a1a1a}
+:root[data-theme="dark"] .narr span{color:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .narr span{color:#111}}
+.move{border-left:5px solid var(--n);background:var(--card);border-radius:0 var(--r) var(--r) 0;
+ padding:12px 14px;margin:12px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.move-h{font-size:.78rem;font-weight:800;color:var(--n)}
+
+/* 낭독(TTS) 조절 */
+.dsc-tts{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.8rem;margin:10px 0;
+ padding:8px 10px;background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+.dsc-tts select,.dsc-tts button,.dsc-play{font:inherit;font-size:.8rem;padding:5px 10px;border-radius:var(--r-s);
+ border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;max-width:100%}
+.dsc-tts select.dsc-voice{max-width:220px}
+.dsc-play{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.dsc-play:disabled,.dsc-tts button:disabled{opacity:.45;cursor:not-allowed}
+.dsc-tts-msg{color:var(--muted);font-size:.74rem}
+.dsc-speaking{background:var(--soft);border-radius:var(--r-s);outline:2px solid var(--accent);outline-offset:2px}
+
+@media (max-width:480px){
+ .wrap{padding:18px 16px 70px}
+ h1{font-size:1.2rem}
+ .ln.i1{padding-left:1em}.ln.i2{padding-left:2em}.ln.i3{padding-left:3em}
+ .hebrew .ln.i1,.hebrew .ln.i2,.hebrew .ln.i3{padding-left:0}
+ .hebrew .ln.i1{padding-right:1em}.hebrew .ln.i2{padding-right:2em}.hebrew .ln.i3{padding-right:3em}
+ .dsc-tts select.dsc-voice{max-width:100%;flex:1 1 100%}
+}
+@media print{.dsc-tts,.dsc-play{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<style>
+.flow{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:12px 0}
+.st{border:1px solid var(--line);border-radius:var(--r-s);background:var(--card);padding:10px 12px;border-top:5px solid var(--g)}
+.st b{display:block;font-size:.95rem}.st small{color:var(--muted);font-size:.74rem;display:block}
+.g-shut{--g:var(--muted)}.g-open{--g:var(--n-dev)}.g-priv{--g:var(--n-crisis)}
+.keys{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.76rem;color:var(--muted);margin:6px 0 2px}
+.keys i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:4px}
+.ws{display:grid;grid-template-columns:1.55fr 1fr 1fr;gap:6px;margin:8px 0}
+.ws>div,.ws-top{border:1px dashed var(--line);border-radius:var(--r-s);padding:10px;background:var(--soft);font-size:.82rem}
+.ws-top{margin-top:8px}
+.ws .me{background:var(--card);border:2px solid var(--accent)}
+@media (max-width:600px){.ws{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:.84rem;margin:10px 0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+code{font-size:.85em;background:var(--soft);padding:1px 5px;border-radius:4px;word-break:break-all}
+h2{margin-top:30px}
+</style>
+<div class="wrap">
+<header class="dsc-head">
+ <h1>머무르는 설교 코치 v1.0 — 사용 안내</h1>
+ <div class="meta">개인용 · 2026-11-20 · 9단계 워크플로우</div>
+</header>
+<div class="legend-bar">
+ <span><i class="sw" style="background:var(--ink)"></i>설교자가 쓰는 것</span>
+ <span><span class="ai-badge">【AI】</span>클로드가 쓰는 것</span>
+</div>
+<main id="body">
+
+<div class="guide">이 도구의 가장 큰 가치는 <b>클로드가 빨리 답하지 않는 데</b> 있습니다. 목사님이 먼저 본문을 만나고, 클로드는 받아 적습니다.</div>
+
+<h2>1. 시작하기</h2>
+<p class="preacher-text">Claude 데스크톱(Code 탭)이나 터미널의 새 대화에서 이렇게 말씀하십시오.</p>
+<div class="card"><div class="card-b">
+<p>「머무르는 설교 코치 시작」</p>
+<p>「다음 주일 설교 본문: 고린도후서 4:1-18」</p>
+</div></div>
+<p class="preacher-text">본문을 주시면 감독이 주간 폴더 <code>S_주일날짜</code>를 만들고, 번역본 4종·ESV·원어를 모은 뒤 바로 Stage 1 본문만남으로 들어갑니다. 빠진 본문이 있을 때만 붙여 넣어 달라고 합니다.</p>
+<p class="preacher-text">주중에 다시 들어오실 때도 같은 말로 시작하시면 됩니다. 감독이 진행 기록을 읽고 그 자리에서 이어 갑니다.</p>
+
+<h2>2. 한 주의 흐름</h2>
+<div class="keys"><span><i style="background:var(--muted)"></i>주석 닫힘</span><span><i style="background:var(--n-dev)"></i>주석 열림</span><span><i style="background:var(--n-crisis)"></i>비공개 · 주석 다시 닫힘</span></div>
+<div class="flow">
+ <div class="st g-shut"><b>0 수집</b><small>주일 오후 · 번역본·원어</small></div>
+ <div class="st g-shut"><b>1 본문만남</b><small>주일 오후 · 세 번 읽기, 첫 단어</small></div>
+ <div class="st g-shut"><b>2 동행일지</b><small>월·화 · 날마다 한 줄</small></div>
+ <div class="st g-shut"><b>3 원어관찰</b><small>화·수 · 관찰 작업창</small></div>
+ <div class="st g-open"><b>4 1차청중</b><small>수 · 페르소나 · 주석 수집 시작</small></div>
+ <div class="st g-open"><b>5 맥락관찰</b><small>수·목 · 페리코프 3단</small></div>
+ <div class="st g-open"><b>6 묵직한단어</b><small>목 · 단어 하나</small></div>
+ <div class="st g-priv"><b>7A 자기적용</b><small>금 · private: true</small></div>
+ <div class="st g-open"><b>7B 회중적용</b><small>금 · 그리스도 다리</small></div>
+ <div class="st g-open"><b>8 원고점검</b><small>토 · 4문 → 묵상종합</small></div>
+ <div class="st g-open"><b>9 설교개요</b><small>토 · 6단계 서사</small></div>
+</div>
+<ul>
+ <li class="preacher-text">한 단계가 끝나야 다음 단계로 갑니다. 「Stage N으로 가겠습니다」라고 말씀하실 때만 진행 기록이 올라갑니다.</li>
+ <li class="preacher-text">주석은 Stage 4 1차청중에 들어갈 때 처음 모입니다. 감독은 주석의 개수와 출처만 알리고, 내용은 한 번에 질문 하나로만 꺼냅니다.</li>
+ <li class="preacher-text">7A 자기적용은 비공개입니다. 묵상종합에는 내용을 복사하지 않고 연결(임베드)만 합니다. 개요에 넣을지는 목사님이 직접 고르십니다.</li>
+</ul>
+
+<h2>3. 관찰 작업창 (Stage 3 원어관찰)</h2>
+<p class="preacher-text">터미널에서 플러그인 폴더로 가서 켭니다. 이 컴퓨터에서만 열립니다.</p>
+<div class="card"><div class="card-b"><code>cd ~/DSC/dwelling-sermon-coach_versions/v1.0.0 &amp;&amp; python3 app/server.py</code><br><small class="meta">주소 http://127.0.0.1:8787 · 끄기 Ctrl+C</small></div></div>
+<div class="ws-top">[위] 절 번호 + 원어 전체 절 — 주동사 강조</div>
+<div class="ws">
+ <div>① 5중 인터리니어<br><small>Deppe 라벨 · 원어 · 분해 · 직역 · 새한글 · ESV</small></div>
+ <div>② 주동사 해설 <span class="ai-badge">【AI】</span><br><small>동사 계단 · 해설 2~4문장</small></div>
+ <div class="me">③ 묵상 노트<br><small>목사님만 씁니다 · 절마다 하나 · 자동 저장</small></div>
+</div>
+<ul>
+ <li class="preacher-text">원어·새한글·ESV는 수집본 글자 그대로입니다. 감독의 구문 분석은 수집본과 낱말 하나씩 맞아야만 올라갑니다.</li>
+ <li class="preacher-text">탭: 구문 묵상 · 번역 대조 · 앞·뒤 페리코페.</li>
+ <li class="preacher-text">아래쪽 「Stage 4 시작」 버튼도 목사님의 확인입니다. 남은 노트를 먼저 저장하고, 원어관찰 md를 만든 뒤 단계를 올립니다. 대화로 돌아오시면 감독이 그것을 알아채고 주석을 모읍니다.</li>
+</ul>
+<h3>작업창 버튼</h3>
+<table>
+<tr><th>버튼</th><th>하는 일</th></tr>
+<tr><td>감독에게 묻기</td><td>질문 하나를 받아 짧게 답합니다(10초 안팎). 읽기만 하고 파일을 고치지 않습니다. 주석·7A·묵상종합은 권한으로 막혀 있습니다.</td></tr>
+<tr><td>본문 다시 수집</td><td>수집본을 새로 받습니다. 쓰신 노트는 그대로 둡니다.</td></tr>
+<tr><td>진행 상황 점검</td><td>파일 이름·YAML·비공개 점검. 7A 문장은 보여 주지 않습니다.</td></tr>
+</table>
+
+<h2>4. 산출물</h2>
+<table>
+<tr><th>단계</th><th>파일</th></tr>
+<tr><td>0</td><td><code>00_수집/</code> · <code>progress.json</code> · <code>00_진행상황.md</code></td></tr>
+<tr><td>1</td><td><code>01_본문만남_…md</code> · <code>Stage1_…_본문만남.html</code></td></tr>
+<tr><td>2 · 3</td><td><code>02_동행일지_…md</code> · <code>03_원어관찰.json</code>(원본) · <code>03_원어관찰_…md</code>(생성본, 작업창에서 고치기)</td></tr>
+<tr><td>4 · 5 · 6</td><td><code>04_1차청중_…md</code> + 페르소나 html · <code>05_맥락관찰_…md</code> + 페리코프 3단 html · <code>06_묵직한단어_…md</code></td></tr>
+<tr><td>7</td><td><code>07A_자기적용_…md</code>(private) · <code>07B_회중적용_…md</code></td></tr>
+<tr><td>8 · 9</td><td><code>08_원고점검_…md</code> · <code>설교_날짜_본문_묵상종합.md</code> · <code>설교_날짜_본문_개요.md/.html</code></td></tr>
+</table>
+<p class="preacher-text">클로드가 쓴 문장에는 모두 【AI】가 붙습니다. 개요는 묵상종합만 재료로 쓰고, 목사님 문장은 한 글자도 바꾸지 않습니다.</p>
+
+<h2>5. 설정</h2>
+<p class="preacher-text">설정 파일은 <code>~/.config/dsc/dsc.config.json</code>입니다. 볼트 경로(<code>vault_root</code> = <code>output</code> 폴더), 자료 폴더, Logos 브리지, 작업창 포트, 설교자·교회 이름을 둡니다. 주석 자료 폴더(<code>materials_dirs</code>)를 쓰시려면 여기에 경로를 넣으십시오.</p>
+
+<h2>6. 되돌리기</h2>
+<p class="preacher-text">문제가 생기면 터미널에서 한 줄로 구판 v0.4.0으로 돌아갑니다.</p>
+<div class="card"><div class="card-b"><code>claude plugin disable dwelling-sermon-coach@dsc-local</code><br><small class="meta">다시 켜기: <code>claude plugin enable dwelling-sermon-coach@dsc-local</code> · 새 대화부터 적용</small></div></div>
+<p class="notice">claude.ai 계정의 구판(My Uploads v0.4.0)은 지우지 마십시오. 되돌릴 때 이것이 다시 쓰입니다.</p>
+
+</main>
+<footer class="dsc-foot">머무르는 설교 코치 v1.0.0 · 개인용</footer>
+</div>
+</body>
+</html>

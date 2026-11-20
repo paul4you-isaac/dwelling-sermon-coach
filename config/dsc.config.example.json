@@ -1,0 +1,17 @@
+{
+  "dsc_version": "1.0.0",
+  "vault_root": "/Users/USERNAME/SERMONS/주간묵상 설교준비/output",
+  "input_root": "/Users/USERNAME/SERMONS/주간묵상 설교준비/input",
+  "materials_dirs": [
+    "/Users/USERNAME/설교자료/주석"
+  ],
+  "md_commentary_glob": "B_*.md",
+  "logos_bridge": "/Users/USERNAME/path/to/logos_bridge.py",
+  "port": 8787,
+  "preacher": "○○○ 목사",
+  "church": "○○교회",
+  "church_slogan": "",
+  "stage3_private": false,
+  "claude_bin": "",
+  "ask_model": "sonnet"
+}

@@ -1,0 +1,131 @@
+/* 관찰 작업창 — dsc.css(시안 B 「작업대」) 위에 얹는 배치
+ * Stage 3 원어관찰은 헬라어 구문성경 「구문 묵상 뷰어」 틀(위 전체 절 + 아래 3분할)을 따릅니다. */
+html,body{height:100%}
+body{display:flex;flex-direction:column;min-height:100%}
+button,select,textarea,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:root{--fam-main:#7B5E2A;--fam-ptc:#B5174A;--fam-inf:#222222;--fam-pur:#1255A0;--fam-rel:#C45000;--fam-causal:#4A7A20;
+ --fam-quest:#5A0E90;--fam-cond:#6A6A6A;--fam-plain:#6A6A6A;--fam-prep:#0c8599;--fam-par:#5A0E90;--fam-etc:#666666;
+ --mv-bg:#f5e6c0;--note:#4A7A20}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--fam-main:#d3b872;--fam-ptc:#f08bab;--fam-inf:#d0d0d0;
+ --fam-pur:#7fa9e0;--fam-rel:#e8905c;--fam-causal:#9dc47a;--fam-quest:#b98be0;--fam-cond:#a09a8e;--fam-plain:#a09a8e;
+ --fam-prep:#5fc0cf;--fam-par:#b98be0;--fam-etc:#9d968a;--mv-bg:#4a3c1c;--note:#9dc47a}}
+
+.ws-top{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.ws-title{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 16px 6px}
+.ws-title h1{margin:0;font-size:1.1rem}
+.ws-week select{font-size:.86rem;padding:5px 8px;border:1px solid var(--line);border-radius:var(--r-s);background:var(--bg);max-width:100%}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.rail{display:flex;gap:4px;overflow-x:auto;padding:6px 16px 8px;scrollbar-width:thin}
+.rail span{flex:0 0 auto;font-size:.72rem;padding:3px 9px;border-radius:999px;color:var(--muted);border:1px solid var(--line);white-space:nowrap}
+.rail span.done{color:var(--ink);background:var(--soft);border-color:transparent}
+.rail span.now{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.rail span.later{opacity:.6}
+.gate{font-size:.78rem;color:var(--muted);padding:7px 16px;border-top:1px dashed var(--line)}
+.gate b{color:var(--ink)}
+.gate.open{color:var(--ink)}
+
+.ws-main{flex:1;padding:14px 16px;max-width:1340px;width:100%;margin:0 auto}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+.tabs button{font-size:.8rem;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:700}
+.toc{display:flex;flex-wrap:wrap;gap:4px 10px;justify-content:center;font-size:.8rem;background:var(--soft);
+ border:1px solid var(--line);border-radius:var(--r);padding:8px 12px;margin-bottom:10px}
+.toc a{color:var(--accent);text-decoration:none;font-weight:700}
+.legend-bar .sw-src{background:var(--ink)}
+
+/* 절 블록 — 위 전체 절, 아래 3분할 */
+.verse-block{border:1px solid var(--line);border-radius:14px;background:var(--card);margin:18px 0;overflow:hidden;
+ box-shadow:0 1px 2px rgba(0,0,0,.04);scroll-margin-top:130px}
+.verse-top{padding:16px 20px 14px;background:var(--soft);border-bottom:1px solid var(--line)}
+.vnum{display:block;font-size:.76rem;font-weight:800;color:var(--accent);letter-spacing:.04em;margin-bottom:6px}
+.greek-full{font-size:1.3em;line-height:1.85}
+.greek-full.hebrew{font-size:1.4em}
+.mv{font-weight:700;background:var(--mv-bg);padding:0 4px;border-radius:3px}
+.verse-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr) minmax(0,1fr)}
+@media(max-width:1000px){.verse-grid{grid-template-columns:minmax(0,1fr)}}
+.pane{padding:14px 16px;border-right:1px solid var(--line);min-width:0}
+.pane:last-child{border-right:0}
+@media(max-width:1000px){.pane{border-right:0;border-bottom:1px solid var(--line)}.pane:last-child{border-bottom:0}}
+.pane.center{background:var(--bg)}
+.pane.right{display:flex;flex-direction:column}
+.pane h4{margin:0 0 10px;font-size:.74rem;letter-spacing:.06em;color:var(--muted)}
+.pane.right h4{color:var(--note)}
+
+/* ① 5중 인터리니어 */
+.chunk{margin:0 0 14px}
+.ind-0{padding-left:0}.ind-1{padding-left:20px}.ind-2{padding-left:40px}.ind-3{padding-left:60px}
+@media(max-width:480px){.ind-1{padding-left:10px}.ind-2{padding-left:20px}.ind-3{padding-left:30px}}
+.clabel{display:block;font-style:italic;font-size:.7rem;margin-bottom:3px;line-height:1.4;font-weight:700}
+.fam-main{color:var(--fam-main)}.fam-ptc{color:var(--fam-ptc)}.fam-inf{color:var(--fam-inf)}.fam-pur{color:var(--fam-pur)}
+.fam-rel{color:var(--fam-rel)}.fam-causal{color:var(--fam-causal)}.fam-quest{color:var(--fam-quest)}.fam-cond{color:var(--fam-cond)}
+.fam-plain{color:var(--fam-plain)}.fam-prep{color:var(--fam-prep)}.fam-par{color:var(--fam-par)}.fam-etc{color:var(--fam-etc)}
+.gwords{display:flex;flex-wrap:wrap;gap:3px 10px;align-items:flex-end;margin-bottom:2px}
+.gw{display:inline-flex;flex-direction:column;align-items:center}
+.gw .g{font-size:1.08em;line-height:1.5}
+.gw .ab{font-size:.62rem;white-space:nowrap;letter-spacing:-.02em}
+.gw.gap .g{color:var(--muted);letter-spacing:.15em}
+.g-line{font-size:1.08em}
+.row{font-size:.82rem;margin-top:3px;padding-left:7px;line-height:1.6;border-left:2.5px solid var(--line)}
+.row .tag{font-size:.66rem;font-weight:700;margin-right:6px;color:var(--muted)}
+.row.own{border-left-color:var(--ai-line)}
+.row.esv{font-family:Georgia,"Times New Roman",serif}
+.pending{margin-top:8px}
+
+/* ② 해설 */
+.pane.center p{font-size:.86rem;margin:0 0 8px;line-height:1.8}
+.gk{font-weight:700}
+.vchain{font-size:.8rem;background:var(--card);border:1px dashed var(--ai-line);border-radius:var(--r-s);
+ padding:8px 10px;margin-bottom:10px;line-height:1.9}
+.vchain b{display:block}
+.vchain .dim{color:var(--muted)}
+.variant{font-size:.76rem;color:var(--muted);background:var(--soft);border-left:3px solid var(--line);padding:6px 10px;border-radius:0 6px 6px 0;margin-top:6px}
+
+/* ③ 묵상 노트 */
+textarea.medi{width:100%;flex:1 1 auto;min-height:200px;border:1.5px solid var(--line);border-radius:var(--r-s);background:var(--bg);
+ font-size:.9rem;line-height:1.8;padding:10px 12px;resize:vertical}
+textarea.medi:focus{outline:2px solid var(--note);outline-offset:1px;border-color:transparent}
+textarea.medi[readonly]{opacity:.75}
+.medi-hint{font-size:.74rem;color:var(--muted);margin-top:6px}
+.st.ok{color:var(--syn-sub)}
+.st.bad{color:var(--syn-verb);font-weight:700}
+.conflict{margin-top:8px;padding:10px 12px;background:var(--soft);border-radius:var(--r-s);font-size:.84rem}
+.conflict pre,.comm pre,.pre{white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;font:inherit;font-size:.84rem;margin:6px 0}
+.nav{display:flex;gap:6px;flex-wrap:wrap}
+
+/* 번역 대조 · 페리코페 */
+.cmp{padding:10px 14px;border-top:1px solid var(--line)}
+.cmp-row{display:grid;grid-template-columns:6.5em minmax(0,1fr);gap:8px;font-size:.88rem;padding:2px 0}
+.cmp-row .tr{margin:0;padding-top:.25em}
+.vref{font-size:.72rem;font-weight:800;color:var(--accent);margin-right:6px}
+.heading{font-size:.76rem;font-weight:800;color:var(--muted);padding:10px 14px 0}
+.verse-line{padding:6px 14px}
+
+/* 아래 묶음: 묻기·도구·주석 */
+.extra{display:grid;grid-template-columns:minmax(0,1fr);gap:0 14px}
+@media(min-width:1000px){.extra{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.extra>.comm{grid-column:1 / -1}}
+.btn{font-size:.8rem;padding:6px 12px;border-radius:var(--r-s);border:1px solid var(--line);background:var(--card)}
+.btn:hover{background:var(--soft)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.ask-row{display:flex;gap:8px;padding:10px 14px 4px;align-items:flex-end}
+.ask-row textarea{flex:1;min-width:0;resize:vertical;font-size:.9rem;line-height:1.6;border:1px solid var(--line);
+ border-radius:var(--r-s);background:var(--bg);padding:7px 9px}
+.ask-st{padding:0 14px 8px}
+.qa{padding:10px 14px;border-top:1px solid var(--line);font-size:.88rem}
+.qa .q{font-size:.8rem;color:var(--muted);margin-bottom:4px}
+.qa .a{white-space:pre-wrap}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.comm details{border-top:1px solid var(--line)}
+.comm details:first-of-type{border-top:0}
+.comm summary{cursor:pointer;padding:9px 14px;font-size:.84rem;font-weight:700}
+.comm pre{padding:0 14px 12px;max-height:420px;overflow:auto}
+
+.ws-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 16px;
+ border-top:1px solid var(--line);background:var(--card);font-size:.78rem;position:sticky;bottom:0}
+.empty{padding:16px 14px;color:var(--muted);font-size:.88rem}
+.warn{color:var(--syn-verb)}
+.files{margin:0;padding:8px 14px 12px 32px;font-size:.84rem}
+[hidden]{display:none!important}
+@media(max-width:480px){.ws-title,.rail,.gate,.ws-main,.ws-foot{padding-left:12px;padding-right:12px}
+ .verse-top,.pane{padding-left:12px;padding-right:12px}.greek-full{font-size:1.15em}}

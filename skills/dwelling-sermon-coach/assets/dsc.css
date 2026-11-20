@@ -1,0 +1,111 @@
+/* dsc.css v1.0.0 — 머무르는 설교 코치 공통 디자인 (시안 B 「작업대」) */
+:root{
+ --font-body:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;
+ --font-greek:"SBL Greek","New Athena Unicode","Cardo","Gentium Plus","Times New Roman","Noto Serif",Georgia,serif;
+ --font-hebrew:"SBL Hebrew","Ezra SIL","Taamey Frank CLM","Noto Serif Hebrew","David Libre","Times New Roman","Arial Hebrew",serif;
+ --lh:1.75;--r:12px;--r-s:8px;
+ --bg:#f6f7f9;--card:#ffffff;--soft:#eef1f5;--ink:#15191e;--muted:#5d6672;--line:#dde2e8;
+ --accent:#1f5fae;--on-accent:#ffffff;
+ --ai:#6a3fb5;--ai-bg:#f1ebfb;--ai-line:#c9b5ec;
+ --syn-subject:#1e6091;--syn-verb:#a83232;--syn-sub:#2d6a4f;
+ --n-intro:#1565c0;--n-rise:#e65100;--n-dev:#2e7d32;--n-crisis:#c62828;--n-climax:#f57f17;--n-end:#4527a0;
+ --shade:#eceff3;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --bg:#0f1318;--card:#171c23;--soft:#1d242d;--ink:#e7ebf0;--muted:#98a3b0;--line:#2a333e;
+ --accent:#6fa8ef;--on-accent:#0f1318;--ai:#c3a6f5;--ai-bg:#271f38;--ai-line:#4e3d70;
+ --syn-subject:#7cb5e0;--syn-verb:#f08b8b;--syn-sub:#7bc9a3;--shade:#141a21;--n-intro:#7fb2f0;--n-rise:#ffab6e;--n-dev:#7fcf86;--n-crisis:#f08b8b;--n-climax:#ffd166;--n-end:#b7a4f0}}
+:root[data-theme="dark"]{
+ --bg:#0f1318;--card:#171c23;--soft:#1d242d;--ink:#e7ebf0;--muted:#98a3b0;--line:#2a333e;
+ --accent:#6fa8ef;--on-accent:#0f1318;--ai:#c3a6f5;--ai-bg:#271f38;--ai-line:#4e3d70;
+ --syn-subject:#7cb5e0;--syn-verb:#f08b8b;--syn-sub:#7bc9a3;--shade:#141a21;--n-intro:#7fb2f0;--n-rise:#ffab6e;--n-dev:#7fcf86;--n-crisis:#f08b8b;--n-climax:#ffd166;--n-end:#b7a4f0}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);
+ line-height:var(--lh);word-break:keep-all;overflow-wrap:anywhere}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 80px}
+header.dsc-head{padding-bottom:12px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+h1{font-size:1.35rem;font-weight:800;letter-spacing:-.02em;margin:0 0 4px}
+h2{font-size:1.08rem;font-weight:800;margin:26px 0 8px}
+h3{font-size:.95rem;font-weight:700;margin:18px 0 6px}
+.meta{font-size:.78rem;color:var(--muted)}
+footer.dsc-foot{margin-top:28px;font-size:.72rem;color:var(--muted)}
+
+/* 설교자 원문 / AI 문장 */
+.preacher-text{color:var(--ink)}
+.claude-text{color:var(--ai)}
+.ai-badge{display:inline-block;font-size:.64rem;font-weight:700;line-height:1.5;padding:0 6px;margin-right:5px;
+ border-radius:3px;background:var(--ai-bg);color:var(--ai);border:1px solid var(--ai-line);vertical-align:.12em;font-style:normal}
+.persona-block{margin:14px 0;padding:14px 16px;background:var(--card);border:1px solid var(--line);
+ border-left:4px solid var(--accent);border-radius:var(--r);line-height:1.95}
+.legend-bar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:.74rem;color:var(--muted);
+ padding:8px 10px;margin:12px 0;background:var(--soft);border-radius:var(--r)}
+.legend-bar .sw{display:inline-block;width:.8em;height:.8em;border-radius:2px;vertical-align:-.05em;margin-right:4px}
+
+/* 본문 시각화 (김상훈 배열) */
+.c-s{color:var(--syn-subject);font-weight:700}
+.c-v{color:var(--syn-verb);font-weight:700}
+.c-g{color:var(--syn-sub)}
+.ln{display:block}
+.ln.i1{padding-left:1.4em}.ln.i2{padding-left:2.8em}.ln.i3{padding-left:4.2em}
+.greek{font-family:var(--font-greek);font-size:1.2em;line-height:1.7}
+.hebrew{font-family:var(--font-hebrew);font-size:1.2em;line-height:1.8;direction:rtl;text-align:right}
+.hebrew .ln.i1{padding-left:0;padding-right:1.4em}.hebrew .ln.i2{padding-left:0;padding-right:2.8em}.hebrew .ln.i3{padding-left:0;padding-right:4.2em}
+
+/* 카드·블록 */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:14px 0;
+ box-shadow:0 1px 2px rgba(0,0,0,.04);overflow:hidden}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;
+ padding:10px 14px;font-size:.84rem;font-weight:700;color:var(--muted);border-bottom:1px solid var(--line)}
+.card-b{padding:12px 14px}
+.vn{font-weight:800;color:var(--accent);padding:10px 14px 0}
+.vrow{padding:10px 14px;border-top:1px solid var(--line)}
+.vrow:first-of-type{border-top:0}
+.tr{font-size:.68rem;font-weight:700;color:var(--muted);letter-spacing:.04em;margin-bottom:2px}
+.missing{color:var(--muted);font-style:normal}
+.guide{background:var(--soft);border-left:4px solid var(--accent);border-radius:0 var(--r-s) var(--r-s) 0;
+ padding:12px 14px;margin:14px 0;font-size:.9rem}
+.question{margin-top:22px;background:var(--card);border:2px solid var(--accent);border-radius:var(--r);padding:16px}
+.question h2{margin:0 0 8px;font-size:.95rem;color:var(--accent)}
+.notice{font-size:.8rem;color:var(--muted);padding:8px 12px;border:1px dashed var(--line);border-radius:var(--r-s);margin:12px 0}
+
+/* Stage 5 페리코프 3단 */
+.peri{border-radius:var(--r);padding:14px;margin:12px 0;border:1px solid var(--line);background:var(--shade)}
+.peri.main{background:var(--card);border:2px solid var(--accent);font-size:1.06rem}
+.peri-h{font-size:.8rem;font-weight:800;color:var(--muted);margin-bottom:6px}
+.peri.main .peri-h{color:var(--accent)}
+
+/* 설교개요 6단계 서사 */
+.narr{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;margin:10px 0}
+.narr span{font-size:.68rem;text-align:center;padding:6px 0;border-radius:var(--r-s);color:#fff;font-weight:700}
+.n-intro{--n:var(--n-intro)}.n-rise{--n:var(--n-rise)}.n-dev{--n:var(--n-dev)}
+.n-crisis{--n:var(--n-crisis)}.n-climax{--n:var(--n-climax)}.n-end{--n:var(--n-end)}
+.narr span{background:var(--n)}
+.narr .n-rise,.narr .n-climax{color:#1a1a1a}
+:root[data-theme="dark"] .narr span{color:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .narr span{color:#111}}
+.move{border-left:5px solid var(--n);background:var(--card);border-radius:0 var(--r) var(--r) 0;
+ padding:12px 14px;margin:12px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.move-h{font-size:.78rem;font-weight:800;color:var(--n)}
+
+/* 낭독(TTS) 조절 */
+.dsc-tts{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.8rem;margin:10px 0;
+ padding:8px 10px;background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+.dsc-tts select,.dsc-tts button,.dsc-play{font:inherit;font-size:.8rem;padding:5px 10px;border-radius:var(--r-s);
+ border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;max-width:100%}
+.dsc-tts select.dsc-voice{max-width:220px}
+.dsc-play{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.dsc-play:disabled,.dsc-tts button:disabled{opacity:.45;cursor:not-allowed}
+.dsc-tts-msg{color:var(--muted);font-size:.74rem}
+.dsc-speaking{background:var(--soft);border-radius:var(--r-s);outline:2px solid var(--accent);outline-offset:2px}
+
+@media (max-width:480px){
+ .wrap{padding:18px 16px 70px}
+ h1{font-size:1.2rem}
+ .ln.i1{padding-left:1em}.ln.i2{padding-left:2em}.ln.i3{padding-left:3em}
+ .hebrew .ln.i1,.hebrew .ln.i2,.hebrew .ln.i3{padding-left:0}
+ .hebrew .ln.i1{padding-right:1em}.hebrew .ln.i2{padding-right:2em}.hebrew .ln.i3{padding-right:3em}
+ .dsc-tts select.dsc-voice{max-width:100%;flex:1 1 100%}
+}
+@media print{.dsc-tts,.dsc-play{display:none}body{background:#fff}}

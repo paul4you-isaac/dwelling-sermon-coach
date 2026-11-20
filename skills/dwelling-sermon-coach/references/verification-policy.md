@@ -1,4 +1,4 @@
-# 본문 검증 정책 v2.0
+# 본문 수집·검증 정책 v1.0
 
 본 문서는 본 스킬이 모든 본문 표시에 적용하는 **검증 정책**을 명문화합니다.
 
@@ -14,11 +14,14 @@
 | 신약 원문 NA28 | academic-bible.com / Nestle-Aland | 권장 |
 | 가톨릭 성경 | cbck.or.kr (한국천주교주교회의) | 옵션 |
 
-bskorea URL 패턴: `/bible/{번역코드}/{책코드}.{장}`
+성경플랫폼 URL 패턴: `https://bible.bskorea.or.kr/bible/{번역코드}/{USFM 책코드}.{장}` (예: `…/NKRV/2CO.4`)
 - NKRV = 개역개정
 - RNKSV = 새번역
-- NHKR = 새한글
-- CTKKR = 공동번역 개정판
+- NKT = 새한글 (2024)
+- KCT = 공동번역 개정판
+- 원어·ESV는 같은 플랫폼의 `https://www.die-bibel.de/bibel/{NA28·BHS·ESV}/{책}.{장}`에서 받습니다.
+- 사이트는 없는 역본을 요청받으면 다른 역본을 조용히 돌려줍니다. 수집 스크립트가 응답의 성경 ID와 글자 종류를 대조합니다.
+- 교차 검증 출처: 구 읽기 화면 `www.bskorea.or.kr/bible/korbibReadpage.php` (GAE·SAENEW·COGNEW), ESV는 `biblegateway.com`.
 
 ---
 
@@ -27,16 +30,27 @@ bskorea URL 패턴: `/bible/{번역코드}/{책코드}.{장}`
 ```
 1차: bskorea/esv/academic-bible 자동 fetch
   ↓ 실패 시
-2차: web_search로 다중 출처 교차 검증
+2차: web_search로 다중 출처 교차 검증  (번역본·원어에만)
   ↓ 그래도 모호하면
 3차: 사용자에게 권위 본문 요청 — 사용자 제공 본문을 정답으로 채택
 ```
 
 ---
 
-## 3. 검증 에이전트 (필수)
+### 웹 사용 범위
+- **번역본·원어 본문**: 2차 교차 검증에 웹을 씁니다.
+- **주석**: 웹에서 찾지 않습니다. 출처는 세 가지뿐입니다.
+  1. 설교자가 지정한 자료 폴더 (`~/.config/dsc/dsc.config.json`의 `materials_dirs`)
+  2. Logos (`logos` 스킬의 브리지, 읽기 명령만)
+  3. 변환된 md 주석 (`B_책이름_…md` 형식)
+- PDF·EPUB 원본에서 직접 뽑지 않습니다.
 
-본문 검증은 **선택이 아닌 필수**입니다.
+---
+
+## 3. 수집 에이전트 (`dsc-collector`, 필수)
+
+본문 수집·검증은 **선택이 아닌 필수**이며, `dsc-collector`가 맡습니다.
+결과는 `00_수집/passage.json`에 출처와 함께 저장합니다.
 클로드의 사전 지식만으로 4개 번역 본문을 출력하면 신뢰할 수 없습니다.
 
 ### 시범에서 발견된 실제 오류

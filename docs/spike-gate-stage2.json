@@ -1,0 +1,2 @@
+{"disableAllHooks": true,
+ "permissions": {"deny": ["Read(./00_수집/주석/**)","Grep(./00_수집/주석/**)","Glob(./00_수집/주석/**)","Read(./07A_*)","Read(./*묵상종합*)","Write","Edit","Bash"]}}

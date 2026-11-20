@@ -1,0 +1,13 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dsc-workspace",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "app/server.py"
+      ],
+      "port": 8787
+    }
+  ]
+}
