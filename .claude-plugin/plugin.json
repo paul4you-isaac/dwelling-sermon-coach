@@ -1,6 +1,6 @@
 {
   "name": "dwelling-sermon-coach",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "한 주 동안 본문과 동행하며 묵상 중심으로 설교를 준비하는 9단계 워크플로우 코치. 감독 에이전트 하나와 대화하고, 수집·기록보관 에이전트와 로컬 관찰 작업창이 함께 일합니다.",
   "author": {
     "name": "Dwelling Sermon Coach"
