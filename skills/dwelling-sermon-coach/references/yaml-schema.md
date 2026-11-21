@@ -41,7 +41,7 @@
 | `설교_…_묵상종합` | `date_compiled`, `keyword`, `big_idea` (`date`·`stage`·`session` 대신), `status: ready` | `묵상종합` |
 | `설교_…_개요` | `keyword`, `big_idea`; `stage: 9`, `session: 설교개요` | `stage-9-outline` |
 
-- `01_본문만남`에는 선택 키 `scenes`(설교자가 나눈 장면 수, 정수)를 붙일 수 있습니다. 필수가 아니며 `validate`는 검사하지 않습니다 (v1.0.1).
+- `02_동행일지`에는 선택 키 `scenes`(설교자가 나눈 장면 수, 정수)를 붙일 수 있습니다. 필수가 아니며 `validate`는 검사하지 않습니다 (v1.0.2, v1.0.1의 `01_본문만남`에서 옮김).
 - `stage3_private: true`(설정, 예전 이름 `stage3_apply_private`)이면 `03_원어관찰_…md`에도 `private: true`를 붙입니다.
 - 설교자가 7A 문장을 개요에 넣었으면 개요에도 `private: true`를 붙입니다. `private: true` 파일은 카카오톡으로 자동 발송하지 않습니다.
 - 7A 문장을 공개 원고(개요·묵상종합·원고·낭독본 등)에 넣기로 설교자가 **확인했으면** `shared_by_preacher: true`를 붙입니다. 비공개 점검(`check_privacy.py`)이 오류 대신 안내로 냅니다.
