@@ -8,7 +8,7 @@
 - 실행할 때마다 무작위 토큰을 만들어 index.html에 넣고, 모든 /api 요청에 X-DSC-Token을 요구합니다.
 - 다른 Origin·교차 사이트 요청을 거부합니다. CORS 헤더를 두지 않습니다. 쓰기 요청은 JSON만 받습니다.
 - 주간 ID는 ^S_\\d{8}$만 받습니다. realpath+commonpath로 vault_root 밖(심볼릭 링크 포함)을 막습니다.
-- 서버가 쓰는 파일은 03_원어관찰.json · 03_원어관찰_…md(생성본) · progress.json · 00_진행상황.md뿐입니다.
+- 서버가 쓰는 파일은 03_원어관찰.json · 03_원어관찰_…md · 03_나의번역_…md(생성본) · progress.json · 00_진행상황.md뿐입니다.
   모두 dsc_archive의 주간 잠금과 원자적 쓰기를 씁니다.
 - 주석 API는 progress.json의 current_stage로 게이트를 직접 계산합니다(4·5·6·7B·8·9만 열림).
 - 구판 주간(dsc_version 1.0.0이 아님)은 읽기 전용입니다. 07A·06A 자기적용 파일은 이름도 내보내지 않습니다.
@@ -227,9 +227,11 @@ class Workspace:
                 restored.add(n)
         orphans = [o for n, o in enumerate(olds) if n not in restored] \
             + [dict(v) for k, v in recs.items() if refs and k not in refs]
-        return {"verses": {k: {"note": v.get("note", ""), "updated": v.get("updated", "")}
+        return {"verses": {k: {"note": v.get("note", ""), "translation": v.get("translation", ""),
+                               "updated": v.get("updated", "")}
                            for k, v in recs.items() if not refs or k in refs},
-                "orphans": [{"ref": o.get("ref", ""), "note": o.get("note", "")} for o in orphans],
+                "orphans": [{"ref": o.get("ref", ""), "note": o.get("note", ""), "translation": o.get("translation", "")}
+                            for o in orphans],
                 "readonly": self.progress(wd) is None}
 
     def put_note(self, wid, ref, body):
@@ -239,13 +241,14 @@ class Workspace:
             raise HTTPError(423, "본문을 다시 받는 중입니다. 끝나면 자동으로 다시 저장합니다")
         if not REF_RX.match(ref):
             raise HTTPError(400, "절 표시는 '장:절' 형식이어야 합니다")
-        if "note" not in body:
-            raise HTTPError(400, "묵상 노트(note)를 보내야 합니다")
-        note, base = body["note"], body.get("base", "")
-        if not isinstance(note, str) or not isinstance(base, str):
-            raise HTTPError(400, "note·base 값은 문자열이어야 합니다")
-        if len(note) > MAX_FIELD:
-            raise HTTPError(413, "노트가 너무 깁니다(%d자 이하)" % MAX_FIELD)
+        fields = {k: body[k] for k in ("note", "translation") if k in body}   # 보낸 칸만 고칩니다
+        if not fields:
+            raise HTTPError(400, "묵상 노트(note) 또는 나의 번역(translation)을 보내야 합니다")
+        base = body.get("base", "")
+        if not all(isinstance(v, str) for v in fields.values()) or not isinstance(base, str):
+            raise HTTPError(400, "note·translation·base 값은 문자열이어야 합니다")
+        if any(len(v) > MAX_FIELD for v in fields.values()):
+            raise HTTPError(413, "글이 너무 깁니다(칸마다 %d자 이하)" % MAX_FIELD)
         order = self.verse_refs(wd)
         if ref not in order:
             raise HTTPError(404, "이 본문에 없는 절입니다: %s" % ref)
@@ -259,11 +262,15 @@ class Workspace:
             cur = recs.get(ref, {})
             if cur.get("updated", "") != base:
                 raise HTTPError(409, "다른 창에서 먼저 고쳤습니다",
-                                {"current": {"note": cur.get("note", ""), "updated": cur.get("updated", "")}})
+                                {"current": {"note": cur.get("note", ""), "translation": cur.get("translation", ""),
+                                             "updated": cur.get("updated", "")}})
             new = stamp()
             if new <= cur.get("updated", ""):
                 new = cur["updated"] + "+1"
-            recs[ref] = {"ref": ref, "note": note, "updated": new}
+            rec = {"ref": ref, "note": cur.get("note", ""), "translation": cur.get("translation", "")}
+            rec.update(fields)
+            rec["updated"] = new
+            recs[ref] = rec
             out = [recs.pop(r) for r in order if r in recs]
             orphans = olds + list(recs.values())            # 절 목록에 없는 기록은 버리지 않습니다
             doc = {"dsc_version": A.DSC_VERSION, "text": data.get("text") or self.v1(wd).get("text", ""),
@@ -303,6 +310,14 @@ class Workspace:
                             for i in r.get("issues", [])]}
         self.render_state[wid] = state
         return state
+
+    def render_manual(self, wid):
+        """「노트 저장」 버튼: 기다리지 않고 생성본을 지금 만듭니다(노트가 있을 때만)."""
+        wd = self.week_dir(wid)
+        self.v1(wd)
+        if not (wd / NOTES).is_file():
+            return {"render": None}
+        return {"render": self.render_now(wid, wd)}
 
     def flush_renders(self):
         """끄기 전에, 기다리던 생성본을 지금 만듭니다."""
@@ -481,12 +496,16 @@ class Handler(BaseHTTPRequestHandler):
                 return ws.commentary(wid)
             if rest == ["stage", "enter"] and m == "POST":
                 return ws.enter_stage(wid, self.body_json())
+            if rest == ["render"] and m == "POST":
+                return ws.render_manual(wid)
             jobs = self.server.jobs
             try:
                 if rest == ["ask"] and m == "POST":
                     return jobs.ask(wid, self.body_json())
                 if rest == ["ask"] and m == "GET":
                     return jobs.history(wid)
+                if rest == ["wrap"] and m == "POST":
+                    return jobs.wrap(wid, self.body_json())
                 if rest == ["recollect"] and m == "POST":
                     return jobs.recollect(wid, self.body_json())
                 if rest == ["check"] and m == "POST":

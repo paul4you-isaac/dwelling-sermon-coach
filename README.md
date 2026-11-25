@@ -35,6 +35,7 @@ claude plugin install dwelling-sermon-coach@dwelling-sermon-coach --scope user
 - 예전에 올린 구판(My Uploads v0.4.0)과 이름이 같습니다. 새 판을 쓰는 동안 구판은 꺼 둡니다.
 - 되돌리기는 `ROLLBACK.md`, 사용 안내는 `docs/manual.html`입니다.
 - 성경 번역 본문이 든 시안·견본 HTML은 저작권 때문에 저장소에 넣지 않았습니다.
+- `references/template_stage1·3·5_*.html` 기준 파일은 저장소에서 성경 번역·원어 본문을 자리 표시로 바꾼 사본입니다. 배열·색 표시·화면 구조는 원본과 같습니다.
 
 ## 설치 후 설정
 

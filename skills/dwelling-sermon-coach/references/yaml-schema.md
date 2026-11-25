@@ -32,6 +32,7 @@
 | `01_본문만남` | — | `stage-1-encounter` |
 | `02_동행일지` | — | `stage-2-dwelling` |
 | `03_원어관찰_…md` | `generated: true` | `stage-3-original` |
+| `03_나의번역_…md` | `generated: true`; `stage: 3`, `session: 나의번역` | `stage-3-original` |
 | `04_1차청중` | — | `stage-4-audience` |
 | `05_맥락관찰` | — | `stage-5-context` |
 | `06_묵직한단어` | `keyword` | `stage-6-keyword` |
@@ -42,7 +43,7 @@
 | `설교_…_개요` | `keyword`, `big_idea`; `stage: 9`, `session: 설교개요` | `stage-9-outline` |
 
 - `02_동행일지`에는 선택 키 `scenes`(설교자가 나눈 장면 수, 정수)를 붙일 수 있습니다. 필수가 아니며 `validate`는 검사하지 않습니다 (v1.0.2, v1.0.1의 `01_본문만남`에서 옮김).
-- `stage3_private: true`(설정, 예전 이름 `stage3_apply_private`)이면 `03_원어관찰_…md`에도 `private: true`를 붙입니다.
+- `stage3_private: true`(설정, 예전 이름 `stage3_apply_private`)이면 `03_원어관찰_…md`·`03_나의번역_…md`에도 `private: true`를 붙입니다.
 - 설교자가 7A 문장을 개요에 넣었으면 개요에도 `private: true`를 붙입니다. `private: true` 파일은 카카오톡으로 자동 발송하지 않습니다.
 - 7A 문장을 공개 원고(개요·묵상종합·원고·낭독본 등)에 넣기로 설교자가 **확인했으면** `shared_by_preacher: true`를 붙입니다. 비공개 점검(`check_privacy.py`)이 오류 대신 안내로 냅니다.
 - HTML은 frontmatter 대신 `<head>`의 메타로 표시합니다: `<meta name="dsc-private" content="true">` · `<meta name="dsc-shared-by-preacher" content="true">`.

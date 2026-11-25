@@ -10,3 +10,6 @@ config/dsc.config.json
 # 성경 번역 본문이 든 시안·견본 (대한성서공회 허락 필요) — 공개 저장소에 올리지 않음
 docs/samples/
 docs/m2-design-mockups.html
+
+# 작업 중 백업
+*.bak-*

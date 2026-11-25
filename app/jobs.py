@@ -1,4 +1,4 @@
-"""작업창 버튼 일 — 감독에게 묻기 · 본문 다시 수집 · 진행 상황 점검
+"""작업창 버튼 일 — 감독에게 묻기 · 감독과 마무리 · 본문 다시 수집 · 진행 상황 점검
 
 - 한 번에 하나만 돕니다(서버 전체). 두 번째 요청은 429.
 - 모든 외부 실행은 셸 없이 인자 목록으로 합니다. 질문은 stdin으로 넘깁니다.
@@ -23,6 +23,14 @@ SCRIPTS = Path(__file__).resolve().parents[1] / "skills/dwelling-sermon-coach/sc
 MAX_Q = 1000
 TAIL_BYTES = 256 * 1024
 RESUME_GONE = ("No conversation found", "valid session")
+WRAP_HEAD = "[작업창 · 단계 마무리 요청]"
+STAGE_QUESTION = {"3": "이 본문에서 문법이 목사님을 붙잡는 구문은 어디입니까?"}
+WRAP_ASK = """감독에게 드리는 지시 (설교자가 「감독과 마무리」 버튼을 눌렀습니다):
+- 노트를 받았다고만 짧게 확인합니다. 칭찬·요약·해석을 붙이지 않습니다.
+- 이 세션에서 {q}에 설교자가 아직 답하지 않았으면, 그 질문 하나만 그대로 묻습니다.
+- 이미 답했으면, {nxt}(으)로 넘어갈지 한 줄로만 묻습니다.
+- 해석·적용·주석 내용을 드리지 않습니다(Stage 4 1차청중 전에는 주석 게이트 안입니다).
+- 감독이 스스로 덧붙이는 문장에는 【AI】를 붙입니다."""
 
 
 class JobError(Exception):
@@ -94,7 +102,59 @@ class Jobs:
             except Exception:  # noqa: BLE001
                 text = ""
             context = "지금 보고 있는 절: %s %s\n\n" % (ref, text)
+            if not self.A.stage3_private(self.cfg):         # 비공개 설정이면 나의 번역 글자도 넘기지 않습니다
+                try:
+                    recs, _ = self.A.split_notes(self.ws.read_notes(wd))
+                except Exception:  # noqa: BLE001
+                    recs = {}
+                mine = (recs.get(ref) or {}).get("translation", "")
+                if mine.strip():
+                    context += "설교자의 나의 번역 (%s, 설교자가 쓴 그대로):\n%s\n\n" % (ref, mine.rstrip())
         stdin_text = context + "설교자의 질문:\n" + q.strip() + "\n"
+        entry = self._talk(wd, st, stage, binary, stdin_text, {"verse": ref, "question": q.strip()})
+        return {k: entry[k] for k in ("at", "stage", "verse", "question", "answer", "seconds", "permission_denials")}
+
+    # ------------------------------------------------------------ 감독과 마무리
+    def wrap(self, wid, body):
+        """단계를 마치기 전에 노트를 감독에게 건네고, 남은 질문 하나 또는 다음 단계 물음을 받습니다."""
+        wd = self.ws.week_dir(wid)
+        st = self.ws.v1(wd)
+        stage = self.A.norm_stage(st.get("current_stage"))
+        i = self.A.ORDER.index(stage)
+        nxt = self.A.ORDER[i + 1] if i + 1 < len(self.A.ORDER) else None
+        binary = gate.claude_bin(self.cfg)
+        if not binary:
+            raise JobError(503, "claude 실행 파일을 찾지 못했습니다. 설정 claude_bin을 확인하십시오")
+        lines = [WRAP_HEAD, "지금 단계: Stage %s %s" % (stage, self.A.NAMES[stage]),
+                 "다음 단계: " + ("Stage %s %s" % (nxt, self.A.NAMES[nxt]) if nxt else "없음 (마지막 단계)"), ""]
+        if stage == "3":
+            if self.A.stage3_private(self.cfg):             # 비공개 설정이면 노트 글자를 넘기지 않습니다
+                lines.append("설교자의 묵상 노트는 비공개 설정이라 보내지 않습니다.")
+            else:
+                recs, _ = self.A.split_notes(self.ws.read_notes(wd))
+                try:
+                    order = self.ws.verse_refs(wd)
+                except Exception:  # noqa: BLE001  (수집본이 없으면 저장된 순서대로)
+                    order = list(recs)
+                order += [r for r in recs if r not in order]
+                notes = [(r, recs[r].get("note", "")) for r in order
+                         if r in recs and isinstance(recs[r].get("note"), str) and recs[r]["note"].strip()]
+                lines.append("설교자의 묵상 노트 (절 순서, 설교자가 쓴 그대로):")
+                for r, n in notes:
+                    lines += ["", "[%s]" % r, n.rstrip()]
+                if not notes:
+                    lines.append("(아직 쓴 노트가 없습니다)")
+        else:
+            lines.append("설교자가 이 단계를 마무리하려고 합니다.")
+        question = STAGE_QUESTION.get(stage)
+        lines += ["", WRAP_ASK.format(q=("「%s」" % question) if question else "이 단계의 단 하나의 질문",
+                                      nxt=("Stage %s %s" % (nxt, self.A.NAMES[nxt])) if nxt else "설교 준비 마무리")]
+        entry = self._talk(wd, st, stage, binary, "\n".join(lines) + "\n",
+                           {"kind": "wrap", "verse": None, "question": WRAP_HEAD})
+        return {k: entry[k] for k in ("at", "stage", "answer", "seconds")}
+
+    # ------------------------------------------------------------ 공통: claude -p 한 번 + 기록
+    def _talk(self, wd, st, stage, binary, stdin_text, fields):
         self.one_at_a_time()
         try:
             started = time.time()
@@ -110,11 +170,12 @@ class Jobs:
             took = round(time.time() - started, 1)
             denials = [d.get("tool_name", "") if isinstance(d, dict) else "" for d in out.get("permission_denials") or []]
             ok = not out.get("is_error") and isinstance(out.get("result"), str)
-            entry = {"at": self.A.now(), "stage": stage, "verse": ref, "question": q.strip(),
-                     "answer": out.get("result") if ok else None, "status": "ok" if ok else "error",
-                     "error": None if ok else (out.get("_error") or out.get("subtype") or "응답 오류"),
-                     "session_id": out.get("session_id"), "seconds": took,
-                     "cost_usd": out.get("total_cost_usd"), "permission_denials": denials}
+            entry = {"at": self.A.now(), "stage": stage}
+            entry.update(fields)
+            entry.update({"answer": out.get("result") if ok else None, "status": "ok" if ok else "error",
+                          "error": None if ok else (out.get("_error") or (out.get("result")[:300] if out.get("is_error") and isinstance(out.get("result"), str) and out.get("result").strip() else None) or out.get("subtype") or "응답 오류"),
+                          "session_id": out.get("session_id"), "seconds": took,
+                          "cost_usd": out.get("total_cost_usd"), "permission_denials": denials})
             logged = dict(entry)
             if stage == "7A":                               # 자기적용 단계의 글은 남기지 않습니다
                 logged.update(question=None, answer=None, private=True)
@@ -129,7 +190,7 @@ class Jobs:
                     self.A.write_progress(wd, fresh)
             if not ok:
                 raise JobError(out.get("_code") or 502, "감독이 답하지 못했습니다: %s" % entry["error"])
-            return {k: entry[k] for k in ("at", "stage", "verse", "question", "answer", "seconds", "permission_denials")}
+            return entry
         finally:
             self.busy.release()
 
@@ -186,7 +247,7 @@ class Jobs:
             except ValueError:
                 continue
             if isinstance(e, dict) and e.get("stage") == stage and not e.get("private"):
-                items.append({k: e.get(k) for k in ("at", "stage", "verse", "clause", "question", "answer", "status", "error")})
+                items.append({k: e.get(k) for k in ("at", "stage", "kind", "verse", "clause", "question", "answer", "status", "error")})
         return {"items": items[-limit:]}
 
     # ------------------------------------------------------------ 본문 다시 수집

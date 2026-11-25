@@ -6,7 +6,7 @@
 - 07A·06A 자기적용·묵상종합·묻기 기록(ask_log.jsonl)은 모든 단계에서 읽지 못합니다(버튼 경로).
 - 주석(00_수집/주석/)은 4·5·6·7B·8·9단계에서만 읽을 수 있습니다. 0~3단계·7A에서는 거부입니다.
 - 비공개 표시(md `private: true` · html dsc-private)가 있는 파일은 이름과 상관없이 거부합니다(부를 때마다 찾음).
-- 설정 stage3_private가 true면 원어관찰 묵상 노트(03_원어관찰.json·생성본)도 거부합니다.
+- 설정 stage3_private가 true면 원어관찰 묵상 노트·나의 번역(03_원어관찰.json·생성본 두 개)도 거부합니다.
 - --safe-mode로 CLAUDE.md·스킬·플러그인·훅을 끕니다(볼트 위쪽 CLAUDE.md가 지침을 덮지 못하게).
   M5 실험: 구독 로그인·--settings의 deny·--append-system-prompt-file·--resume은 그대로 작동.
 """
@@ -45,7 +45,7 @@ COMM_OPEN = "- 이 단계에서는 `00_수집/주석/`의 주석을 읽을 수 �
 COMM_SHUT = "- 이 단계에서는 주석을 읽지 않습니다(권한으로도 막혀 있습니다).\n"
 
 
-STAGE3_PATHS = ("./03_원어관찰.json", "./03_원어관찰_*")
+STAGE3_PATHS = ("./03_원어관찰.json", "./03_원어관찰_*", "./03_나의번역_*")
 UUID_RX = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 MODEL_RX = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._\-\[\]]{0,63}$")
 GLOB_SPECIAL = re.compile(r"[*?\[\]{}!\\]")
