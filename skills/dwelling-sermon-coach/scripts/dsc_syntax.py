@@ -58,7 +58,7 @@ def pieces(verse_text):
     out = []
     for wi, tok in enumerate(unicodedata.normalize("NFC", verse_text or "").split()):
         for part in re.split("(?<=%s)" % MAQAF, tok):
-            if part:
+            if part and norm(part):                    # 파섹(׀)처럼 글자 없는 부호만의 토큰은 낱말로 세지 않습니다
                 out.append((part, wi))
     return out
 

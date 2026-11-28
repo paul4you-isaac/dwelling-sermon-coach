@@ -313,6 +313,21 @@ class TestRender(Base):
         prog = self.live.req("GET", "/api/weeks/S_20261108/progress")[1]
         self.assertTrue(prog["render"]["issues"])
 
+    def test_manual_render_button(self):
+        code, d, _ = self.live.req("POST", "/api/weeks/S_20261108/render", {})
+        self.assertEqual((code, d), (200, {"render": None}))    # 노트가 없으면 만들지 않습니다
+        self.assertEqual(self.md(), [])
+        self.put("4:7", note="지금 만들기")
+        self.assertEqual(self.live.req("POST", "/api/weeks/S_20261108/render", {}, token=False)[0], 401)
+        code, d, _ = self.live.req("POST", "/api/weeks/S_20261108/render", {})
+        self.assertEqual(code, 200, d)
+        self.assertEqual(d["render"]["status"], "ok")
+        [f] = self.md()
+        self.assertIn("지금 만들기", f.read_text(encoding="utf-8"))
+        self.assertEqual(self.live.req("GET", "/api/weeks/S_20261108/render")[0], 404)
+        make_week(self.vault, "S_20261101", legacy=True)
+        self.assertEqual(self.live.req("POST", "/api/weeks/S_20261101/render", {})[0], 403)
+
     def test_idle_render_after_delay(self):
         self.live.stop()
         self.live = Live(self.vault, render_delay=0.3)
@@ -506,6 +521,88 @@ class TestNotesReview(Base):
         n = self.live.req("GET", "/api/weeks/S_20261108/notes")[1]
         self.assertEqual(n["verses"]["4:7"]["note"], "둘째")
         self.assertEqual(self.put("4:7", base=n["verses"]["4:7"]["updated"], note="이어 씀")[0], 200)
+
+
+class TestTranslation(Base):
+    """나의 번역: 묵상 노트와 같은 방식으로 저장하고, 생성본 03_나의번역_…md를 따로 만듭니다."""
+
+    def put_tr(self, ref, base="", text=""):
+        return self.live.req("PUT", "/api/weeks/S_20261108/notes/%s" % ref, {"translation": text, "base": base})
+
+    def test_translation_saved_without_touching_note(self):
+        _, a, _ = self.put("4:7", note="질그릇 노트")
+        code, b, _ = self.put_tr("4:7", base=a["updated"], text="우리가 이 보물을\n흙 그릇에 담았으니")
+        self.assertEqual(code, 200, b)
+        saved = json.loads((self.wd / "03_원어관찰.json").read_text(encoding="utf-8"))
+        [v] = saved["verses"]
+        self.assertEqual((v["note"], v["translation"], v["updated"]), ("질그릇 노트", "우리가 이 보물을\n흙 그릇에 담았으니", b["updated"]))
+        code, c, _ = self.put("4:7", base=b["updated"], note="노트만 고침")       # 예전 화면처럼 note만 보내도
+        self.assertEqual(code, 200, c)
+        n = self.live.req("GET", "/api/weeks/S_20261108/notes")[1]["verses"]["4:7"]
+        self.assertEqual(n["translation"], "우리가 이 보물을\n흙 그릇에 담았으니")   # 번역은 지워지지 않습니다
+        self.assertEqual(n["note"], "노트만 고침")
+        self.assertEqual(n["updated"], c["updated"])
+        code, d, _ = self.put_tr("4:7", base=a["updated"], text="늦은 창")          # 같은 절의 판은 하나 → 409
+        self.assertEqual(code, 409)
+        self.assertEqual(d["current"]["translation"], "우리가 이 보물을\n흙 그릇에 담았으니")
+        self.assertEqual(self.put_tr("4:7", base=c["updated"], text=3)[0], 400)
+        self.assertEqual(self.put_tr("4:7", base=c["updated"], text="가" * (SV.MAX_FIELD + 1))[0], 413)
+
+    def test_old_file_without_translation_still_reads(self):
+        (self.wd / "03_원어관찰.json").write_text(json.dumps({"verses": [{"ref": "4:7", "note": "예전 노트", "updated": "u1"}]},
+                                                       ensure_ascii=False), encoding="utf-8")
+        n = self.live.req("GET", "/api/weeks/S_20261108/notes")[1]["verses"]["4:7"]
+        self.assertEqual((n["note"], n["translation"]), ("예전 노트", ""))
+        self.assertEqual(self.put_tr("4:7", base="u1", text="새 번역")[0], 200)
+        saved = json.loads((self.wd / "03_원어관찰.json").read_text(encoding="utf-8"))
+        self.assertEqual((saved["verses"][0]["note"], saved["verses"][0]["translation"]), ("예전 노트", "새 번역"))
+
+    def test_render_makes_translation_md_verbatim_and_validate_passes(self):
+        mine = "우리가 이 보물을  흙 그릇에 *담았으니*\n  둘째 줄 — 그대로"
+        _, a, _ = self.put("4:7", note="질그릇 묵상")
+        self.put_tr("4:7", base=a["updated"], text=mine)
+        code, d, _ = self.live.req("POST", "/api/weeks/S_20261108/render", {})
+        self.assertEqual(code, 200, d)
+        self.assertEqual(d["render"]["status"], "ok", d)
+        [t] = sorted(self.wd.glob("03_나의번역_*.md"))
+        text = t.read_text(encoding="utf-8")
+        self.assertIn(mine, text)
+        for want in ("session: 나의번역", "stage: 3", "generated: true", "stage-3-original", "작업창에서 수정하십시오",
+                     "## 고린도후서 4:7", "## 고린도후서 4:8", "(비어 있음)", "Ἔχομεν δὲ τὸν θησαυρὸν"):
+            self.assertIn(want, text)
+        self.assertLess(text.index("4:7"), text.index("4:8"))
+        [m] = sorted(self.wd.glob("03_원어관찰_*.md"))
+        mt = m.read_text(encoding="utf-8")
+        self.assertIn("**나의 번역**", mt)
+        self.assertLess(mt.index("**나의 번역**"), mt.index("**묵상**"))
+        import argparse
+        v = A.cmd_validate(argparse.Namespace(week_dir=str(self.wd), stage=None), {})
+        self.assertEqual(v["issues"], [])
+        self.assertEqual(A.stage_of(t.name), "3")
+        st = json.loads((self.wd / "progress.json").read_text(encoding="utf-8"))
+        self.assertEqual(A.sha(text), st["stage3_translation_render"]["sha256"])
+        t.write_text(text + "\n손으로 고침\n", encoding="utf-8")           # 손으로 고친 생성본은 덮지 않습니다
+        r = self.live.httpd.ws.render_now("S_20261108", self.wd)
+        self.assertEqual(r["status"], "issues")
+        self.assertIn("손으로 고침", t.read_text(encoding="utf-8"))
+
+    def test_translation_md_on_stage_advance_and_private(self):
+        self.live.httpd.ws.cfg["stage3_private"] = True
+        self.put_tr("4:8", text="사방으로 눌려도")
+        code, d, _ = self.live.req("POST", "/api/weeks/S_20261108/stage/enter", {"to": "4", "confirm": True})
+        self.assertEqual(code, 200, d)
+        [t] = sorted(self.wd.glob("03_나의번역_*.md"))
+        text = t.read_text(encoding="utf-8")
+        self.assertIn("private: true", text)
+        self.assertIn("사방으로 눌려도", text)
+        import argparse
+        v = A.cmd_validate(argparse.Namespace(week_dir=str(self.wd), stage=None), {"stage3_private": True})
+        self.assertEqual(v["issues"], [])
+
+    def test_no_translation_no_md(self):
+        self.put("4:7", note="노트만")
+        self.assertEqual(self.live.req("POST", "/api/weeks/S_20261108/render", {})[1]["render"]["status"], "ok")
+        self.assertEqual(list(self.wd.glob("03_나의번역_*.md")), [])
 
 
 if __name__ == "__main__":

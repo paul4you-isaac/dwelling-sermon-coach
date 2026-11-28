@@ -290,6 +290,105 @@ class TestReview(JobBase):
             os.kill(pid, 0)
 
 
+class TestWrap(JobBase):
+    def wrap(self):
+        return self.live.req("POST", "/api/weeks/S_20261108/wrap", {})
+
+    def test_stage3_notes_sent_in_order_and_logged_as_wrap(self):
+        self.set_stage("3")
+        self.assertEqual(self.live.req("PUT", "/api/weeks/S_20261108/notes/4:8", {"note": "목적절이 숨어 있다", "base": ""})[0], 200)
+        self.assertEqual(self.live.req("PUT", "/api/weeks/S_20261108/notes/4:7", {"note": "질그릇\n둘째 줄", "base": ""})[0], 200)
+        before = self.snapshot()
+        code, d, _ = self.wrap()
+        self.assertEqual(code, 200, d)
+        self.assertEqual(set(d), {"at", "stage", "answer", "seconds"})
+        self.assertEqual(d["stage"], "3")
+        [c] = self.calls()
+        si = c["stdin"]
+        self.assertTrue(si.startswith("[작업창 · 단계 마무리 요청]"))
+        self.assertIn("Stage 3 원어관찰", si)
+        self.assertIn("Stage 4 1차청중", si)
+        self.assertIn("질그릇\n둘째 줄", si)
+        self.assertLess(si.index("[4:7]"), si.index("[4:8]"))
+        self.assertIn("이 본문에서 문법이 목사님을 붙잡는 구문은 어디입니까?", si)
+        self.assertIn("【AI】", si)
+        a = c["args"]
+        self.assertEqual(a[a.index("--tools") + 1], "Read,Glob,Grep")
+        [e] = [json.loads(x) for x in (self.wd / "00_수집" / "ask_log.jsonl").read_text(encoding="utf-8").splitlines()]
+        self.assertEqual(e["kind"], "wrap")
+        self.assertEqual(e["question"], "[작업창 · 단계 마무리 요청]")
+        self.assertNotIn("질그릇", json.dumps(e, ensure_ascii=False).replace(e["answer"], ""))
+        self.assertEqual(self.snapshot(), before)            # 설교자 파일은 그대로
+        st = json.loads((self.wd / "progress.json").read_text(encoding="utf-8"))
+        self.assertEqual(st["session_ids"], {"3": SID(1)})
+        self.assertEqual(self.ask("답입니다")[0], 200)        # 같은 세션으로 이어 답합니다
+        self.assertEqual(self.calls()[1]["args"][-1], "--resume=" + SID(1))
+        self.assertEqual(st["current_stage"], "3")           # 마무리는 단계를 올리지 않습니다
+
+    def test_other_stage_no_notes_and_private_setting(self):
+        (self.wd / "03_원어관찰.json").write_text(json.dumps({"verses": [{"ref": "4:7", "note": "숨길 노트"}]},
+                                                       ensure_ascii=False), encoding="utf-8")
+        self.assertEqual(self.wrap()[0], 200)                # 지금 Stage 2 동행일지
+        si = self.calls()[-1]["stdin"]
+        self.assertIn("Stage 2 동행일지", si)
+        self.assertNotIn("숨길 노트", si)
+        self.set_stage("3")
+        self.live.httpd.jobs.cfg["stage3_private"] = True
+        self.assertEqual(self.wrap()[0], 200)
+        self.assertNotIn("숨길 노트", self.calls()[-1]["stdin"])
+
+    def test_7A_wrap_not_logged_with_text(self):
+        self.set_stage("7A")
+        code, d, _ = self.wrap()
+        self.assertEqual(code, 200)
+        self.assertIn("질그릇", d["answer"])
+        [e] = [json.loads(x) for x in (self.wd / "00_수집" / "ask_log.jsonl").read_text(encoding="utf-8").splitlines()]
+        self.assertEqual(e["kind"], "wrap")
+        self.assertTrue(e["private"])
+        self.assertIsNone(e["question"])
+        self.assertIsNone(e["answer"])
+
+    def test_wrap_busy_error_and_legacy(self):
+        self.live.httpd.jobs.busy.acquire()
+        try:
+            self.assertEqual(self.wrap()[0], 429)
+        finally:
+            self.live.httpd.jobs.busy.release()
+        self.mode.write_text("error", encoding="utf-8")
+        self.assertEqual(self.wrap()[0], 502)
+        self.assertFalse(self.live.httpd.jobs.busy.locked())
+        self.assertEqual(self.live.req("POST", "/api/weeks/S_20261108/wrap", {}, token=False)[0], 401)
+        make_week(self.vault, "S_20261101", legacy=True)
+        self.assertEqual(self.live.req("POST", "/api/weeks/S_20261101/wrap", {})[0], 403)
+
+
+class TestAskTranslation(JobBase):
+    def test_translation_of_focused_verse_sent_unless_private(self):
+        self.set_stage("3")
+        self.assertEqual(self.live.req("PUT", "/api/weeks/S_20261108/notes/4:7",
+                                       {"translation": "우리가 이 보물을 흙 그릇에", "base": ""})[0], 200)
+        self.assertEqual(self.live.req("PUT", "/api/weeks/S_20261108/notes/4:8",
+                                       {"translation": "다른 절 번역", "base": ""})[0], 200)
+        before = self.snapshot()
+        code, d, _ = self.ask("이 절의 나의 번역을 원문과 대조해 고칠 점을 알려 주십시오.", "4:7")
+        self.assertEqual(code, 200, d)
+        si = self.calls()[-1]["stdin"]
+        self.assertIn("설교자의 나의 번역", si)
+        self.assertIn("우리가 이 보물을 흙 그릇에", si)
+        self.assertNotIn("다른 절 번역", si)
+        self.assertLess(si.index("우리가 이 보물을 흙 그릇에"), si.index("설교자의 질문"))
+        a = self.calls()[-1]["args"]
+        self.assertEqual(a[a.index("--tools") + 1], "Read,Glob,Grep")
+        self.assertEqual(self.snapshot(), before)
+        self.ask("번역 없이", None)
+        self.assertNotIn("설교자의 나의 번역", self.calls()[-1]["stdin"])
+        self.live.httpd.jobs.cfg["stage3_private"] = True
+        self.ask("비공개", "4:7")
+        c = self.calls()[-1]
+        self.assertNotIn("우리가 이 보물을 흙 그릇에", c["stdin"])
+        self.assertIn("Read(./03_나의번역_*)", c["settings"]["permissions"]["deny"])
+
+
 class TestGate(unittest.TestCase):
     def test_command_is_argument_list_without_shell_and_stdin_question(self):
         a = gate.command("/bin/claude", "/t/s.json", "/t/p.md")

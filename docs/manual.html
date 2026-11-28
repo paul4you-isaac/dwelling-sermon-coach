@@ -137,98 +137,240 @@ th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-alig
 th{background:var(--soft)}
 code{font-size:.85em;background:var(--soft);padding:1px 5px;border-radius:4px;word-break:break-all}
 h2{margin-top:30px}
+.toc ol{margin:6px 0 0;padding-left:1.4em;columns:2;column-gap:24px}
+@media (max-width:600px){.toc ol{columns:1}}
 </style>
 <div class="wrap">
 <header class="dsc-head">
- <h1>머무르는 설교 코치 v1.0 — 사용 안내</h1>
- <div class="meta">개인용 · 2026-11-20 · 9단계 워크플로우</div>
+<h1>머무르는 설교 코치 v1.0.2 — 사용 안내</h1>
+<div class="meta">개인용 · 2026-11-26 · 9단계 워크플로우 · 박한용 목사 · 이삭교회</div>
 </header>
+
 <div class="legend-bar">
- <span><i class="sw" style="background:var(--ink)"></i>설교자가 쓰는 것</span>
- <span><span class="ai-badge">【AI】</span>클로드가 쓰는 것</span>
+<span><i class="sw" style="background:var(--ink)"></i>설교자가 쓰는 것</span>
+<span><span class="ai-badge">【AI】</span>클로드가 쓰는 것</span>
 </div>
+
 <main id="body">
+<div class="guide">이 도구의 가장 큰 가치는 <b>클로드가 빨리 답하지 않는 데</b> 있습니다. 목사님이 먼저 본문을 만나고, 감독은 묻고 받아 적습니다.</div>
 
-<div class="guide">이 도구의 가장 큰 가치는 <b>클로드가 빨리 답하지 않는 데</b> 있습니다. 목사님이 먼저 본문을 만나고, 클로드는 받아 적습니다.</div>
+<nav class="toc card"><div class="card-b">
+<b>차례</b>
+<ol>
+<li><a href="#start">시작하기</a></li>
+<li><a href="#week">한 주의 흐름과 세 가지 문</a></li>
+<li><a href="#stages">단계별 안내</a></li>
+<li><a href="#hint">힌트는 청할 때만</a></li>
+<li><a href="#video">본문 낭독 영상</a></li>
+<li><a href="#ws">관찰 작업창</a></li>
+<li><a href="#files">산출물</a></li>
+<li><a href="#config">설정</a></li>
+<li><a href="#trouble">문제가 생겼을 때</a></li>
+<li><a href="#rollback">되돌리기</a></li>
+<li><a href="#new">v1.0.2에서 바뀐 것</a></li>
+</ol>
+</div></nav>
 
-<h2>1. 시작하기</h2>
+<h2 id="start">1. 시작하기</h2>
 <p class="preacher-text">Claude 데스크톱(Code 탭)이나 터미널의 새 대화에서 이렇게 말씀하십시오.</p>
 <div class="card"><div class="card-b">
 <p>「머무르는 설교 코치 시작」</p>
-<p>「다음 주일 설교 본문: 고린도후서 4:1-18」</p>
+<p>「새로운 섹션을 시작합니다. [창세기 12:1-9] 주일오전 장년」</p>
 </div></div>
-<p class="preacher-text">본문을 주시면 감독이 주간 폴더 <code>S_주일날짜</code>를 만들고, 번역본 4종·ESV·원어를 모은 뒤 바로 Stage 1 본문만남으로 들어갑니다. 빠진 본문이 있을 때만 붙여 넣어 달라고 합니다.</p>
-<p class="preacher-text">주중에 다시 들어오실 때도 같은 말로 시작하시면 됩니다. 감독이 진행 기록을 읽고 그 자리에서 이어 갑니다.</p>
-
-<h2>2. 한 주의 흐름</h2>
-<div class="keys"><span><i style="background:var(--muted)"></i>주석 닫힘</span><span><i style="background:var(--n-dev)"></i>주석 열림</span><span><i style="background:var(--n-crisis)"></i>비공개 · 주석 다시 닫힘</span></div>
-<div class="flow">
- <div class="st g-shut"><b>0 수집</b><small>주일 오후 · 번역본·원어</small></div>
- <div class="st g-shut"><b>1 본문만남</b><small>주일 오후 · 세 번 읽기, 첫 단어</small></div>
- <div class="st g-shut"><b>2 동행일지</b><small>월·화 · 날마다 한 줄</small></div>
- <div class="st g-shut"><b>3 원어관찰</b><small>화·수 · 관찰 작업창</small></div>
- <div class="st g-open"><b>4 1차청중</b><small>수 · 페르소나 · 주석 수집 시작</small></div>
- <div class="st g-open"><b>5 맥락관찰</b><small>수·목 · 페리코프 3단</small></div>
- <div class="st g-open"><b>6 묵직한단어</b><small>목 · 단어 하나</small></div>
- <div class="st g-priv"><b>7A 자기적용</b><small>금 · private: true</small></div>
- <div class="st g-open"><b>7B 회중적용</b><small>금 · 그리스도 다리</small></div>
- <div class="st g-open"><b>8 원고점검</b><small>토 · 4문 → 묵상종합</small></div>
- <div class="st g-open"><b>9 설교개요</b><small>토 · 6단계 서사</small></div>
-</div>
 <ul>
- <li class="preacher-text">한 단계가 끝나야 다음 단계로 갑니다. 「Stage N으로 가겠습니다」라고 말씀하실 때만 진행 기록이 올라갑니다.</li>
- <li class="preacher-text">주석은 Stage 4 1차청중에 들어갈 때 처음 모입니다. 감독은 주석의 개수와 출처만 알리고, 내용은 한 번에 질문 하나로만 꺼냅니다.</li>
- <li class="preacher-text">7A 자기적용은 비공개입니다. 묵상종합에는 내용을 복사하지 않고 연결(임베드)만 합니다. 개요에 넣을지는 목사님이 직접 고르십니다.</li>
+<li class="preacher-text">본문을 주시면 감독이 주간 폴더 <code>S_주일날짜</code>를 만들고, 번역본 4종(새한글·새번역·공동번역·개역개정)·ESV·원어(BHS/NA28)를 공식 출처에서 모읍니다. 빠진 본문이 있을 때만 붙여 넣어 달라고 합니다.</li>
+<li class="preacher-text">설교일은 다가오는 주일로 자동 계산합니다. 교회력 주일이면 머리말에 함께 적습니다.</li>
+<li class="preacher-text">주중에 다시 들어오실 때도 같은 말로 시작하시면 됩니다. 감독이 진행 기록(<code>progress.json</code>)과 작업창 문답을 읽고 그 자리에서 이어 갑니다.</li>
+<li class="preacher-text">다음 단계로 가려면 「Stage 3 원어관찰 시작」처럼 말씀하십시오. 목사님이 말씀하실 때만 단계가 올라갑니다.</li>
 </ul>
 
-<h2>3. 관찰 작업창 (Stage 3 원어관찰)</h2>
+<h2 id="week">2. 한 주의 흐름과 세 가지 문</h2>
+<div class="keys"><span><i style="background:var(--muted)"></i>주석 닫힘</span><span><i style="background:var(--n-dev)"></i>주석 열림</span><span><i style="background:var(--n-crisis)"></i>비공개 · 주석 다시 닫힘</span></div>
+<div class="flow">
+<div class="st g-shut"><b>0 수집</b><small>주일 오후 · 번역본·원어</small></div>
+<div class="st g-shut"><b>1 본문만남</b><small>주일 오후 · 세 번 읽기, 첫 단어 · 낭독 영상</small></div>
+<div class="st g-shut"><b>2 동행일지</b><small>월·화 · 6문 심화 · 장면 나누기</small></div>
+<div class="st g-shut"><b>3 원어관찰</b><small>화·수 · 작업창 · 나의 번역</small></div>
+<div class="st g-open"><b>4 1차청중</b><small>수 · 페르소나 · 주석 수집 시작</small></div>
+<div class="st g-open"><b>5 맥락관찰</b><small>수·목 · 페리코프 3단 · 장면</small></div>
+<div class="st g-open"><b>6 묵직한단어</b><small>목 · 단어 하나</small></div>
+<div class="st g-priv"><b>7A 자기적용</b><small>금 · private: true</small></div>
+<div class="st g-open"><b>7B 회중적용</b><small>금 · FCF · 그리스도 다리</small></div>
+<div class="st g-open"><b>8 원고점검</b><small>토 · 4문 → 묵상종합</small></div>
+<div class="st g-open"><b>9 설교개요</b><small>토 · 6단계 서사</small></div>
+</div>
+<table>
+<tr><th>문</th><th>감독이 지키는 것</th></tr>
+<tr><td>주석의 문</td><td>Stage 4 1차청중 전에는 주석을 꺼내지 않습니다. 열린 뒤에도 개수와 출처만 알리고, 내용은 한 번에 질문 하나로만 꺼냅니다. 7A에서는 다시 닫힙니다.</td></tr>
+<tr><td>비공개의 문</td><td>7A 자기적용은 <code>private: true</code>입니다. 묵상종합에는 내용을 복사하지 않고 연결(임베드)만 합니다. 개요에 넣을지는 목사님이 고르십니다.</td></tr>
+<tr><td>【AI】 표시</td><td>클로드가 쓴 문장에는 모두 【AI】가 붙습니다. 목사님의 말은 원문 그대로 받아 적고 다듬지 않습니다.</td></tr>
+</table>
+
+<h2 id="stages">3. 단계별 안내</h2>
+
+<h3>Stage 0–1 · 수집과 본문만남</h3>
+<ul>
+<li class="preacher-text"><b>본문만남 HTML</b>(<code>Stage1_…_본문만남.html</code>): 번역 탭 다섯(새한글·새번역·공동번역·개역개정·ESV), 김상훈 배열(주절 주어·주동사·종속절 색 표시), 앞·본문·뒤 페리코페.</li>
+<li class="preacher-text">앞·뒤 페리코페는 접혀 있습니다. 제목을 누르면 펼쳐집니다.</li>
+<li class="preacher-text">낭독 막대는 맨 위에 [전체], 단락마다 자기 버튼 하나([앞 페리코페]·[본문]·[뒤 페리코페])가 있습니다. [전체]를 누르면 접힌 단락이 자동으로 펼쳐집니다.</li>
+<li class="preacher-text">감독은 「분석하지 마십시오 · 소리 내어 세 번 읽으십시오 · 한 번 읽고 한 번 숨을 쉬십시오」 세 줄만 안내하고, <b>단 하나의 질문</b>을 드립니다: 「처음 입과 귀로 통과시켰을 때, 가장 먼저 마음에 걸린 단어 하나」.</li>
+<li class="preacher-text">분석으로 답하시면 그 통찰은 「보존된 통찰」로 남겨 두었다가 Stage 6에서 다시 만납니다.</li>
+<li class="preacher-text">HTML이 끝나면 <a href="#video">본문 낭독 영상</a>이 이어서 만들어집니다.</li>
+</ul>
+
+<h3>Stage 2 · 동행일지</h3>
+<p class="preacher-text">첫째 날은 <b>기본 관찰 6문</b>(언제 → 어디서 → 누가 → 무엇을 → 어떻게 → 왜)을 한 번에 하나씩 묻습니다.</p>
+<table>
+<tr><th>걸음</th><th>① 언제</th><th>② 어디서</th></tr>
+<tr><td>1 사실</td><td>본문에 보이는 시간 표지</td><td>본문에 보이는 장소 표지</td></tr>
+<tr><td>2 역사적 맥락</td><td>그때 이 백성에게 무슨 일이 있었는가</td><td>그 장소는 그 시대에 어떤 곳이었는가</td></tr>
+<tr><td>3 문화 · 공간</td><td>그 「때」는 어떤 의미의 시간이었는가</td><td>그 자리에 선다는 것은 무슨 뜻이었는가(공간의 의미)</td></tr>
+<tr><td>4 본문 안의 흐름</td><td>시간이 흐르거나 바뀌는 자리</td><td>장소가 옮겨 가거나 넓어지는 자리</td></tr>
+</table>
+<ul>
+<li class="preacher-text">걸음마다 목사님의 앞 답에서 낱말 하나를 받아 다음 질문을 엽니다. 건너뛰자고 하시면 건너뜁니다.</li>
+<li class="preacher-text">③ 누가 · ④ 무엇을 · ⑤ 어떻게는 <b>장면의 전환 · 사건의 진행 · 화자의 변화</b>를 목사님이 스스로 알아차리도록 묻습니다. 감독은 그 자리를 미리 찾아 두지만 먼저 알려 드리지 않습니다.</li>
+<li class="preacher-text">⑥ 왜는 본문에 없으면 비워 두셔도 됩니다(빈칸 존중).</li>
+<li class="preacher-text">둘째 날은 <b>장면 나누기</b>입니다. 시간 → 장소 → 인물·화자 → 주제가 바뀌는 자리를 차례로 찾고, 마지막에 목사님이 장면을 확정하십니다. 시는 화자·청자 → 어조 → 주제 → 장면 확정 순서입니다.</li>
+</ul>
+
+<h3>Stage 3 · 원어관찰</h3>
+<p class="preacher-text"><a href="#ws">관찰 작업창</a>에서 합니다. 서버를 켜지 않으시면 대화로 진행합니다. 직역 줄은 의미 덩어리로 묶습니다.</p>
+<table>
+<tr><th>묶음</th><th>예</th></tr>
+<tr><td>전치사 + 명사</td><td>「회중 가운데서」</td></tr>
+<tr><td>동사 + 목적어</td><td>「주의 이름을 선포하다」</td></tr>
+<tr><td>소유격 + 명사 (우리말 어순)</td><td>「모든 / 씨여 / 이스라엘의」 → 「이스라엘의 모든 씨여」</td></tr>
+</table>
+
+<h3>Stage 4 · 1차청중</h3>
+<ul>
+<li class="preacher-text">이 본문을 처음 들었을 사람들을 <b>페르소나 카드</b>로 세웁니다. 페르소나는 답이 아니라 발판입니다.</li>
+<li class="preacher-text">페르소나 HTML은 카드마다 낭독 막대와 <b>성우 상자</b>가 따로 있습니다. 산책 모드로 차례로 들을 수 있습니다.</li>
+<li class="preacher-text">이 단계에서 수집 에이전트가 주석(자료 폴더·로고스 수집본·md 주석)을 모읍니다.</li>
+</ul>
+
+<h3>Stage 5–6 · 맥락관찰과 묵직한 단어</h3>
+<ul>
+<li class="preacher-text">맥락관찰 HTML은 앞 단락 · 본문 · 뒤 단락의 3단입니다. 본문은 목사님이 Stage 2에서 나누신 장면대로 소제목을 달고, 감독의 구조 메모에는 【AI】가 붙습니다.</li>
+<li class="preacher-text">Stage 6에서는 한 주 동안 무겁게 남은 단어 하나를 붙듭니다.</li>
+</ul>
+
+<h3>Stage 7A · 7B</h3>
+<ul>
+<li class="preacher-text">7A 자기적용에서 감독은 분석·요약·해설을 멈추고 침묵으로 동행합니다.</li>
+<li class="preacher-text">7B 회중적용에서는 FCF(타락한 상태의 초점)를 찾고 그리스도로 가는 다리를 놓습니다. Stage 4의 페르소나가 오늘의 회중으로 다시 살아납니다.</li>
+</ul>
+
+<h3>Stage 8–9 · 원고점검과 설교개요</h3>
+<ul>
+<li class="preacher-text">원고 4문으로 Big Idea와 FCF를 확정하면 한 주의 기록이 <b>묵상종합</b> 하나로 모입니다.</li>
+<li class="preacher-text">설교개요는 묵상종합만 재료로 씁니다. 6단계 서사(도입·상승·전개·위기·절정·결말)로 짜고, 목사님 문장은 한 글자도 바꾸지 않습니다.</li>
+<li class="preacher-text">원고 초안을 청하시면 감독이 쓰되, 모든 문장에 【AI】를 붙입니다.</li>
+</ul>
+
+<h2 id="hint">4. 힌트는 청할 때만</h2>
+<p class="preacher-text">채팅창에는 <b>질문만</b> 씁니다. 실마리·예시 답·「~를 보십시오」 같은 길잡이·절 가리키기·앞뒤 단락 줄거리를 먼저 붙이지 않습니다.</p>
+<ul>
+<li class="preacher-text">「힌트」 · 「실마리」 · 「도와주세요」라고 청하시면 한 걸음씩 드립니다: ① 자리(볼 절) → ② 표지(호격·인칭·시제·말투·장소 낱말) → ③ 사실(자료의 사실 한두 줄, 【AI】와 출처).</li>
+<li class="preacher-text">「모르겠습니다」만 하시면 힌트 없이 빈칸으로 받습니다.</li>
+<li class="preacher-text">힌트 뒤에는 같은 질문으로 돌아갑니다. 동행일지에는 <code>【AI 힌트】</code> 한 줄로 따로 남습니다.</li>
+</ul>
+
+<h2 id="video">5. 본문 낭독 영상</h2>
+<p class="preacher-text">Stage 1 본문만남 HTML이 끝나면 감독이 이어서 만듭니다.</p>
+<ol>
+<li class="preacher-text">지안(프리미엄) 음성으로 개역개정 → 새번역 → 새한글 → 공동번역 순서로 읽습니다.</li>
+<li class="preacher-text">본문만남 HTML의 배열을 화면에 그대로 띄우고, 절 단위로 소리와 맞춰 <code>Stage1_…_본문낭독.mp4</code>를 만듭니다.</li>
+<li class="preacher-text">이삭교회 유튜브에 <b>일부 공개</b>로 올립니다(「AI」 재생목록).</li>
+<li class="preacher-text">링크를 카카오톡 나와의 채팅방으로 보냅니다.</li>
+</ol>
+<p class="notice">맥에 「지안(프리미엄)」 음성이 받아져 있어야 합니다(시스템 설정 › 손쉬운 사용 › 읽기 및 말하기 › 시스템 음성).</p>
+
+<h2 id="ws">6. 관찰 작업창 (Stage 3 원어관찰)</h2>
 <p class="preacher-text">터미널에서 플러그인 폴더로 가서 켭니다. 이 컴퓨터에서만 열립니다.</p>
 <div class="card"><div class="card-b"><code>cd ~/DSC/dwelling-sermon-coach_versions/v1.0.0 &amp;&amp; python3 app/server.py</code><br><small class="meta">주소 http://127.0.0.1:8787 · 끄기 Ctrl+C</small></div></div>
 <div class="ws-top">[위] 절 번호 + 원어 전체 절 — 주동사 강조</div>
 <div class="ws">
- <div>① 5중 인터리니어<br><small>Deppe 라벨 · 원어 · 분해 · 직역 · 새한글 · ESV</small></div>
- <div>② 주동사 해설 <span class="ai-badge">【AI】</span><br><small>동사 계단 · 해설 2~4문장</small></div>
- <div class="me">③ 묵상 노트<br><small>목사님만 씁니다 · 절마다 하나 · 자동 저장</small></div>
+<div>① 5중 인터리니어<br><small>Deppe 라벨 · 원어 · 분해 · 직역 · 새한글 · ESV</small></div>
+<div>② 주동사 해설 <span class="ai-badge">【AI】</span><br><small>동사 계단 · 해설 2~4문장</small></div>
+<div class="me">③ 나의 번역 + 묵상 노트<br><small>목사님만 씁니다 · 절마다 하나 · 자동 저장</small></div>
 </div>
 <ul>
- <li class="preacher-text">원어·새한글·ESV는 수집본 글자 그대로입니다. 감독의 구문 분석은 수집본과 낱말 하나씩 맞아야만 올라갑니다.</li>
- <li class="preacher-text">탭: 구문 묵상 · 번역 대조 · 앞·뒤 페리코페.</li>
- <li class="preacher-text">아래쪽 「Stage 4 시작」 버튼도 목사님의 확인입니다. 남은 노트를 먼저 저장하고, 원어관찰 md를 만든 뒤 단계를 올립니다. 대화로 돌아오시면 감독이 그것을 알아채고 주석을 모읍니다.</li>
+<li class="preacher-text">원어·새한글·ESV는 수집본 글자 그대로입니다. 감독의 구문 분석은 수집본과 낱말 하나씩 맞아야만 올라갑니다.</li>
+<li class="preacher-text"><b>나의 번역</b>: 묵상 노트 위 칸에 그 절을 목사님 말로 옮겨 적습니다. 감독이 미리 채우지 않습니다. 노트와 똑같이 1초 뒤 자동 저장됩니다.</li>
+<li class="preacher-text">탭: 구문 묵상 · 번역 대조 · 앞·뒤 페리코페.</li>
 </ul>
 <h3>작업창 버튼</h3>
 <table>
 <tr><th>버튼</th><th>하는 일</th></tr>
-<tr><td>감독에게 묻기</td><td>질문 하나를 받아 짧게 답합니다(10초 안팎). 읽기만 하고 파일을 고치지 않습니다. 주석·7A·묵상종합은 권한으로 막혀 있습니다.</td></tr>
+<tr><td>노트 저장</td><td>저장하지 않은 칸을 바로 저장하고 생성본(md)을 만듭니다. 옆에 「나의 번역과 묵상 노트를 모두 저장했습니다 · 시각」이 보입니다.</td></tr>
+<tr><td>감독에게 묻기</td><td>질문 하나를 받아 짧게 답합니다. 읽기만 하고 파일을 고치지 않습니다. 주석·7A·묵상종합은 권한으로 막혀 있습니다.</td></tr>
+<tr><td>감독에게 번역 묻기</td><td>나의 번역 칸 옆에 있습니다. 「이 절의 나의 번역을 원문과 대조해 고칠 점을 알려 주십시오」를 채워 줍니다. 보내기는 목사님이 누르시고, 고치기도 목사님이 하십니다.</td></tr>
+<tr><td>감독과 마무리</td><td>노트를 저장한 뒤 감독에게 건넵니다. 감독은 받았다고 짧게 확인하고, 단계의 질문이나 다음 단계 여부를 한 줄로 묻습니다. 「Stage 4 … 시작」 버튼이 목사님의 확인입니다.</td></tr>
 <tr><td>본문 다시 수집</td><td>수집본을 새로 받습니다. 쓰신 노트는 그대로 둡니다.</td></tr>
 <tr><td>진행 상황 점검</td><td>파일 이름·YAML·비공개 점검. 7A 문장은 보여 주지 않습니다.</td></tr>
 </table>
 
-<h2>4. 산출물</h2>
+<h2 id="files">7. 산출물</h2>
+<p class="preacher-text">모두 볼트의 주간 폴더 <code>output/S_주일날짜/</code>에 저장됩니다.</p>
 <table>
 <tr><th>단계</th><th>파일</th></tr>
 <tr><td>0</td><td><code>00_수집/</code> · <code>progress.json</code> · <code>00_진행상황.md</code></td></tr>
-<tr><td>1</td><td><code>01_본문만남_…md</code> · <code>Stage1_…_본문만남.html</code></td></tr>
-<tr><td>2 · 3</td><td><code>02_동행일지_…md</code> · <code>03_원어관찰.json</code>(원본) · <code>03_원어관찰_…md</code>(생성본, 작업창에서 고치기)</td></tr>
+<tr><td>1</td><td><code>01_본문만남_…md</code> · <code>Stage1_…_본문만남.html</code> · <code>Stage1_…_본문낭독.mp4</code>(+ <code>.timeline.json</code>)</td></tr>
+<tr><td>2</td><td><code>02_동행일지_…md</code> (6문 표 · 장면 표)</td></tr>
+<tr><td>3</td><td><code>03_원어관찰.json</code>(원본, 노트·나의 번역) · <code>03_원어관찰_…md</code>(생성본) · <code>03_나의번역_…md</code></td></tr>
 <tr><td>4 · 5 · 6</td><td><code>04_1차청중_…md</code> + 페르소나 html · <code>05_맥락관찰_…md</code> + 페리코프 3단 html · <code>06_묵직한단어_…md</code></td></tr>
 <tr><td>7</td><td><code>07A_자기적용_…md</code>(private) · <code>07B_회중적용_…md</code></td></tr>
-<tr><td>8 · 9</td><td><code>08_원고점검_…md</code> · <code>설교_날짜_본문_묵상종합.md</code> · <code>설교_날짜_본문_개요.md/.html</code></td></tr>
+<tr><td>8 · 9</td><td><code>08_원고점검_…md</code> · <code>설교_날짜_본문_묵상종합.md</code> · <code>설교_날짜_본문_개요.md/.html</code> · (선택) 원고 초안</td></tr>
 </table>
-<p class="preacher-text">클로드가 쓴 문장에는 모두 【AI】가 붙습니다. 개요는 묵상종합만 재료로 쓰고, 목사님 문장은 한 글자도 바꾸지 않습니다.</p>
+<p class="preacher-text">생성본 md는 작업창에서 고치십시오. 원본 json을 고치면 다음 생성 때 반영됩니다.</p>
 
-<h2>5. 설정</h2>
-<p class="preacher-text">설정 파일은 <code>~/.config/dsc/dsc.config.json</code>입니다. 볼트 경로(<code>vault_root</code> = <code>output</code> 폴더), 자료 폴더, Logos 브리지, 작업창 포트, 설교자·교회 이름을 둡니다. 주석 자료 폴더(<code>materials_dirs</code>)를 쓰시려면 여기에 경로를 넣으십시오.</p>
+<h2 id="config">8. 설정</h2>
+<p class="preacher-text">설정 파일은 <code>~/.config/dsc/dsc.config.json</code>입니다.</p>
+<table>
+<tr><th>항목</th><th>뜻</th></tr>
+<tr><td><code>vault_root</code></td><td>주간 폴더가 생기는 볼트 경로(<code>output</code> 폴더)</td></tr>
+<tr><td><code>materials_dirs</code></td><td>주석 자료 폴더 목록. Stage 4부터 수집에 쓰이고, Stage 2 질문을 고를 때 감독이 참고합니다(결론은 건네지 않음)</td></tr>
+<tr><td><code>logos_bridge</code></td><td>로고스 브리지 경로. 로고스 수집본(<code>output/Books/</code>)도 주석 수집에 쓰입니다</td></tr>
+<tr><td><code>port</code></td><td>관찰 작업창 포트(기본 8787)</td></tr>
+<tr><td><code>ask_model</code></td><td>「감독에게 묻기」가 쓰는 모델</td></tr>
+</table>
 
-<h2>6. 되돌리기</h2>
+<h2 id="trouble">9. 문제가 생겼을 때</h2>
+<table>
+<tr><th>증상</th><th>할 일</th></tr>
+<tr><td>「감독에게 묻기」가 오류를 냅니다(「success」 등 짧은 말만)</td><td>Claude 로그인이 만료된 것입니다. 터미널에서 <code>claude auth login</code>을 실행하고 다시 누르십시오. 로그인은 목사님이 직접 하십니다.</td></tr>
+<tr><td>낭독이 울리거나 겹칩니다</td><td>다른 탭의 낭독을 멈추고 ■ 멈춤을 누른 뒤 다시 재생하십시오. 성우·속도를 바꾸면 낭독은 바로 멈춥니다.</td></tr>
+<tr><td>성우 이름과 실제 목소리가 다릅니다</td><td>카드별 성우 상자에서 다시 고르십시오. 고른 성우가 정확히 그 카드에 적용됩니다.</td></tr>
+<tr><td>단계 버튼을 실수로 두 번 눌렀습니다</td><td>대화에서 「Stage 3으로 되돌리기」라고 말씀하십시오. 기록보관 에이전트가 진행 기록에 되돌림을 남기고 되돌립니다.</td></tr>
+<tr><td>작업창이 열리지 않습니다</td><td>서버가 꺼져 있습니다. 위 명령으로 켜거나, 대화로 원어관찰을 진행하시겠다고 말씀하십시오.</td></tr>
+<tr><td>본문이 빠졌다고 나옵니다</td><td>그 번역의 본문을 붙여 넣어 주십시오. 감독이 지어내지 않습니다.</td></tr>
+</table>
+
+<h2 id="rollback">10. 되돌리기</h2>
 <p class="preacher-text">claude.ai 「사용자 지정 → 플러그인 → 내 항목」에서 바꿉니다. 데스크톱 앱은 이 계정 설정을 읽습니다.</p>
 <ol>
- <li class="preacher-text"><b>Dwelling sermon coach (dwelling-sermon-coach)</b> 「…」 → 끄기</li>
- <li class="preacher-text"><b>Dwelling sermon coach (로컬 업로드)</b> 「…」 → 켜기</li>
- <li class="preacher-text">앱을 완전히 끄고(⌘Q) 다시 켠 뒤 새 대화를 엽니다. 「7단계」 문구가 나오면 구판입니다.</li>
+<li class="preacher-text"><b>Dwelling sermon coach (dwelling-sermon-coach)</b> 「…」 → 끄기</li>
+<li class="preacher-text"><b>Dwelling sermon coach (로컬 업로드)</b> 「…」 → 켜기</li>
+<li class="preacher-text">앱을 완전히 끄고(⌘Q) 다시 켠 뒤 새 대화를 엽니다. 「7단계」 문구가 나오면 구판입니다.</li>
 </ol>
 <p class="notice">구판(로컬 업로드)과 예전 스킬 dwelling-sermon-coach (2)는 지우지 말고 꺼 두십시오. 되돌릴 때 다시 켭니다. 자세한 절차는 ROLLBACK.md에 있습니다.</p>
 
+<h2 id="new">11. v1.0.2에서 바뀐 것</h2>
+<ul>
+<li class="preacher-text">기본 관찰 6문 · 장면 나누기를 Stage 1에서 Stage 2 동행일지로 옮겼습니다. Stage 1은 첫 단어 질문 하나로 돌아갔습니다.</li>
+<li class="preacher-text">Stage 1 본문만남 HTML: 번역 탭 · 페리코페 접기 · 단락별 낭독 막대. 이어서 본문 낭독 영상 → 유튜브 일부 공개 → 카카오톡.</li>
+<li class="preacher-text">Stage 2: 언제·어디서 네 걸음 심화(어디서의 셋째 걸음은 공간의 의미), 누가·무엇을·어떻게는 장면·사건·화자 전환 살피기.</li>
+<li class="preacher-text">모든 단계: 힌트는 청할 때만.</li>
+<li class="preacher-text">Stage 3: 나의 번역 칸과 <code>03_나의번역_…md</code>, 작업창 아래 막대(노트 저장 · 감독에게 묻기 · 감독과 마무리), 직역 청크 규칙.</li>
+<li class="preacher-text">Stage 4: 페르소나 HTML의 카드별 성우. Stage 5: 장면 소제목이 있는 페리코프 3단 HTML.</li>
+<li class="preacher-text">수집: 시편 표제 절 번호 맞춤, 파섹(׀) 처리.</li>
+</ul>
 </main>
-<footer class="dsc-foot">머무르는 설교 코치 v1.0.0 · 개인용</footer>
+
+<footer class="dsc-foot">머무르는 설교 코치 v1.0.2 · 개인용 · 이 안내에는 성경 본문을 싣지 않았습니다.</footer>
 </div>
+
 </body>
 </html>

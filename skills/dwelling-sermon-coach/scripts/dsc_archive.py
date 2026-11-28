@@ -9,7 +9,7 @@
 
 지키는 것 (코드로 강제)
 - 설교자가 쓴 파일의 내용을 고치지 않습니다. 문제는 issues로만 보고합니다.
-- 직접 쓰는 파일: progress.json · 00_진행상황.md · 03_원어관찰_…md(생성본)뿐입니다.
+- 직접 쓰는 파일: progress.json · 00_진행상황.md · 03_원어관찰_…md · 03_나의번역_…md(생성본)뿐입니다.
 - 07A(자기적용) 파일은 frontmatter만 읽습니다. 본문을 읽거나 출력하지 않습니다.
 - progress.json은 임시 파일에 쓴 뒤 바꿔 끼웁니다(원자적 쓰기). 관찰 작업창 서버도 같은 함수를 씁니다.
 """
@@ -41,6 +41,7 @@ FILE_RULES = [
     ("1", r"^01_본문만남_%s_.+\.md$" % DATE),
     ("2", r"^02_동행일지_%s(_%s)?_.+\.md$" % (DATE, DATE)),
     ("3", r"^03_원어관찰_%s_.+\.md$" % DATE),
+    ("3", r"^03_나의번역_%s_.+\.md$" % DATE),
     ("4", r"^04_1차청중_%s_.+\.md$" % DATE),
     ("5", r"^05_맥락관찰_%s_.+\.md$" % DATE),
     ("6", r"^06_묵직한단어_%s_.+\.md$" % DATE),
@@ -52,7 +53,7 @@ FILE_RULES = [
 ]
 ALLOWED_OTHER = [
     r"^progress\.json$", r"^\.progress\.lock$", r"^\.render\.lock$", r"^00_진행상황\.md$", r"^03_원어관찰\.json$",
-    r"^Stage1_.+_본문만남\.html$", r"^Stage4_.+_1차청중_페르소나\.html$", r"^Stage5_.+_페리코프3단\.html$",
+    r"^Stage1_.+_본문만남\.html$", r"^Stage1_.+_본문낭독\.(mp4|timeline\.json)$", r"^Stage4_.+_1차청중_페르소나\.html$", r"^Stage5_.+_페리코프3단\.html$",
     r"^설교_\d{8}_.+_개요\.html$", r".+_낭독본\.(md|html)$", r".+_원고_초고\.md$",
     r"^성경봉독_.+", r"^설교프롬프터_.+", r"^\.DS_Store$",
 ]
@@ -89,22 +90,27 @@ def split_notes(data):
 
     - 형식이 어긋난 항목은 건너뜁니다(파일 전체를 못 읽게 만들지 않음).
     - M4 형식(구문별 세 칸, `clauses`·`_orphans`)은 버리지 않고 짝 없는 기록으로 바꿉니다.
+    - 절마다 `note`(묵상 노트)와 `translation`(나의 번역)을 둡니다. `translation`이 없는 예전 파일은 빈 글로 읽습니다.
     """
     data = data if isinstance(data, dict) else {}
     def lst(k):
         return [x for x in data.get(k) or [] if isinstance(x, dict)] if isinstance(data.get(k), list) else []
+    def tr(x):
+        return x.get("translation") if isinstance(x.get("translation"), str) else ""
     recs = {}
     for v in lst("verses"):
         if isinstance(v.get("ref"), str) and isinstance(v.get("note", ""), str):
-            recs[v["ref"]] = {"ref": v["ref"], "note": v.get("note", ""), "updated": str(v.get("updated", ""))}
+            recs[v["ref"]] = {"ref": v["ref"], "note": v.get("note", ""), "translation": tr(v),
+                              "updated": str(v.get("updated", ""))}
     olds = []
     for o in lst("_orphans") + lst("clauses"):
-        if isinstance(o.get("note"), str):
-            text, ref = o["note"], o.get("ref")
+        if isinstance(o.get("note"), str) or isinstance(o.get("translation"), str):
+            text, ref = o.get("note") if isinstance(o.get("note"), str) else "", o.get("ref")
         else:
             text, ref = _legacy_text(o), o.get("id") or o.get("verse")
-        if text.strip():
-            olds.append({"ref": ref if isinstance(ref, str) else "", "note": text, "updated": str(o.get("updated", ""))})
+        if text.strip() or tr(o).strip():
+            olds.append({"ref": ref if isinstance(ref, str) else "", "note": text, "translation": tr(o),
+                         "updated": str(o.get("updated", ""))})
     return recs, olds
 
 
@@ -422,12 +428,20 @@ def render_lock(wd):
 
 
 RENDER_NAME = re.compile(r"^03_원어관찰_%s_[^/\\]+\.md$" % DATE)
+TRANSLATION_NAME = re.compile(r"^03_나의번역_%s_[^/\\]+\.md$" % DATE)
 
 
 def render_stage3(wd, cfg):
-    """03_원어관찰.json → 생성본 md. 손으로 고친 생성본·설교자 파일은 덮어쓰지 않습니다."""
+    """03_원어관찰.json → 생성본 md 두 개(03_원어관찰_…md · 03_나의번역_…md).
+    손으로 고친 생성본·설교자 파일은 덮어쓰지 않습니다."""
     with render_lock(wd):
-        return _render_stage3(wd, cfg)
+        r = _render_stage3(wd, cfg)
+        t = _render_translation(wd, cfg)
+        if t is None:                         # 나의 번역을 아직 한 절도 쓰지 않았으면 만들지 않습니다
+            return r
+        return {"status": "ok" if r["status"] == t["status"] == "ok" else "issues",
+                "issues": r.get("issues", []) + t.get("issues", []),
+                "saved": r.get("saved", []) + t.get("saved", [])}
 
 
 def _render_stage3(wd, cfg):
@@ -476,7 +490,7 @@ def _render_stage3(wd, cfg):
         pass
     parts = []
     recs, olds = split_notes(data)
-    for v in (x for x in recs.values() if x["note"].strip()):            # 빈 노트는 넣지 않습니다
+    for v in (x for x in recs.values() if x["note"].strip() or x["translation"].strip()):   # 빈 절은 넣지 않습니다
         ref = v["ref"]
         sv = syn.get(ref) or {}
         mv = " · ".join(x for x in sv.get("main_verbs", []) if isinstance(x, str))
@@ -488,7 +502,10 @@ def _render_stage3(wd, cfg):
             one += ["**구문** 【AI】 주동사 %s" % mv, ""]
         elif chain:
             one += ["**구문** 【AI】 정동사 없음 — %s" % chain, ""]
-        one += ["**묵상**", "", v["note"].strip(), ""]
+        if v["translation"].strip():
+            one += ["**나의 번역**", "", v["translation"].strip(), ""]
+        if v["note"].strip():
+            one += ["**묵상**", "", v["note"].strip(), ""]
         parts.append(["## %s %s" % (B.parse_ref(st["text"])["book"]["ko"], ref), ""] + one)
     for i, part in enumerate(parts):
         body += (["---", ""] if i else []) + part
@@ -496,7 +513,11 @@ def _render_stage3(wd, cfg):
         body += (["---", ""] if parts else []) + ["## 짝 없는 기록", "",
                  "> 지금 본문의 절과 이어지지 않는 예전 기록입니다(구문별 세 칸 기록 등). 원문 그대로 둡니다.", ""]
         for o in olds:
-            body += ["**%s**" % (o["ref"] or "—"), "", o["note"].strip(), ""]
+            body += ["**%s**" % (o["ref"] or "—"), ""]
+            if o["translation"].strip():
+                body += ["나의 번역: " + o["translation"].strip(), ""]
+            if o["note"].strip():
+                body += [o["note"].strip(), ""]
     text = "\n".join(fm + body)
     # 확인한 뒤 그사이(Obsidian 저장 등) 손으로 고쳤는지 바꿔 끼우기 직전에 한 번 더 봅니다
     if target.exists() and sha(target.read_text(encoding="utf-8")) != (prev.get("sha256") or ""):
@@ -508,6 +529,61 @@ def _render_stage3(wd, cfg):
         fresh["stage3_render"] = {"file": out_name, "sha256": sha(text), "at": now()}
         write_progress(wd, fresh)
     return {"status": "ok", "issues": issues, "saved": [str(target)]}
+
+
+
+def _render_translation(wd, cfg):
+    """03_원어관찰.json의 나의 번역 → 03_나의번역_{작업일}_{본문}.md. 설교자 글자 그대로 옮깁니다."""
+    st = need_v1(wd)
+    recs, _ = split_notes(json.loads((wd / "03_원어관찰.json").read_text(encoding="utf-8")))
+    prev = st.get("stage3_translation_render") or {}
+    if not isinstance(prev, dict) or (prev.get("file") and not TRANSLATION_NAME.match(nfc(str(prev["file"])))):
+        raise Refused("progress.json의 stage3_translation_render.file 값이 나의 번역 파일 이름이 아닙니다")
+    if not prev.get("file") and not any(v["translation"].strip() for v in recs.values()):
+        return None
+    label = B.ref_label(B.parse_ref(st["text"]))
+    out_name = prev.get("file") or "03_나의번역_%s_%s.md" % (dt.date.today().isoformat(), label)
+    target = wd / out_name
+    if target.exists():
+        if not (prev.get("file") == out_name and prev.get("sha256")):
+            return {"status": "issues", "issues": [{"file": out_name, "problem": "같은 이름의 파일이 이미 있는데 생성 기록이 없습니다",
+                                                    "suggestion": "덮어쓰지 않았습니다. 설교자 파일인지 확인하십시오"}]}
+        if sha(target.read_text(encoding="utf-8")) != prev["sha256"]:
+            return {"status": "issues", "issues": [{"file": out_name, "problem": "나의 번역 생성본이 마지막 생성 뒤 손으로 고쳐졌습니다",
+                                                    "suggestion": "덮어쓰지 않았습니다. 고친 내용을 작업창에 옮긴 뒤 생성본을 지우고 다시 만드십시오"}]}
+    orig, order = {}, []
+    try:
+        pas = json.loads((wd / "00_수집" / "passage.json").read_text(encoding="utf-8"))
+        ov = next(iter((pas.get("original") or {}).values()), {}) or {}
+        for v in ov.get("verses", []):
+            if isinstance(v, dict) and isinstance(v.get("ref"), str):
+                order.append(v["ref"])
+                orig[v["ref"]] = v.get("text", "")
+    except (OSError, ValueError, AttributeError):
+        pass
+    order += [r for r in recs if r not in order]
+    private = stage3_private(cfg)
+    tags = ["dwelling-sermon-coach", "stage-3-original"] + (["private"] if private else [])
+    fm = ["---", "dsc_version: %s" % DSC_VERSION, "date: %s" % dt.date.today().isoformat(),
+          "sermon_date: %s" % st.get("sermon_date", ""), "text: %s" % st["text"], "stage: 3", "session: 나의번역",
+          "preacher: %s" % cfg.get("preacher", ""), "church: %s" % cfg.get("church", ""), "status: dwelling",
+          "generated: true"] + (["private: true"] if private else []) + ["tags: [%s]" % ", ".join(tags), "---", ""]
+    body = ["# 나의 번역 — %s" % st["text"], "",
+            "> 관찰 작업창(03_원어관찰.json)의 「나의 번역」에서 만든 생성본입니다. 작업창에서 수정하십시오.", ""]
+    book = B.parse_ref(st["text"])["book"]["ko"]
+    for i, ref in enumerate(order):
+        mine = (recs.get(ref) or {}).get("translation", "")
+        body += (["---", ""] if i else []) + ["## %s %s" % (book, ref), ""]
+        if orig.get(ref):
+            body += ["> %s" % orig[ref], ""]
+        body += [mine.strip("\n") if mine.strip() else "(비어 있음)", ""]
+    text = "\n".join(fm + body)
+    atomic_write(target, text)
+    with progress_lock(wd):
+        fresh = need_v1(wd)
+        fresh["stage3_translation_render"] = {"file": out_name, "sha256": sha(text), "at": now()}
+        write_progress(wd, fresh)
+    return {"status": "ok", "issues": [], "saved": [str(target)]}
 
 
 def main(argv=None):

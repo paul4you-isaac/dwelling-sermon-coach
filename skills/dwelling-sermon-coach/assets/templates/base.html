@@ -158,6 +158,7 @@ footer.dsc-foot{margin-top:28px;font-size:.72rem;color:var(--muted)}
  *    <button class="dsc-stop" type="button">■ 멈춤</button> <span class="dsc-tts-msg"></span></div>
  *  <button class="dsc-play" data-target="선택자">▶ 듣기</button>  선택자에 맞는 요소들(또는 그 안의 [data-tts-unit])을 차례로 읽음
  *  속성(단위 또는 그 조상에): data-voice="minsu|jian|yuna"  data-rate="0.85"(사용자 속도에 곱함)
+ *                            data-voice-uri="음성 voiceURI" — 정확한 성우 지정(data-voice보다 앞섬, 카드별 성우 상자용)
  *  단위에: data-pause="5000"(다음 단위 전 쉼, ms)   읽지 않음: .ai-badge .tr [data-tts-skip]
  */
 (function (w, d) {
@@ -208,6 +209,11 @@ footer.dsc-foot{margin-top:28px;font-size:.72rem;color:var(--muted)}
         if (list[i].name.toLowerCase().indexOf(keys[k]) !== -1) return list[i];
       }
     }
+    return null;
+  }
+
+  function byURI(uri) {
+    for (var i = 0; i < st.voices.length; i++) if (st.voices[i].voiceURI === uri) return st.voices[i];
     return null;
   }
 
@@ -287,8 +293,8 @@ footer.dsc-foot{margin-top:28px;font-size:.72rem;color:var(--muted)}
       if (!text) { step(); return; }
       var sv = selectedVoice();
       if (sv && base(sv.lang) !== base(lang)) sv = byHint(lang, DEFAULT_HINT[base(lang)]) || voicesFor(lang)[0] || null;
-      var hint = attr(el, "data-voice");
-      var vo = (hint && byHint(lang, hint)) || sv;
+      var hint = attr(el, "data-voice"), uri = attr(el, "data-voice-uri");
+      var vo = (uri && byURI(uri)) || (hint && byHint(lang, hint)) || sv;
       var utter = new SpeechSynthesisUtterance(text);
       if (vo) utter.voice = vo;        // 규칙 1: 음성을 지정하면 lang 생략
       else utter.lang = lang;          // 폴백일 때만 lang
@@ -330,6 +336,7 @@ footer.dsc-foot{margin-top:28px;font-size:.72rem;color:var(--muted)}
       sel.appendChild(o);
       msg("이 기기에서 " + st.lang + " 음성 목록을 아직 받지 못했습니다. 기본 음성으로 읽습니다.");
     } else msg("");
+    try { d.dispatchEvent(new CustomEvent("dsc-voices")); } catch (e) {}   // 카드별 성우 상자가 목록을 받아 갑니다
   }
 
   function disable(text) {
@@ -365,7 +372,10 @@ footer.dsc-foot{margin-top:28px;font-size:.72rem;color:var(--muted)}
   }
 
   w.DSC = w.DSC || {};
-  w.DSC.tts = { stop: stop, play: play, version: "1.0.0" };
+  w.DSC.tts = { stop: stop, play: play, version: "1.0.0",
+    voiceFor: function (lang, hint) { return byHint(lang, hint); },
+    voices: function (lang) { return voicesFor(lang || st.lang); },
+    label: label };
   if (d.readyState === "loading") d.addEventListener("DOMContentLoaded", init); else init();
 })(window, document);
 </script>

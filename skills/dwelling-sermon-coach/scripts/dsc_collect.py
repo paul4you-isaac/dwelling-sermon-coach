@@ -180,6 +180,35 @@ def pericopes(p, nkrv):
     return {"before": before, "after": after}
 
 
+def remap_psalm(entry, od, nkrv, p, chapters):
+    """시편: BHS는 표제를 1절(때로 1-2절)로 셉니다. 장마다 (BHS 절 수 - 개역개정 절 수)만큼 밀어
+    한국어 절 번호에 맞춥니다. 원래 번호는 bhs_ref로 남깁니다."""
+    (c1, v1), (c2, v2) = p["start"], p["end"]
+    out, shifts = [], {}
+    for c in chapters:
+        ov, kv = od.get(c, {}).get("verses", {}), nkrv.get(c, {}).get("verses", {})
+        if not ov or not kv:
+            continue
+        k = len(ov) - len(kv)
+        if k < 0:
+            k = 0
+        shifts[c] = k
+        for v in sorted(kv):
+            if (c, v) < (c1, v1) or (v2 is not None and (c, v) > (c2, v2)):
+                continue
+            t = ov.get(v + k)
+            if t is None:
+                continue
+            item = {"ref": "%d:%d" % (c, v), "text": t}
+            if k:
+                item["bhs_ref"] = "%d:%d" % (c, v + k)
+            out.append(item)
+    if any(shifts.values()):
+        entry["verses"] = out
+        entry["versification"] = {"rule": "시편 표제 보정: 한국어 절 = 원어 절 - 표제 절 수",
+                                  "shift": {str(c): k for c, k in shifts.items()}}
+
+
 def cmd_passage(args, cfg):
     wd, col = collect_dir(args.week_dir)
     p = B.parse_ref(args.ref)
@@ -223,8 +252,11 @@ def cmd_passage(args, cfg):
         slot[abbr] = entry
         return data
 
+    kdata = {}
     for abbr, label in B.KOREAN:
         data = take(abbr, label, result["translations"])
+        if data:
+            kdata[abbr] = data
         if data and abbr in B.CROSS:
             checks = []
             for c in chapters:
@@ -254,6 +286,8 @@ def cmd_passage(args, cfg):
 
     orig_abbr = "BHS" if book["testament"] == "OT" else "NA28"
     od = take(orig_abbr, orig_abbr, result["original"])
+    if od and book["usfm"] == "PSA" and "NKRV" in kdata:
+        remap_psalm(result["original"][orig_abbr], od, kdata["NKRV"], p, chapters)
     if od:
         for item in result["original"][orig_abbr]["verses"]:
             parts = B.split_clauses(item["text"], book["testament"])

@@ -5,7 +5,7 @@
 assets/dsc.css · assets/dsc-tts.js 의 현재 내용으로 바꿉니다.
 
 사용:
-  python3 tools/build_html.py                 # 템플릿 5종 갱신
+  python3 tools/build_html.py                 # 템플릿 5종 + Stage 1 기준 파일 갱신
   python3 tools/build_html.py 파일.html ...    # 지정한 파일 갱신
 """
 import re
@@ -33,7 +33,8 @@ def main(argv):
     js = (ASSETS / "dsc-tts.js").read_text(encoding="utf-8")
     if "</script" in js.lower() or "</style" in css.lower():
         sys.exit("자산 안에 닫는 태그가 있어 인라인할 수 없습니다.")
-    files = [Path(a) for a in argv] or sorted((ASSETS / "templates").glob("*.html"))
+    files = [Path(a) for a in argv] or (sorted((ASSETS / "templates").glob("*.html"))
+                                        + sorted((ASSETS.parent / "references").glob("template_*.html")))
     for f in files:
         print(("갱신 " if build(f, css, js) else "같음 ") + str(f))
 

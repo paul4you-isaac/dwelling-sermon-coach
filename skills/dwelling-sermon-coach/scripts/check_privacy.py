@@ -173,7 +173,7 @@ def check_week(wd, cfg):
                               "(private: true 또는 설교자 확인 shared_by_preacher: true)" % (rel, hits))
 
     if stage3_private(cfg) and not legacy:
-        for f in wd.glob("03_원어관찰_*.md"):
+        for f in list(wd.glob("03_원어관찰_*.md")) + list(wd.glob("03_나의번역_*.md")):
             if not is_private(f):
                 errs.append("stage3: %s에 private: true가 없습니다 (설정 stage3_private)" % f.name)
     return errs, warns + notes

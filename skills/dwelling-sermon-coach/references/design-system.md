@@ -8,6 +8,10 @@
 | `assets/dsc.css` | 색·글꼴·간격 토큰, 라이트/다크, 공통 클래스 |
 | `assets/dsc-tts.js` | 공통 낭독. 울림 방지 4규칙과 pitch 1.0을 코드로 지킴 |
 | `assets/templates/*.html` | 템플릿 5종 (본문만남·1차청중·페리코프·설교개요 + `base.html`). CSS·JS가 이미 인라인됨 |
+| `references/template_stage3_원어관찰.html` | Stage 3 원어관찰 관찰 작업창의 화면 기준 파일(정적 사본). 절마다 5중 인터리니어 · 주동사 해설 · 「나의 번역」 · 「감독에게 번역 묻기」 · 「묵상 노트」, 아래 막대(노트 저장 · 감독에게 묻기 · 감독과 마무리). 작업창(`app/static`)을 고칠 때 기준으로 삼음 |
+| `references/template_stage5_맥락관찰.html` | Stage 5 맥락관찰 기준 파일. 번역 탭 · 세 단(늘 펼침) · 본문 장면 소제목 · 단별 보조 TTS 막대 · 연속 재생. Stage 5 맥락관찰은 이 파일을 복사해 씀 |
+| `references/template_stage4_1차청중.html` | Stage 4 1차청중 기준 파일. 페르소나 카드마다 보조 TTS 막대(`data-mirror`), 맨 위 산책 모드. Stage 4 1차청중은 이 파일을 복사해 씀 |
+| `references/template_stage1_본문만남.html` | Stage 1 본문만남 기준 파일. 공통 CSS·TTS 블록에 Stage 1 본문만남 전용 `<style data-dsc="stage1">`·`<script data-dsc="stage1">`(번역 탭·페리코페 접기·단락별 TTS 막대)을 더함. Stage 1 본문만남은 이 파일을 복사해 씀 |
 | `tools/build_html.py` | CSS·JS를 고친 뒤 템플릿에 다시 인라인 |
 | `tools/check_html.py` | 생성 HTML 자동 점검 (§5) |
 
@@ -43,6 +47,7 @@
 
 ### 낭독 마크업
 - 조절 막대 `.dsc-tts`(페이지에 하나, `data-tts-lang`)에 `.dsc-voice`·`.dsc-rate`·`.dsc-stop`을 둡니다.
+  - 예외: Stage 1 본문만남·Stage 5 맥락관찰은 단락마다, Stage 4 1차청중은 페르소나 카드마다 보조 막대 `.dsc-tts.sec-tts[data-mirror]`를 더 둡니다. 낭독은 맨 위 막대 하나가 맡고, 보조 막대는 성우·속도를 맨 위 막대와 함께 움직입니다(`references/template_stage1_본문만남.html`, `references/template_stage4_1차청중.html`).
 - 듣기 버튼 `.dsc-play`의 `data-target`은 CSS 선택자입니다. 맞는 요소들 안의 `[data-tts-unit]`을 차례로 읽습니다.
 - `data-voice`(minsu·jian·yuna)·`data-rate`(선택한 속도에 곱함)는 단위나 그 조상 요소에 둡니다. `data-pause`(다음 단위 전 쉼, ms)는 단위에 둡니다.
 - 한 단위는 **한 문장 또는 한 절**입니다. 긴 글을 한 단위로 두면 Chrome이 15초쯤에서 끊습니다.
@@ -122,6 +127,9 @@ list.sort(function(a,b){ return (a.localService===b.localService)?0:(a.localServ
 | 노년 여성 | 0.85 | 1.0 | 지안 (Jian) → 유나 (Yuna) |
 
 페르소나 TTS에도 울림 방지 4규칙을 그대로 적용합니다.
+
+- 정확한 성우 지정: 단위나 그 조상에 `data-voice-uri="<voiceURI>"`를 두면 `data-voice`(힌트)보다 앞서 그 성우로 읽습니다(v1.0.2). Stage 4 1차청중 카드별 성우 상자가 씁니다.
+- `dsc-tts.js`는 음성 목록을 채운 뒤 문서에 `dsc-voices` 이벤트를 보내고, `DSC.tts.voices(lang)` · `DSC.tts.voiceFor(lang, hint)` · `DSC.tts.label(voice)`를 내놓습니다.
 
 ### 음성 로딩 (필수)
 

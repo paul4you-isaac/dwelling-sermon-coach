@@ -1,0 +1,528 @@
+<!doctype html>
+<!-- dsc.css v1.0.0 -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>시편 22:22-31 원어관찰 (작업창 기준 파일)</title>
+<style data-dsc="css">
+/* dsc.css v1.0.0 — 머무르는 설교 코치 공통 디자인 (시안 B 「작업대」) */
+:root{
+ --font-body:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;
+ --font-greek:"SBL Greek","New Athena Unicode","Cardo","Gentium Plus","Times New Roman","Noto Serif",Georgia,serif;
+ --font-hebrew:"SBL Hebrew","Ezra SIL","Taamey Frank CLM","Noto Serif Hebrew","David Libre","Times New Roman","Arial Hebrew",serif;
+ --lh:1.75;--r:12px;--r-s:8px;
+ --bg:#f6f7f9;--card:#ffffff;--soft:#eef1f5;--ink:#15191e;--muted:#5d6672;--line:#dde2e8;
+ --accent:#1f5fae;--on-accent:#ffffff;
+ --ai:#6a3fb5;--ai-bg:#f1ebfb;--ai-line:#c9b5ec;
+ --syn-subject:#1e6091;--syn-verb:#a83232;--syn-sub:#2d6a4f;
+ --n-intro:#1565c0;--n-rise:#e65100;--n-dev:#2e7d32;--n-crisis:#c62828;--n-climax:#f57f17;--n-end:#4527a0;
+ --shade:#eceff3;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --bg:#0f1318;--card:#171c23;--soft:#1d242d;--ink:#e7ebf0;--muted:#98a3b0;--line:#2a333e;
+ --accent:#6fa8ef;--on-accent:#0f1318;--ai:#c3a6f5;--ai-bg:#271f38;--ai-line:#4e3d70;
+ --syn-subject:#7cb5e0;--syn-verb:#f08b8b;--syn-sub:#7bc9a3;--shade:#141a21;--n-intro:#7fb2f0;--n-rise:#ffab6e;--n-dev:#7fcf86;--n-crisis:#f08b8b;--n-climax:#ffd166;--n-end:#b7a4f0}}
+:root[data-theme="dark"]{
+ --bg:#0f1318;--card:#171c23;--soft:#1d242d;--ink:#e7ebf0;--muted:#98a3b0;--line:#2a333e;
+ --accent:#6fa8ef;--on-accent:#0f1318;--ai:#c3a6f5;--ai-bg:#271f38;--ai-line:#4e3d70;
+ --syn-subject:#7cb5e0;--syn-verb:#f08b8b;--syn-sub:#7bc9a3;--shade:#141a21;--n-intro:#7fb2f0;--n-rise:#ffab6e;--n-dev:#7fcf86;--n-crisis:#f08b8b;--n-climax:#ffd166;--n-end:#b7a4f0}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);
+ line-height:var(--lh);word-break:keep-all;overflow-wrap:anywhere}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 80px}
+header.dsc-head{padding-bottom:12px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+h1{font-size:1.35rem;font-weight:800;letter-spacing:-.02em;margin:0 0 4px}
+h2{font-size:1.08rem;font-weight:800;margin:26px 0 8px}
+h3{font-size:.95rem;font-weight:700;margin:18px 0 6px}
+.meta{font-size:.78rem;color:var(--muted)}
+footer.dsc-foot{margin-top:28px;font-size:.72rem;color:var(--muted)}
+
+/* 설교자 원문 / AI 문장 */
+.preacher-text{color:var(--ink)}
+.claude-text{color:var(--ai)}
+.ai-badge{display:inline-block;font-size:.64rem;font-weight:700;line-height:1.5;padding:0 6px;margin-right:5px;
+ border-radius:3px;background:var(--ai-bg);color:var(--ai);border:1px solid var(--ai-line);vertical-align:.12em;font-style:normal}
+.persona-block{margin:14px 0;padding:14px 16px;background:var(--card);border:1px solid var(--line);
+ border-left:4px solid var(--accent);border-radius:var(--r);line-height:1.95}
+.legend-bar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:.74rem;color:var(--muted);
+ padding:8px 10px;margin:12px 0;background:var(--soft);border-radius:var(--r)}
+.legend-bar .sw{display:inline-block;width:.8em;height:.8em;border-radius:2px;vertical-align:-.05em;margin-right:4px}
+
+/* 본문 시각화 (김상훈 배열) */
+.c-s{color:var(--syn-subject);font-weight:700}
+.c-v{color:var(--syn-verb);font-weight:700}
+.c-g{color:var(--syn-sub)}
+.ln{display:block}
+.ln.i1{padding-left:1.4em}.ln.i2{padding-left:2.8em}.ln.i3{padding-left:4.2em}
+.greek{font-family:var(--font-greek);font-size:1.2em;line-height:1.7}
+.hebrew{font-family:var(--font-hebrew);font-size:1.2em;line-height:1.8;direction:rtl;text-align:right}
+.hebrew .ln.i1{padding-left:0;padding-right:1.4em}.hebrew .ln.i2{padding-left:0;padding-right:2.8em}.hebrew .ln.i3{padding-left:0;padding-right:4.2em}
+
+/* 카드·블록 */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:14px 0;
+ box-shadow:0 1px 2px rgba(0,0,0,.04);overflow:hidden}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;
+ padding:10px 14px;font-size:.84rem;font-weight:700;color:var(--muted);border-bottom:1px solid var(--line)}
+.card-b{padding:12px 14px}
+.vn{font-weight:800;color:var(--accent);padding:10px 14px 0}
+.vrow{padding:10px 14px;border-top:1px solid var(--line)}
+.vrow:first-of-type{border-top:0}
+.tr{font-size:.68rem;font-weight:700;color:var(--muted);letter-spacing:.04em;margin-bottom:2px}
+.missing{color:var(--muted);font-style:normal}
+.guide{background:var(--soft);border-left:4px solid var(--accent);border-radius:0 var(--r-s) var(--r-s) 0;
+ padding:12px 14px;margin:14px 0;font-size:.9rem}
+.question{margin-top:22px;background:var(--card);border:2px solid var(--accent);border-radius:var(--r);padding:16px}
+.question h2{margin:0 0 8px;font-size:.95rem;color:var(--accent)}
+.notice{font-size:.8rem;color:var(--muted);padding:8px 12px;border:1px dashed var(--line);border-radius:var(--r-s);margin:12px 0}
+
+/* Stage 5 페리코프 3단 */
+.peri{border-radius:var(--r);padding:14px;margin:12px 0;border:1px solid var(--line);background:var(--shade)}
+.peri.main{background:var(--card);border:2px solid var(--accent);font-size:1.06rem}
+.peri-h{font-size:.8rem;font-weight:800;color:var(--muted);margin-bottom:6px}
+.peri.main .peri-h{color:var(--accent)}
+
+/* 설교개요 6단계 서사 */
+.narr{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;margin:10px 0}
+.narr span{font-size:.68rem;text-align:center;padding:6px 0;border-radius:var(--r-s);color:#fff;font-weight:700}
+.n-intro{--n:var(--n-intro)}.n-rise{--n:var(--n-rise)}.n-dev{--n:var(--n-dev)}
+.n-crisis{--n:var(--n-crisis)}.n-climax{--n:var(--n-climax)}.n-end{--n:var(--n-end)}
+.narr span{background:var(--n)}
+.narr .n-rise,.narr .n-climax{color:#1a1a1a}
+:root[data-theme="dark"] .narr span{color:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .narr span{color:#111}}
+.move{border-left:5px solid var(--n);background:var(--card);border-radius:0 var(--r) var(--r) 0;
+ padding:12px 14px;margin:12px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.move-h{font-size:.78rem;font-weight:800;color:var(--n)}
+
+/* 낭독(TTS) 조절 */
+.dsc-tts{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.8rem;margin:10px 0;
+ padding:8px 10px;background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+.dsc-tts select,.dsc-tts button,.dsc-play{font:inherit;font-size:.8rem;padding:5px 10px;border-radius:var(--r-s);
+ border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;max-width:100%}
+.dsc-tts select.dsc-voice{max-width:220px}
+.dsc-play{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.dsc-play:disabled,.dsc-tts button:disabled{opacity:.45;cursor:not-allowed}
+.dsc-tts-msg{color:var(--muted);font-size:.74rem}
+.dsc-speaking{background:var(--soft);border-radius:var(--r-s);outline:2px solid var(--accent);outline-offset:2px}
+
+@media (max-width:480px){
+ .wrap{padding:18px 16px 70px}
+ h1{font-size:1.2rem}
+ .ln.i1{padding-left:1em}.ln.i2{padding-left:2em}.ln.i3{padding-left:3em}
+ .hebrew .ln.i1,.hebrew .ln.i2,.hebrew .ln.i3{padding-left:0}
+ .hebrew .ln.i1{padding-right:1em}.hebrew .ln.i2{padding-right:2em}.hebrew .ln.i3{padding-right:3em}
+ .dsc-tts select.dsc-voice{max-width:100%;flex:1 1 100%}
+}
+@media print{.dsc-tts,.dsc-play{display:none}body{background:#fff}}
+</style>
+<style data-dsc="stage3">
+.claude-text-ws{color:var(--ai)} /* 작업창에서는 【AI】 배지가 묶음 머리에 있음 */
+/* 관찰 작업창 — dsc.css(시안 B 「작업대」) 위에 얹는 배치
+ * Stage 3 원어관찰은 헬라어 구문성경 「구문 묵상 뷰어」 틀(위 전체 절 + 아래 3분할)을 따릅니다. */
+html,body{height:100%}
+body{display:flex;flex-direction:column;min-height:100%}
+button,select,textarea,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:root{--fam-main:#7B5E2A;--fam-ptc:#B5174A;--fam-inf:#222222;--fam-pur:#1255A0;--fam-rel:#C45000;--fam-causal:#4A7A20;
+ --fam-quest:#5A0E90;--fam-cond:#6A6A6A;--fam-plain:#6A6A6A;--fam-prep:#0c8599;--fam-par:#5A0E90;--fam-etc:#666666;
+ --mv-bg:#f5e6c0;--note:#4A7A20}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--fam-main:#d3b872;--fam-ptc:#f08bab;--fam-inf:#d0d0d0;
+ --fam-pur:#7fa9e0;--fam-rel:#e8905c;--fam-causal:#9dc47a;--fam-quest:#b98be0;--fam-cond:#a09a8e;--fam-plain:#a09a8e;
+ --fam-prep:#5fc0cf;--fam-par:#b98be0;--fam-etc:#9d968a;--mv-bg:#4a3c1c;--note:#9dc47a}}
+
+.ws-top{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.ws-title{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 16px 6px}
+.ws-title h1{margin:0;font-size:1.1rem}
+.ws-week select{font-size:.86rem;padding:5px 8px;border:1px solid var(--line);border-radius:var(--r-s);background:var(--bg);max-width:100%}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.rail{display:flex;gap:4px;overflow-x:auto;padding:6px 16px 8px;scrollbar-width:thin}
+.rail span{flex:0 0 auto;font-size:.72rem;padding:3px 9px;border-radius:999px;color:var(--muted);border:1px solid var(--line);white-space:nowrap}
+.rail span.done{color:var(--ink);background:var(--soft);border-color:transparent}
+.rail span.now{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.rail span.later{opacity:.6}
+.gate{font-size:.78rem;color:var(--muted);padding:7px 16px;border-top:1px dashed var(--line)}
+.gate b{color:var(--ink)}
+.gate.open{color:var(--ink)}
+
+.ws-main{flex:1;padding:14px 16px;max-width:1340px;width:100%;margin:0 auto}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+.tabs button{font-size:.8rem;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:700}
+.toc{display:flex;flex-wrap:wrap;gap:4px 10px;justify-content:center;font-size:.8rem;background:var(--soft);
+ border:1px solid var(--line);border-radius:var(--r);padding:8px 12px;margin-bottom:10px}
+.toc a{color:var(--accent);text-decoration:none;font-weight:700}
+.legend-bar .sw-src{background:var(--ink)}
+
+/* 절 블록 — 위 전체 절, 아래 3분할 */
+.verse-block{border:1px solid var(--line);border-radius:14px;background:var(--card);margin:18px 0;overflow:hidden;
+ box-shadow:0 1px 2px rgba(0,0,0,.04);scroll-margin-top:130px}
+.verse-top{padding:16px 20px 14px;background:var(--soft);border-bottom:1px solid var(--line)}
+.vnum{display:block;font-size:.76rem;font-weight:800;color:var(--accent);letter-spacing:.04em;margin-bottom:6px}
+.greek-full{font-size:1.3em;line-height:1.85}
+.greek-full.hebrew{font-size:1.4em}
+.mv{font-weight:700;background:var(--mv-bg);padding:0 4px;border-radius:3px}
+.verse-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr) minmax(0,1fr)}
+@media(max-width:1000px){.verse-grid{grid-template-columns:minmax(0,1fr)}}
+.pane{padding:14px 16px;border-right:1px solid var(--line);min-width:0}
+.pane:last-child{border-right:0}
+@media(max-width:1000px){.pane{border-right:0;border-bottom:1px solid var(--line)}.pane:last-child{border-bottom:0}}
+.pane.center{background:var(--bg)}
+.pane.right{display:flex;flex-direction:column}
+.pane h4{margin:0 0 10px;font-size:.74rem;letter-spacing:.06em;color:var(--muted)}
+.pane.right h4{color:var(--note)}
+
+/* ① 5중 인터리니어 */
+.chunk{margin:0 0 14px}
+.ind-0{padding-left:0}.ind-1{padding-left:20px}.ind-2{padding-left:40px}.ind-3{padding-left:60px}
+@media(max-width:480px){.ind-1{padding-left:10px}.ind-2{padding-left:20px}.ind-3{padding-left:30px}}
+.clabel{display:block;font-style:italic;font-size:.7rem;margin-bottom:3px;line-height:1.4;font-weight:700}
+.fam-main{color:var(--fam-main)}.fam-ptc{color:var(--fam-ptc)}.fam-inf{color:var(--fam-inf)}.fam-pur{color:var(--fam-pur)}
+.fam-rel{color:var(--fam-rel)}.fam-causal{color:var(--fam-causal)}.fam-quest{color:var(--fam-quest)}.fam-cond{color:var(--fam-cond)}
+.fam-plain{color:var(--fam-plain)}.fam-prep{color:var(--fam-prep)}.fam-par{color:var(--fam-par)}.fam-etc{color:var(--fam-etc)}
+.gwords{display:flex;flex-wrap:wrap;gap:3px 10px;align-items:flex-end;margin-bottom:2px}
+.gw{display:inline-flex;flex-direction:column;align-items:center}
+.gw .g{font-size:1.08em;line-height:1.5}
+.gw .ab{font-size:.62rem;white-space:nowrap;letter-spacing:-.02em}
+.gw.gap .g{color:var(--muted);letter-spacing:.15em}
+.g-line{font-size:1.08em}
+.row{font-size:.82rem;margin-top:3px;padding-left:7px;line-height:1.6;border-left:2.5px solid var(--line)}
+.row .tag{font-size:.66rem;font-weight:700;margin-right:6px;color:var(--muted)}
+.row.own{border-left-color:var(--ai-line)}
+.row.esv{font-family:Georgia,"Times New Roman",serif}
+.pending{margin-top:8px}
+
+/* ② 해설 */
+.pane.center p{font-size:.86rem;margin:0 0 8px;line-height:1.8}
+.gk{font-weight:700}
+.vchain{font-size:.8rem;background:var(--card);border:1px dashed var(--ai-line);border-radius:var(--r-s);
+ padding:8px 10px;margin-bottom:10px;line-height:1.9}
+.vchain b{display:block}
+.vchain .dim{color:var(--muted)}
+.variant{font-size:.76rem;color:var(--muted);background:var(--soft);border-left:3px solid var(--line);padding:6px 10px;border-radius:0 6px 6px 0;margin-top:6px}
+
+/* ③ 묵상 노트 */
+textarea.medi{width:100%;flex:1 1 auto;min-height:200px;border:1.5px solid var(--line);border-radius:var(--r-s);background:var(--bg);
+ font-size:.9rem;line-height:1.8;padding:10px 12px;resize:vertical}
+textarea.medi:focus{outline:2px solid var(--note);outline-offset:1px;border-color:transparent}
+textarea.medi[readonly]{opacity:.75}
+.medi-hint{font-size:.74rem;color:var(--muted);margin-top:6px}
+textarea.medi.mytr{flex:0 0 auto;min-height:110px}
+.pane.right .tr-ask{align-self:flex-start;margin:8px 0 16px}
+.st.ok{color:var(--syn-sub)}
+.st.bad{color:var(--syn-verb);font-weight:700}
+.conflict{margin-top:8px;padding:10px 12px;background:var(--soft);border-radius:var(--r-s);font-size:.84rem}
+.conflict pre,.comm pre,.pre{white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;font:inherit;font-size:.84rem;margin:6px 0}
+.nav{display:flex;gap:6px;flex-wrap:wrap}
+
+/* 번역 대조 · 페리코페 */
+.cmp{padding:10px 14px;border-top:1px solid var(--line)}
+.cmp-row{display:grid;grid-template-columns:6.5em minmax(0,1fr);gap:8px;font-size:.88rem;padding:2px 0}
+.cmp-row .tr{margin:0;padding-top:.25em}
+.vref{font-size:.72rem;font-weight:800;color:var(--accent);margin-right:6px}
+.heading{font-size:.76rem;font-weight:800;color:var(--muted);padding:10px 14px 0}
+.verse-line{padding:6px 14px}
+
+/* 아래 묶음: 묻기·도구·주석 */
+.extra{display:grid;grid-template-columns:minmax(0,1fr);gap:0 14px}
+@media(min-width:1000px){.extra{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.extra>.comm{grid-column:1 / -1}}
+.btn{font-size:.8rem;padding:6px 12px;border-radius:var(--r-s);border:1px solid var(--line);background:var(--card)}
+.btn:hover{background:var(--soft)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.ask-row{display:flex;gap:8px;padding:10px 14px 4px;align-items:flex-end}
+.ask-row textarea{flex:1;min-width:0;resize:vertical;font-size:.9rem;line-height:1.6;border:1px solid var(--line);
+ border-radius:var(--r-s);background:var(--bg);padding:7px 9px}
+.ask-st{padding:0 14px 8px}
+.qa{padding:10px 14px;border-top:1px solid var(--line);font-size:.88rem}
+.qa .q{font-size:.8rem;color:var(--muted);margin-bottom:4px}
+.qa .a{white-space:pre-wrap}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.comm details{border-top:1px solid var(--line)}
+.comm details:first-of-type{border-top:0}
+.comm summary{cursor:pointer;padding:9px 14px;font-size:.84rem;font-weight:700}
+.comm pre{padding:0 14px 12px;max-height:420px;overflow:auto}
+
+.ws-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 16px;
+ border-top:1px solid var(--line);background:var(--card);font-size:.78rem;position:sticky;bottom:0;z-index:6}
+#stagebar{display:flex;align-items:center;gap:6px 8px;flex-wrap:wrap}
+/* 감독과 마무리 — 아래 막대 바로 위에 뜨는 칸 */
+.wrap-panel{position:absolute;left:12px;right:12px;bottom:calc(100% + 8px);max-width:720px;margin:0 auto;max-height:65vh;
+ display:flex;flex-direction:column;box-shadow:0 6px 24px rgba(0,0,0,.18);font-size:.88rem}
+.wrap-panel .card-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.wrap-list{overflow:auto;min-height:0;flex:1 1 auto}
+.wrap-list .qa:first-child{border-top:0}
+.wrap-go{padding:4px 14px 12px;justify-content:flex-end}
+@media(max-width:480px){.wrap-panel{left:6px;right:6px;max-height:70vh}.wrap-panel .ask-row{flex-direction:column;align-items:stretch}}
+.empty{padding:16px 14px;color:var(--muted);font-size:.88rem}
+.warn{color:var(--syn-verb)}
+.files{margin:0;padding:8px 14px 12px 32px;font-size:.84rem}
+[hidden]{display:none!important}
+@media(max-width:480px){.ws-title,.rail,.gate,.ws-main,.ws-foot{padding-left:12px;padding-right:12px}
+ .verse-top,.pane{padding-left:12px;padding-right:12px}.greek-full{font-size:1.15em}}
+
+</style>
+</head>
+<!-- 공개 저장소 사본: 성경 번역·원어 본문은 저작권 때문에 자리 표시로 바꾸었습니다. 배열·색 표시·화면 구조는 원본과 같습니다. -->
+<body>
+<div class="notice" style="margin:12px auto;max-width:1100px">Stage 3 원어관찰 관찰 작업창의 화면 기준 파일(정적 사본, 시편 22:22-31, 2026-11-24)입니다. 실제 입력·저장·감독에게 묻기는 관찰 작업창(<code>python3 app/server.py</code>, http://127.0.0.1:8787)에서 합니다. 절마다 「나의 번역」 칸이 「묵상 노트」 앞에 있고, 둘 다 03_원어관찰.json에 저장되며 「나의 번역」은 03_나의번역_{작업일}_{본문}.md로도 생성됩니다.</div>
+
+<header class="ws-top">
+ <div class="ws-title">
+  <h1>관찰 작업창</h1>
+  <label class="ws-week"><span class="sr">주간</span><select id="week" aria-label="주간 선택"><option value="S_20261122">S_20261122 · 시편 22:22-31 · Stage 9</option><option value="S_20261115">S_20261115 · 구판 (읽기 전용)</option><option value="S_20261108">S_20261108 · 구판 (읽기 전용)</option></select></label>
+ </div>
+ <nav class="rail" id="rail" aria-label="단계"><span class="done">0 수집</span><span class="done">1 본문만남</span><span class="done">2 동행일지</span><span class="done">3 원어관찰</span><span class="done">4 1차청중</span><span class="done">5 맥락관찰</span><span class="done">6 묵직한단어</span><span class="done">7A 자기적용</span><span class="done">7B 회중적용</span><span class="done">8 원고점검</span><span class="now" aria-current="step">9 설교개요</span></nav>
+ <div class="gate open" id="gate" role="status"><b>주석이 열려 있습니다. </b>Stage 9 설교개요 — 아래에서 수집된 주석을 볼 수 있습니다.</div>
+</header>
+
+<main class="ws-main" id="main">
+ <div class="tabs" id="tabs" role="tablist"><button disabled type="button" role="tab" aria-selected="true">구문 묵상</button><button disabled type="button" role="tab" aria-selected="false">번역 대조</button><button disabled type="button" role="tab" aria-selected="false">앞·뒤 페리코페</button></div>
+ <div id="textview"><section id="tab-syntax"><nav class="toc" aria-label="절 목차"><a href="#">22:22</a><a href="#">22:23</a><a href="#">22:24</a><a href="#">22:25</a><a href="#">22:26</a><a href="#">22:27</a><a href="#">22:28</a><a href="#">22:29</a><a href="#">22:30</a><a href="#">22:31</a></nav><div class="legend-bar"><span><span class="sw sw-src"></span>원어·새한글·ESV = 수집본 글자 그대로</span><span><span class="ai-badge">【AI】</span>분해·직역·동사 계단·해설 = 감독(클로드)</span><span>구문 분석 10 / 10절</span></div><article class="verse-block" id="v-22-22"><div class="verse-top"><span class="vnum">시편 22:22 · 형제들에게 알리고, 회중 가운데서 찬양하리라</span><div class="greek-full hebrew preacher-text" dir="rtl" lang="he">[원어 본문]</div></div><div class="verse-grid"><div class="pane left"><h4>① 구문별 5중 인터리니어</h4><div class="chunk ind-0"><span class="clabel fam-main">main verb · 22.22a</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동피.청유.1공단</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남단.연계+접미2남단</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전(לְ)+명.남복.연계+접미1공단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>내가 이야기하리라 당신의 이름을 / 내 형제들에게</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-main">main verb · 22.22b</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전(בְּ)+명.남단.연계</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남단.절대</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동피.미완.1공단+접미2남단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>회중 가운데서 / 내가 당신을 찬양하리라</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div></div><div class="pane center"><h4><span class="ai-badge">【AI】</span>② 주동사 구문 해설</h4><div class="vchain claude-text-ws"><b>동사 계단</b><div><span class="gk hebrew">[원어]</span> <span class="dim">피엘 청유형 1인칭 — 「내가 이야기하겠다」는 스스로의 결심</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">피엘 미완료 1인칭 — 회중 가운데서 찬양하리라</span></div></div><p class="claude-text-ws">두 줄의 주동사는 1인칭 피엘 동사 אֲסַפְּרָה(청유형)와 אֲהַלְלֶךָּ(미완료)이고, 두 줄은 같은 들여쓰기의 병행입니다.</p><p class="claude-text-ws">청유형은 말하는 이가 스스로에게 거는 의지를 드러내는 형태이고, 미완료는 앞으로 할 일을 말합니다.</p><p class="claude-text-ws">「내 형제들에게」와 「회중 가운데서」가 각 동사의 자리를 정하며, 첫 줄의 대상 「당신의 이름」이 둘째 줄에서는 동사에 붙은 접미 「당신을」로 다시 나옵니다.</p><p class="claude-text-ws">문법상 이 절에서는 동사의 주어 「나」와 그 의지가 앞에 섭니다.</p></div><div class="pane right"><h4>나의 번역 · 22:22 · 설교자</h4><textarea class="medi mytr" id="note-tr-v-22-22" data-ref="22:22" aria-label="22:22 나의 번역" placeholder="이 절을 목사님의 말로 옮겨 적으십시오." readonly></textarea><div id="conf-tr-v-22-22"></div><div class="st medi-hint" id="st-tr-v-22-22">입력하면 1초 뒤 저장합니다</div><button disabled class="btn tr-ask" type="button">감독에게 번역 묻기</button><h4>③ 묵상 노트 · 22:22 · 설교자</h4><textarea class="medi" id="note-v-22-22" data-ref="22:22" aria-label="22:22 묵상 노트" placeholder="이 절 앞에서 머문 것을 적으십시오." readonly></textarea><div id="conf-v-22-22"></div><div class="st medi-hint" id="st-v-22-22">저장된 노트</div></div></div></article><article class="verse-block" id="v-22-23"><div class="verse-top"><span class="vnum">시편 22:23 · 여호와를 경외하는 자들아, 찬양하라</span><div class="greek-full hebrew preacher-text" dir="rtl" lang="he">[원어 본문]</div></div><div class="verse-grid"><div class="pane left"><h4>① 구문별 5중 인터리니어</h4><div class="chunk ind-0"><span class="clabel fam-etc">address voc · 22.23a</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">형.남복.연계</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">고유</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>여호와를 경외하는 자들아</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-main">imper · 22.23b</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동피.명.2남복+접미3남단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그를 찬양하라</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-etc">address voc · 22.23c</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남단.연계</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남단.연계</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">고유</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>야곱의 모든 씨(후손)여</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-main">imper · 22.23d</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동피.명.2남복+접미3남단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그를 영화롭게 하라</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-main">imper · 22.23e</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">접(와우)+동칼.명.2남복</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전(מִן)+접미3남단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그리고 두려워하라 / 그로부터(그 앞에서)</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-etc">address voc · 22.23f</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남단.연계</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남단.연계</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">고유</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>이스라엘의 모든 씨(후손)여</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div></div><div class="pane center"><h4><span class="ai-badge">【AI】</span>② 주동사 구문 해설</h4><div class="vchain claude-text-ws"><b>동사 계단</b><div><span class="gk hebrew">[원어]</span> <span class="dim">피엘 명령 2복 — 찬양하라</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">피엘 명령 2복 — 영화롭게 하라</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">칼 명령 2복 — 두려워하라</span></div></div><p class="claude-text-ws">주동사는 세 개의 2인칭 복수 명령형 הַלְלוּהוּ · כַּבְּדוּהוּ · וְגוּרוּ이며, 앞의 두 동사에는 「그를」(3남단 접미)이 붙어 있습니다.</p><p class="claude-text-ws">호격 세 개(「여호와를 경외하는 자들」 · 「야곱의 모든 씨」 · 「이스라엘의 모든 씨」)가 명령 앞뒤에 놓여 듣는 이를 부릅니다.</p><p class="claude-text-ws">22절의 1인칭 결심이 이 절에서 2인칭 복수 명령으로 바뀝니다. 문법상 말의 방향이 「나」에서 「너희」로 옮겨 갑니다.</p></div><div class="pane right"><h4>나의 번역 · 22:23 · 설교자</h4><textarea class="medi mytr" id="note-tr-v-22-23" data-ref="22:23" aria-label="22:23 나의 번역" placeholder="이 절을 목사님의 말로 옮겨 적으십시오." readonly></textarea><div id="conf-tr-v-22-23"></div><div class="st medi-hint" id="st-tr-v-22-23">입력하면 1초 뒤 저장합니다</div><button disabled class="btn tr-ask" type="button">감독에게 번역 묻기</button><h4>③ 묵상 노트 · 22:23 · 설교자</h4><textarea class="medi" id="note-v-22-23" data-ref="22:23" aria-label="22:23 묵상 노트" placeholder="이 절 앞에서 머문 것을 적으십시오." readonly></textarea><div id="conf-v-22-23"></div><div class="st medi-hint" id="st-v-22-23">저장된 노트</div></div></div></article><article class="verse-block" id="v-22-24"><div class="verse-top"><span class="vnum">시편 22:24 · 그가 멸시하지 않으셨다 — 들으셨다</span><div class="greek-full hebrew preacher-text" dir="rtl" lang="he">[원어 본문]</div></div><div class="verse-grid"><div class="pane left"><h4>① 구문별 5중 인터리니어</h4><div class="chunk ind-1"><span class="clabel fam-causal">causal · 22.24a</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">접</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">부정어</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동칼.완.3남단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>왜냐하면 / 멸시하지 않으셨다</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-1"><span class="clabel fam-causal">causal · 22.24b</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">접(와우)+부정어</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동피.완.3남단</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.여단.연계</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">형.남단.절대</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그리고 싫어하지 않으셨다 고난받는 자의 고난을</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-1"><span class="clabel fam-causal">causal · 22.24c</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">접(와우)+부정어</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동히.완.3남단</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남복.연계+접미3남단</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전(מִן)+접미3남단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그리고 숨기지 않으셨다 그의 얼굴을 / 그에게서</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-2"><span class="clabel fam-inf">temp inf · 22.24d</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">접(와우)+전(בְּ)+부정사피.연계+접미3남단</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전(אֶל)+접미3남단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그리고 그가 부르짖을 때 / 그에게</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-1"><span class="clabel fam-causal">causal · 22.24e</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동칼.완.3남단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그가 들으셨다</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div></div><div class="pane center"><h4><span class="ai-badge">【AI】</span>② 주동사 구문 해설</h4><div class="vchain claude-text-ws"><b>동사 계단</b><div><span class="gk hebrew">[원어]</span> <span class="dim">칼 완료 + 부정 — 멸시하지 않으셨다</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">피엘 완료 + 부정 — 혐오하지 않으셨다</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">히필 완료 + 부정 — 얼굴을 숨기지 않으셨다</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">칼 완료 — 들으셨다</span></div></div><p class="claude-text-ws">이 절은 접속사 כִּי로 시작하는 이유절로, 23절의 명령(「찬양하라」)에 대한 근거를 댑니다. 그래서 한 칸 들여 둡니다.</p><p class="claude-text-ws">동사 넷은 모두 3인칭 남성 단수 완료형이며, 앞의 셋은 부정어 לֹא와 함께 「하지 않으셨다」를, 마지막 שָׁמֵעַ는 부정 없이 「들으셨다」를 말합니다.</p><p class="claude-text-ws">부정사 연계형 וּבְשַׁוְּעוֹ(「그가 부르짖을 때」)는 마지막 동사 שָׁמֵעַ에 걸리는 때의 표현입니다.</p><p class="claude-text-ws">부정 세 번 뒤에 부정 없는 완료 하나가 절의 끝에 놓입니다.</p></div><div class="pane right"><h4>나의 번역 · 22:24 · 설교자</h4><textarea class="medi mytr" id="note-tr-v-22-24" data-ref="22:24" aria-label="22:24 나의 번역" placeholder="이 절을 목사님의 말로 옮겨 적으십시오." readonly></textarea><div id="conf-tr-v-22-24"></div><div class="st medi-hint" id="st-tr-v-22-24">입력하면 1초 뒤 저장합니다</div><button disabled class="btn tr-ask" type="button">감독에게 번역 묻기</button><h4>③ 묵상 노트 · 22:24 · 설교자</h4><textarea class="medi" id="note-v-22-24" data-ref="22:24" aria-label="22:24 묵상 노트" placeholder="이 절 앞에서 머문 것을 적으십시오." readonly></textarea><div id="conf-v-22-24"></div><div class="st medi-hint" id="st-v-22-24">저장된 노트</div></div></div></article><article class="verse-block" id="v-22-25"><div class="verse-top"><span class="vnum">시편 22:25 · 당신께로부터 나의 찬양이</span><div class="greek-full hebrew preacher-text" dir="rtl" lang="he">[원어 본문]</div></div><div class="verse-grid"><div class="pane left"><h4>① 구문별 5중 인터리니어</h4><div class="chunk ind-0"><span class="clabel fam-main">main (명사절) · 22.25a</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전(מִן)+전(אֵת)+접미2남단</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.여단.연계+접미1공단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>당신께로부터 / 나의 찬양이</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-1"><span class="clabel fam-prep">prep phr · 22.25b</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전(בְּ)+명.남단.절대</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">형.남단.절대</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>큰 회중 안에서</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-main">main verb · 22.25c</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남복.연계+접미1공단</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동피.미완.1공단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>나의 서원들을 내가 갚으리라</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-1"><span class="clabel fam-prep">prep phr · 22.25d</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">형.남복.연계+접미3남단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그를 경외하는 자들 앞에서</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div></div><div class="pane center"><h4><span class="ai-badge">【AI】</span>② 주동사 구문 해설</h4><div class="vchain claude-text-ws"><b>동사 계단</b><div><span class="gk hebrew">[원어]</span> <span class="dim">피엘 미완료 1단 — 서원을 갚으리라(완전하게 하리라)</span></div></div><p class="claude-text-ws">첫 줄은 동사 없는 명사절로, 전치사구 מֵאִתְּךָ(「당신께로부터」)가 맨 앞에 놓여 강조됩니다.</p><p class="claude-text-ws">이 절의 주동사는 피엘 미완료 1인칭 אֲשַׁלֵּם이며, 목적어 נְדָרַי(「나의 서원들」)가 동사보다 앞에 나옵니다.</p><p class="claude-text-ws">두 전치사구 「큰 회중 안에서」와 「그를 경외하는 자들 앞에서」가 찬양과 서원 이행의 자리를 정합니다.</p><p class="claude-text-ws">인칭은 다시 「나」로 돌아오며, 22절의 회중(קָהָל)이 여기서 「큰」 회중으로 나옵니다.</p></div><div class="pane right"><h4>나의 번역 · 22:25 · 설교자</h4><textarea class="medi mytr" id="note-tr-v-22-25" data-ref="22:25" aria-label="22:25 나의 번역" placeholder="이 절을 목사님의 말로 옮겨 적으십시오." readonly></textarea><div id="conf-tr-v-22-25"></div><div class="st medi-hint" id="st-tr-v-22-25">입력하면 1초 뒤 저장합니다</div><button disabled class="btn tr-ask" type="button">감독에게 번역 묻기</button><h4>③ 묵상 노트 · 22:25 · 설교자</h4><textarea class="medi" id="note-v-22-25" data-ref="22:25" aria-label="22:25 묵상 노트" placeholder="이 절 앞에서 머문 것을 적으십시오." readonly></textarea><div id="conf-v-22-25"></div><div class="st medi-hint" id="st-v-22-25">저장된 노트</div></div></div></article><article class="verse-block" id="v-22-26"><div class="verse-top"><span class="vnum">시편 22:26 · 겸손한 자들이 먹고 배부르리라</span><div class="greek-full hebrew preacher-text" dir="rtl" lang="he">[원어 본문]</div></div><div class="verse-grid"><div class="pane left"><h4>① 구문별 5중 인터리니어</h4><div class="chunk ind-0"><span class="clabel fam-main">verb fut · 22.26a</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동칼.미완.3남복</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">형.남복.절대</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>먹으리라 / 겸손한(가난한) 자들이</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-main">verb fut · 22.26b</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">접(와우)+동칼.미완.3남복</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그리고 배부르리라</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-main">verb fut · 22.26c</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동피.미완.3남복</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">고유</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">분칼.능.남복+접미3남단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>찬양하리라 여호와를 / 그를 찾는 자들이</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-main">(verb) 지시형 · 22.26d</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동칼.지시.3남단</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남단.연계+접미2남복</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전(לְ)+관+명.남단.절대</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>살기를 / 너희 마음이 / 영원히</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div></div><div class="pane center"><h4><span class="ai-badge">【AI】</span>② 주동사 구문 해설</h4><div class="vchain claude-text-ws"><b>동사 계단</b><div><span class="gk hebrew">[원어]</span> <span class="dim">칼 미완료 3복 — 먹으리라</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">칼 미완료 3복 — 배부르리라</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">피엘 미완료 3복 — 찬양하리라</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">칼 지시형 3단 — 살기를(바람)</span></div></div><p class="claude-text-ws">앞의 세 동사는 3인칭 복수 미완료로, 주어 「겸손한 자들」과 「그를 찾는 자들」이 할 일을 앞으로의 일로 말합니다.</p><p class="claude-text-ws">דֹּרְשָׁיו는 칼 능동 분사 복수에 「그를」 접미가 붙은 꼴로, 동사 יְהַלְלוּ의 주어 노릇을 합니다.</p><p class="claude-text-ws">마지막 יְחִי는 지시형(3인칭 바람)이고, 「너희 마음」이라는 2인칭 복수 접미가 붙어 다시 듣는 이를 향합니다.</p><p class="claude-text-ws">이 절에서 「찬양하다」(הלל)의 주어가 처음으로 3인칭 복수가 됩니다.</p></div><div class="pane right"><h4>나의 번역 · 22:26 · 설교자</h4><textarea class="medi mytr" id="note-tr-v-22-26" data-ref="22:26" aria-label="22:26 나의 번역" placeholder="이 절을 목사님의 말로 옮겨 적으십시오." readonly></textarea><div id="conf-tr-v-22-26"></div><div class="st medi-hint" id="st-tr-v-22-26">입력하면 1초 뒤 저장합니다</div><button disabled class="btn tr-ask" type="button">감독에게 번역 묻기</button><h4>③ 묵상 노트 · 22:26 · 설교자</h4><textarea class="medi" id="note-v-22-26" data-ref="22:26" aria-label="22:26 묵상 노트" placeholder="이 절 앞에서 머문 것을 적으십시오." readonly></textarea><div id="conf-v-22-26"></div><div class="st medi-hint" id="st-v-22-26">저장된 노트</div></div></div></article><article class="verse-block" id="v-22-27"><div class="verse-top"><span class="vnum">시편 22:27 · 땅의 모든 끝이 기억하고 돌아오리라</span><div class="greek-full hebrew preacher-text" dir="rtl" lang="he">[원어 본문]</div></div><div class="verse-grid"><div class="pane left"><h4>① 구문별 5중 인터리니어</h4><div class="chunk ind-0"><span class="clabel fam-main">verb fut · 22.27a</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동칼.미완.3남복</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>기억하리라</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-main">verb fut · 22.27b</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">접(와우)+동칼.미완.3남복</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">고유</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남단.연계</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남복.연계</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.여단.절대</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그리고 돌아오리라 / 여호와께로 / 땅의 모든 끝이</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-main">verb fut · 22.27c</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">접(와우)+동기타.미완.3남복?</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전(לְ)+명.남복.연계+접미2남단</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남단.연계</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.여복.연계</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남복.절대</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그리고 엎드려 경배하리라 / 당신 앞에 / 민족들의 모든 족속이</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div></div><div class="pane center"><h4><span class="ai-badge">【AI】</span>② 주동사 구문 해설</h4><div class="vchain claude-text-ws"><b>동사 계단</b><div><span class="gk hebrew">[원어]</span> <span class="dim">칼 미완료 3복 — 기억하리라</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">칼 미완료 3복 — 돌아오리라</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">미완료 3복(השתחוה, 흔히 히쉬타펠로 분석) — 엎드려 경배하리라</span></div></div><p class="claude-text-ws">동사 셋은 모두 3인칭 복수 미완료이고, 주어 「땅의 모든 끝」과 「민족들의 모든 족속」은 동사 뒤에 옵니다.</p><p class="claude-text-ws">וְיִשְׁתַּחֲווּ의 어간은 학자에 따라 히트파엘 또는 히쉬타펠로 분석해 분해에 「기타」로 적었습니다</p><p class="claude-text-ws">「여호와께로」(3인칭)와 「당신 앞에」(2인칭 접미)가 한 절 안에 함께 있어, 하나님을 가리키는 인칭이 바뀝니다.</p></div><div class="pane right"><h4>나의 번역 · 22:27 · 설교자</h4><textarea class="medi mytr" id="note-tr-v-22-27" data-ref="22:27" aria-label="22:27 나의 번역" placeholder="이 절을 목사님의 말로 옮겨 적으십시오." readonly></textarea><div id="conf-tr-v-22-27"></div><div class="st medi-hint" id="st-tr-v-22-27">입력하면 1초 뒤 저장합니다</div><button disabled class="btn tr-ask" type="button">감독에게 번역 묻기</button><h4>③ 묵상 노트 · 22:27 · 설교자</h4><textarea class="medi" id="note-v-22-27" data-ref="22:27" aria-label="22:27 묵상 노트" placeholder="이 절 앞에서 머문 것을 적으십시오." readonly></textarea><div id="conf-v-22-27"></div><div class="st medi-hint" id="st-v-22-27">저장된 노트</div></div></div></article><article class="verse-block" id="v-22-28"><div class="verse-top"><span class="vnum">시편 22:28 · 나라는 여호와께 속하였다</span><div class="greek-full hebrew preacher-text" dir="rtl" lang="he">[원어 본문]</div></div><div class="verse-grid"><div class="pane left"><h4>① 구문별 5중 인터리니어</h4><div class="chunk ind-1"><span class="clabel fam-causal">causal (명사절) · 22.28a</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">접</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전(לְ)+고유</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">관+명.여단.절대</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>왜냐하면 / 여호와께 / 왕권이</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-1"><span class="clabel fam-ptc">ptc 술어 · 22.28b</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">접(와우)+분칼.능.남단</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전(בְּ)+관+명.남복.절대</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그리고 다스리시는 이 / 민족들 가운데서</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div></div><div class="pane center"><h4><span class="ai-badge">【AI】</span>② 주동사 구문 해설</h4><div class="vchain claude-text-ws"><b>동사 계단</b><div><span class="gk hebrew">[원어]</span> <span class="dim">칼 능동 분사 — 다스리는 이(지속적인 상태)</span></div></div><p class="claude-text-ws">이 절은 다시 כִּי로 시작하는 이유절로, 27절(땅끝과 민족들이 돌아와 경배함)의 근거를 댑니다.</p><p class="claude-text-ws">정동사가 없습니다. 첫 줄은 「여호와께 — 왕권이」라는 명사절이고, 둘째 줄은 분사 מֹשֵׁל이 술어 노릇을 합니다.</p><p class="claude-text-ws">분사는 시간을 정하지 않고 늘 그러한 상태를 말하는 형태입니다. 24절에 이어 두 번째 이유절이 본문 가운데 놓입니다.</p></div><div class="pane right"><h4>나의 번역 · 22:28 · 설교자</h4><textarea class="medi mytr" id="note-tr-v-22-28" data-ref="22:28" aria-label="22:28 나의 번역" placeholder="이 절을 목사님의 말로 옮겨 적으십시오." readonly></textarea><div id="conf-tr-v-22-28"></div><div class="st medi-hint" id="st-tr-v-22-28">입력하면 1초 뒤 저장합니다</div><button disabled class="btn tr-ask" type="button">감독에게 번역 묻기</button><h4>③ 묵상 노트 · 22:28 · 설교자</h4><textarea class="medi" id="note-v-22-28" data-ref="22:28" aria-label="22:28 묵상 노트" placeholder="이 절 앞에서 머문 것을 적으십시오." readonly></textarea><div id="conf-v-22-28"></div><div class="st medi-hint" id="st-v-22-28">저장된 노트</div></div></div></article><article class="verse-block" id="v-22-29"><div class="verse-top"><span class="vnum">시편 22:29 · 흙으로 내려가는 자들이 그 앞에 엎드리리라</span><div class="greek-full hebrew preacher-text" dir="rtl" lang="he">[원어 본문]</div></div><div class="verse-grid"><div class="pane left"><h4>① 구문별 5중 인터리니어</h4><div class="chunk ind-0"><span class="clabel fam-main">main verb · 22.29a</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동칼.완.3공복</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>먹었다</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-main">main verb · 22.29b</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">접(와우)+동기타.와미완.3남복</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남단.연계</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">형.남복.연계</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.여단.절대</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그리고 엎드려 경배하였다 / 땅의 모든 살진 자들이</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-main">verb fut · 22.29c</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전(לְ)+명.남복.연계+접미3남단</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동칼.미완.3남복</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남단.연계</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">분칼.능.남복</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남단.절대</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그 앞에 / 무릎 꿇으리라 / 흙으로 내려가는 모든 자들이</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-1"><span class="clabel fam-rel">rel cl (무표지)? · 22.29d</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">접(와우)+명.여단.연계+접미3남단</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">부정어</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동피.완.3남단?</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그리고 그의 목숨을 살리지 못한(자)</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div></div><div class="pane center"><h4><span class="ai-badge">【AI】</span>② 주동사 구문 해설</h4><div class="vchain claude-text-ws"><b>동사 계단</b><div><span class="gk hebrew">[원어]</span> <span class="dim">칼 완료 3복 — 먹었다</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">와우연속 미완료 3복 — 그리고 엎드렸다</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">칼 미완료 3복 — 무릎 꿇으리라</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">피엘 완료 + 부정 — 살리지 못했다</span></div></div><p class="claude-text-ws">앞의 두 동사는 완료 אָכְלוּ와 와우연속 미완료 וַיִּשְׁתַּחֲוּוּ로, 앞 절들의 미완료와 달리 이미 일어난 일처럼 말합니다.</p><p class="claude-text-ws">셋째 줄의 주동사 יִכְרְעוּ(미완료)는 앞에 놓인 לְפָנָיו(「그 앞에」)와 함께, 주어 「흙으로 내려가는 모든 자」를 동사 뒤에 둡니다.</p><p class="claude-text-ws">마지막 줄은 관계사 없이 붙은 절로 보여 한 칸 들였으나, 이 줄의 구문은 불확실합니다</p><p class="claude-text-ws">이 절은 본문 비평상 읽기가 갈리는 절입니다(이문 참고).</p><div class="variant claude-text-ws">[이문: 첫 낱말 אָכְלוּ를 אַךְ לוֹ(「오직 그에게」)로 고쳐 읽자는 제안이 있고, 끝의 וְנַפְשׁוֹ לֹא חִיָּה는 칠십인역에서 「내 영혼은 그를 위해 산다」로 옮겨졌습니다.]</div></div><div class="pane right"><h4>나의 번역 · 22:29 · 설교자</h4><textarea class="medi mytr" id="note-tr-v-22-29" data-ref="22:29" aria-label="22:29 나의 번역" placeholder="이 절을 목사님의 말로 옮겨 적으십시오." readonly></textarea><div id="conf-tr-v-22-29"></div><div class="st medi-hint" id="st-tr-v-22-29">입력하면 1초 뒤 저장합니다</div><button disabled class="btn tr-ask" type="button">감독에게 번역 묻기</button><h4>③ 묵상 노트 · 22:29 · 설교자</h4><textarea class="medi" id="note-v-22-29" data-ref="22:29" aria-label="22:29 묵상 노트" placeholder="이 절 앞에서 머문 것을 적으십시오." readonly></textarea><div id="conf-v-22-29"></div><div class="st medi-hint" id="st-v-22-29">저장된 노트</div></div></div></article><article class="verse-block" id="v-22-30"><div class="verse-top"><span class="vnum">시편 22:30 · 후손이 그를 섬기리라</span><div class="greek-full hebrew preacher-text" dir="rtl" lang="he">[원어 본문]</div></div><div class="verse-grid"><div class="pane left"><h4>① 구문별 5중 인터리니어</h4><div class="chunk ind-0"><span class="clabel fam-main">verb fut · 22.30a</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.남단.절대</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동칼.미완.3남단+접미3남단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>씨(후손)가 / 그를 섬기리라</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-main">verb fut · 22.30b</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동푸.미완.3남단</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전(לְ)+고유</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전(לְ)+관+명.남단.절대</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>전해지리라 / 주에 대하여 / 세대에게</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div></div><div class="pane center"><h4><span class="ai-badge">【AI】</span>② 주동사 구문 해설</h4><div class="vchain claude-text-ws"><b>동사 계단</b><div><span class="gk hebrew">[원어]</span> <span class="dim">칼 미완료 3단 + 「그를」 — 섬기리라</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">푸알 미완료 3단 — 이야기되리라(수동)</span></div></div><p class="claude-text-ws">주어 זֶרַע(「씨, 후손」)가 동사보다 앞에 놓여 강조됩니다.</p><p class="claude-text-ws">둘째 줄의 יְסֻפַּר는 22절의 אֲסַפְּרָה와 같은 어근 ספר의 푸알(피엘의 수동) 미완료입니다.</p><p class="claude-text-ws">22절에서 「내가 이야기하리라」였던 것이 여기서는 「이야기되리라」라는 수동으로, 다음 세대를 향해 나옵니다.</p></div><div class="pane right"><h4>나의 번역 · 22:30 · 설교자</h4><textarea class="medi mytr" id="note-tr-v-22-30" data-ref="22:30" aria-label="22:30 나의 번역" placeholder="이 절을 목사님의 말로 옮겨 적으십시오." readonly></textarea><div id="conf-tr-v-22-30"></div><div class="st medi-hint" id="st-tr-v-22-30">입력하면 1초 뒤 저장합니다</div><button disabled class="btn tr-ask" type="button">감독에게 번역 묻기</button><h4>③ 묵상 노트 · 22:30 · 설교자</h4><textarea class="medi" id="note-v-22-30" data-ref="22:30" aria-label="22:30 묵상 노트" placeholder="이 절 앞에서 머문 것을 적으십시오." readonly></textarea><div id="conf-v-22-30"></div><div class="st medi-hint" id="st-v-22-30">입력하면 1초 뒤 저장합니다</div></div></div></article><article class="verse-block" id="v-22-31"><div class="verse-top"><span class="vnum">시편 22:31 · 태어날 백성에게 그의 의를 전하리라</span><div class="greek-full hebrew preacher-text" dir="rtl" lang="he">[원어 본문]</div></div><div class="verse-grid"><div class="pane left"><h4>① 구문별 5중 인터리니어</h4><div class="chunk ind-0"><span class="clabel fam-main">verb fut · 22.31a</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동칼.미완.3남복</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그들이 오리라</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-0"><span class="clabel fam-main">verb fut · 22.31b</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">접(와우)+동히.미완.3남복</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">명.여단.연계+접미3남단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>그리고 전하리라 그의 의를</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-1"><span class="clabel fam-prep">prep phr · 22.31c</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">전(לְ)+명.남단.절대</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">분니.수.남단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>태어날 백성에게</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div><div class="chunk ind-1"><span class="clabel fam-causal">recit כִּי · 22.31d</span><div class="gwords" dir="rtl"><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">접</span></span><span class="gw"><span class="g hebrew preacher-text" lang="he">[원어]</span><span class="ab claude-text-ws" dir="ltr">동칼.완.3남단</span></span></div><div class="row own claude-text-ws"><span class="ai-badge">【AI】</span><span class="tag">직역</span>곧 / 그가 행하셨다(고)</div><div class="row nk preacher-text"><span class="tag">새한글</span>[새한글 본문]</div><div class="row esv preacher-text"><span class="tag">ESV</span>[ESV text]</div></div></div><div class="pane center"><h4><span class="ai-badge">【AI】</span>② 주동사 구문 해설</h4><div class="vchain claude-text-ws"><b>동사 계단</b><div><span class="gk hebrew">[원어]</span> <span class="dim">칼 미완료 3복 — 오리라</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">히필 미완료 3복 — 알리리라(전하리라)</span></div><div>↓ <span class="gk hebrew">[원어]</span> <span class="dim">칼 완료 3단 — 그가 행하셨다</span></div></div><p class="claude-text-ws">주동사는 3인칭 복수 미완료 יָבֹאוּ와 וְיַגִּידוּ(히필)이며, 목적어는 צִדְקָתוֹ(「그의 의」)입니다.</p><p class="claude-text-ws">נוֹלָד는 니팔 분사로 「태어날(태어나는)」 백성을 꾸밉니다.</p><p class="claude-text-ws">마지막 כִּי עָשָׂה는 전할 내용을 이끄는 절로 보았으며, 본문은 목적어 없이 「그가 행하셨다」(완료)로 끝납니다.</p></div><div class="pane right"><h4>나의 번역 · 22:31 · 설교자</h4><textarea class="medi mytr" id="note-tr-v-22-31" data-ref="22:31" aria-label="22:31 나의 번역" placeholder="이 절을 목사님의 말로 옮겨 적으십시오." readonly></textarea><div id="conf-tr-v-22-31"></div><div class="st medi-hint" id="st-tr-v-22-31">입력하면 1초 뒤 저장합니다</div><button disabled class="btn tr-ask" type="button">감독에게 번역 묻기</button><h4>③ 묵상 노트 · 22:31 · 설교자</h4><textarea class="medi" id="note-v-22-31" data-ref="22:31" aria-label="22:31 묵상 노트" placeholder="이 절 앞에서 머문 것을 적으십시오." readonly></textarea><div id="conf-v-22-31"></div><div class="st medi-hint" id="st-v-22-31">저장된 노트</div></div></div></article></section><section id="tab-compare" class="card" hidden=""><div class="cmp"><div class="vref">22:22</div><div class="cmp-row"><span class="tr">BHS</span><span class="hebrew preacher-text" dir="rtl">[BHS 본문]</span></div><div class="cmp-row"><span class="tr">새한글</span><span class="preacher-text">[새한글 본문]</span></div><div class="cmp-row"><span class="tr">새번역</span><span class="preacher-text">[새번역 본문]</span></div><div class="cmp-row"><span class="tr">공동번역 개정판</span><span class="preacher-text">[공동번역 개정판 본문]</span></div><div class="cmp-row"><span class="tr">개역개정</span><span class="preacher-text">[개역개정 본문]</span></div><div class="cmp-row"><span class="tr">ESV</span><span class="preacher-text">[ESV 본문]</span></div></div><div class="cmp"><div class="vref">22:23</div><div class="cmp-row"><span class="tr">BHS</span><span class="hebrew preacher-text" dir="rtl">[BHS 본문]</span></div><div class="cmp-row"><span class="tr">새한글</span><span class="preacher-text">[새한글 본문]</span></div><div class="cmp-row"><span class="tr">새번역</span><span class="preacher-text">[새번역 본문]</span></div><div class="cmp-row"><span class="tr">공동번역 개정판</span><span class="preacher-text">[공동번역 개정판 본문]</span></div><div class="cmp-row"><span class="tr">개역개정</span><span class="preacher-text">[개역개정 본문]</span></div><div class="cmp-row"><span class="tr">ESV</span><span class="preacher-text">[ESV 본문]</span></div></div><div class="cmp"><div class="vref">22:24</div><div class="cmp-row"><span class="tr">BHS</span><span class="hebrew preacher-text" dir="rtl">[BHS 본문]</span></div><div class="cmp-row"><span class="tr">새한글</span><span class="preacher-text">[새한글 본문]</span></div><div class="cmp-row"><span class="tr">새번역</span><span class="preacher-text">[새번역 본문]</span></div><div class="cmp-row"><span class="tr">공동번역 개정판</span><span class="preacher-text">[공동번역 개정판 본문]</span></div><div class="cmp-row"><span class="tr">개역개정</span><span class="preacher-text">[개역개정 본문]</span></div><div class="cmp-row"><span class="tr">ESV</span><span class="preacher-text">[ESV 본문]</span></div></div><div class="cmp"><div class="vref">22:25</div><div class="cmp-row"><span class="tr">BHS</span><span class="hebrew preacher-text" dir="rtl">[BHS 본문]</span></div><div class="cmp-row"><span class="tr">새한글</span><span class="preacher-text">[새한글 본문]</span></div><div class="cmp-row"><span class="tr">새번역</span><span class="preacher-text">[새번역 본문]</span></div><div class="cmp-row"><span class="tr">공동번역 개정판</span><span class="preacher-text">[공동번역 개정판 본문]</span></div><div class="cmp-row"><span class="tr">개역개정</span><span class="preacher-text">[개역개정 본문]</span></div><div class="cmp-row"><span class="tr">ESV</span><span class="preacher-text">[ESV 본문]</span></div></div><div class="cmp"><div class="vref">22:26</div><div class="cmp-row"><span class="tr">BHS</span><span class="hebrew preacher-text" dir="rtl">[BHS 본문]</span></div><div class="cmp-row"><span class="tr">새한글</span><span class="preacher-text">[새한글 본문]</span></div><div class="cmp-row"><span class="tr">새번역</span><span class="preacher-text">[새번역 본문]</span></div><div class="cmp-row"><span class="tr">공동번역 개정판</span><span class="preacher-text">[공동번역 개정판 본문]</span></div><div class="cmp-row"><span class="tr">개역개정</span><span class="preacher-text">[개역개정 본문]</span></div><div class="cmp-row"><span class="tr">ESV</span><span class="preacher-text">[ESV 본문]</span></div></div><div class="cmp"><div class="vref">22:27</div><div class="cmp-row"><span class="tr">BHS</span><span class="hebrew preacher-text" dir="rtl">[BHS 본문]</span></div><div class="cmp-row"><span class="tr">새한글</span><span class="preacher-text">[새한글 본문]</span></div><div class="cmp-row"><span class="tr">새번역</span><span class="preacher-text">[새번역 본문]</span></div><div class="cmp-row"><span class="tr">공동번역 개정판</span><span class="preacher-text">[공동번역 개정판 본문]</span></div><div class="cmp-row"><span class="tr">개역개정</span><span class="preacher-text">[개역개정 본문]</span></div><div class="cmp-row"><span class="tr">ESV</span><span class="preacher-text">[ESV 본문]</span></div></div><div class="cmp"><div class="vref">22:28</div><div class="cmp-row"><span class="tr">BHS</span><span class="hebrew preacher-text" dir="rtl">[BHS 본문]</span></div><div class="cmp-row"><span class="tr">새한글</span><span class="preacher-text">[새한글 본문]</span></div><div class="cmp-row"><span class="tr">새번역</span><span class="preacher-text">[새번역 본문]</span></div><div class="cmp-row"><span class="tr">공동번역 개정판</span><span class="preacher-text">[공동번역 개정판 본문]</span></div><div class="cmp-row"><span class="tr">개역개정</span><span class="preacher-text">[개역개정 본문]</span></div><div class="cmp-row"><span class="tr">ESV</span><span class="preacher-text">[ESV 본문]</span></div></div><div class="cmp"><div class="vref">22:29</div><div class="cmp-row"><span class="tr">BHS</span><span class="hebrew preacher-text" dir="rtl">[BHS 본문]</span></div><div class="cmp-row"><span class="tr">새한글</span><span class="preacher-text">[새한글 본문]</span></div><div class="cmp-row"><span class="tr">새번역</span><span class="preacher-text">[새번역 본문]</span></div><div class="cmp-row"><span class="tr">공동번역 개정판</span><span class="preacher-text">[공동번역 개정판 본문]</span></div><div class="cmp-row"><span class="tr">개역개정</span><span class="preacher-text">[개역개정 본문]</span></div><div class="cmp-row"><span class="tr">ESV</span><span class="preacher-text">[ESV 본문]</span></div></div><div class="cmp"><div class="vref">22:30</div><div class="cmp-row"><span class="tr">BHS</span><span class="hebrew preacher-text" dir="rtl">[BHS 본문]</span></div><div class="cmp-row"><span class="tr">새한글</span><span class="preacher-text">[새한글 본문]</span></div><div class="cmp-row"><span class="tr">새번역</span><span class="preacher-text">[새번역 본문]</span></div><div class="cmp-row"><span class="tr">공동번역 개정판</span><span class="preacher-text">[공동번역 개정판 본문]</span></div><div class="cmp-row"><span class="tr">개역개정</span><span class="preacher-text">[개역개정 본문]</span></div><div class="cmp-row"><span class="tr">ESV</span><span class="preacher-text">[ESV 본문]</span></div></div><div class="cmp"><div class="vref">22:31</div><div class="cmp-row"><span class="tr">BHS</span><span class="hebrew preacher-text" dir="rtl">[BHS 본문]</span></div><div class="cmp-row"><span class="tr">새한글</span><span class="preacher-text">[새한글 본문]</span></div><div class="cmp-row"><span class="tr">새번역</span><span class="preacher-text">[새번역 본문]</span></div><div class="cmp-row"><span class="tr">공동번역 개정판</span><span class="preacher-text">[공동번역 개정판 본문]</span></div><div class="cmp-row"><span class="tr">개역개정</span><span class="preacher-text">[개역개정 본문]</span></div><div class="cmp-row"><span class="tr">ESV</span><span class="preacher-text">[ESV 본문]</span></div></div><div class="notice">새한글: bible.bskorea.or.kr · 새번역: bible.bskorea.or.kr · 공동번역 개정판: bible.bskorea.or.kr · 개역개정: bible.bskorea.or.kr · ESV: www.die-bibel.de</div></section><section id="tab-peri" class="card" hidden=""><div class="heading">앞 페리코페 (그늘) — 시편 21편 · 21:1-21:13</div><div class="verse-line preacher-text"><span class="vref">21:1</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">21:2</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">21:3</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">21:4</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">21:5</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">21:6</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">21:7</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">21:8</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">21:9</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">21:10</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">21:11</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">21:12</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">21:13</span>[본문]</div><div class="heading">뒤 페리코페 (빛) — 시편 23편 · 23:1-23:6</div><div class="verse-line preacher-text"><span class="vref">23:1</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">23:2</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">23:3</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">23:4</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">23:5</span>[본문]</div><div class="verse-line preacher-text"><span class="vref">23:6</span>[본문]</div></section></div>
+ <div id="extra" class="extra"><div class="card ask" id="askcard"><div class="card-h"><span>감독에게 묻기 · <span id="askfocus">22:22</span></span><span class="meta">읽기 전용 · 주석 열림 · 관찰 질문 하나로 답합니다</span></div><div class="ask-row"><textarea id="askq" rows="2" maxlength="1000" aria-label="질문" placeholder="예: 이 동사는 신약에서 또 어디에 쓰였습니까?" readonly></textarea><button disabled class="btn primary" type="button" id="askbtn">묻기</button></div><div class="ask-st meta" id="askst">마지막으로 고른 절과 그 절의 나의 번역을 함께 보냅니다. 질문과 답은 ask_log.jsonl에 남습니다.</div><div id="asklist"></div></div><div class="card"><div class="card-h"><span>도구</span></div><div class="card-b tools"><button disabled class="btn" type="button">본문 다시 수집</button><button disabled class="btn" type="button">진행 상황 점검</button></div><div id="toolout"></div></div><div class="card comm"><div class="card-h"><span>주석 (수집본)</span><span class="meta">0개</span></div><div class="empty">아직 모은 주석이 없습니다. 감독에게 주석 수집을 부탁하십시오.</div></div></div>
+</main>
+
+<footer class="ws-foot">
+ <section id="wrappanel" class="card wrap-panel" role="dialog" aria-label="감독과 마무리" hidden=""></section>
+ <span id="stagebar"><span class="meta">시편 22:22-31 · 지금 Stage 9 설교개요</span><button disabled class="btn" type="button" id="savebtn">노트 저장</button><span class="meta" id="savest" role="status">나의 번역과 묵상 노트를 모두 저장했습니다</span><button disabled class="btn" type="button">감독에게 묻기</button></span>
+ <span class="meta">나의 번역과 묵상 노트는 주간 폴더의 <code>03_원어관찰.json</code>에 바로 저장됩니다.</span>
+</footer>
+
+
+
+<script data-dsc="tts">
+/* dsc-tts.js v1.0.0 — 머무르는 설교 코치 공통 낭독
+ * 울림 방지 4규칙: ① voice와 lang을 함께 지정하지 않음 ② 단위별 onend 순차 발화
+ * ③ 로컬 음성 우선 ④ 성우 선택 상자 · 성우/속도 변경 시 즉시 멈춤. pitch는 1.0 고정.
+ *
+ * 마크업
+ *  <div class="dsc-tts" data-tts-lang="ko-KR">            조절 막대 (페이지에 하나)
+ *    <select class="dsc-voice"></select> <select class="dsc-rate">…</select>
+ *    <button class="dsc-stop" type="button">■ 멈춤</button> <span class="dsc-tts-msg"></span></div>
+ *  <button class="dsc-play" data-target="선택자">▶ 듣기</button>  선택자에 맞는 요소들(또는 그 안의 [data-tts-unit])을 차례로 읽음
+ *  속성(단위 또는 그 조상에): data-voice="minsu|jian|yuna"  data-rate="0.85"(사용자 속도에 곱함)
+ *                            data-voice-uri="음성 voiceURI" — 정확한 성우 지정(data-voice보다 앞섬, 카드별 성우 상자용)
+ *  단위에: data-pause="5000"(다음 단위 전 쉼, ms)   읽지 않음: .ai-badge .tr [data-tts-skip]
+ */
+(function (w, d) {
+  "use strict";
+  var S = w.speechSynthesis;
+  var HINTS = {
+    jian: ["jian", "지안", "yuna", "유나"],
+    yuna: ["yuna", "유나"],
+    minsu: ["minsu", "민수"],
+    samantha: ["samantha"]
+  };
+  var DEFAULT_HINT = { ko: "jian", en: "samantha" };
+  var PREMIUM = /premium|enhanced|프리미엄|고품질/i;
+  var st = { voices: [], run: 0, rate: 1.0, lang: "ko-KR", panel: null, current: null, btn: null, utter: null, dog: 0 };
+
+  function loadVoices() {
+    return new Promise(function (resolve) {
+      var v = S.getVoices();
+      if (v.length) { resolve(v); return; }
+      var done = false;
+      function fin() { if (!done) { done = true; resolve(S.getVoices()); } }
+      S.addEventListener("voiceschanged", fin, { once: true });
+      setTimeout(fin, 1500);
+    });
+  }
+
+  function base(lang) { return String(lang || "").toLowerCase().split(/[-_]/)[0]; }
+
+  // 규칙 3: 로컬 음성 우선, 같은 조건이면 프리미엄 우선
+  function sortVoices(list) {
+    return list.slice().sort(function (a, b) {
+      if (a.localService !== b.localService) return a.localService ? -1 : 1;
+      var pa = PREMIUM.test(a.name), pb = PREMIUM.test(b.name);
+      return pa === pb ? 0 : (pa ? -1 : 1);
+    });
+  }
+
+  function voicesFor(lang) {
+    var b = base(lang);
+    return sortVoices(st.voices.filter(function (v) { return base(v.lang) === b; }));
+  }
+
+  function byHint(lang, hint) {
+    var keys = HINTS[hint] || [];
+    var list = voicesFor(lang);
+    for (var k = 0; k < keys.length; k++) {
+      for (var i = 0; i < list.length; i++) {
+        if (list[i].name.toLowerCase().indexOf(keys[k]) !== -1) return list[i];
+      }
+    }
+    return null;
+  }
+
+  function byURI(uri) {
+    for (var i = 0; i < st.voices.length; i++) if (st.voices[i].voiceURI === uri) return st.voices[i];
+    return null;
+  }
+
+  function label(v) { return v.name + " (" + v.lang + ")" + (v.localService === false ? " (네트워크)" : ""); }
+
+  function selectedVoice() {
+    var sel = st.panel && st.panel.querySelector(".dsc-voice");
+    if (!sel || !sel.value) return null;
+    for (var i = 0; i < st.voices.length; i++) if (st.voices[i].voiceURI === sel.value) return st.voices[i];
+    return null;
+  }
+
+  function msg(t) { var m = st.panel && st.panel.querySelector(".dsc-tts-msg"); if (m) m.textContent = t || ""; }
+
+  function clearMark() {
+    var on = d.querySelectorAll(".dsc-speaking");
+    for (var i = 0; i < on.length; i++) on[i].classList.remove("dsc-speaking");
+  }
+
+  function markButton(btn) {
+    if (st.btn) {
+      st.btn.setAttribute("aria-pressed", "false");
+      if (st.btn.getAttribute("data-label")) st.btn.textContent = st.btn.getAttribute("data-label");
+    }
+    st.btn = btn || null;
+    if (btn) {
+      if (!btn.getAttribute("data-label")) btn.setAttribute("data-label", btn.textContent);
+      btn.setAttribute("aria-pressed", "true");
+      btn.textContent = "■ " + btn.getAttribute("data-label").replace(/^▶\s*/, "");
+    }
+  }
+
+  function stop() {
+    st.run++;
+    clearTimeout(st.dog);
+    if (S) S.cancel();
+    st.utter = null;
+    clearMark();
+    markButton(null);
+    st.current = null;
+    msg("");
+  }
+
+  function unitsOf(sel) {
+    var out = [], t = d.querySelectorAll(sel);
+    for (var i = 0; i < t.length; i++) {
+      var u = t[i].querySelectorAll("[data-tts-unit]");
+      if (u.length) out = out.concat(Array.prototype.slice.call(u)); else out.push(t[i]);
+    }
+    return out;
+  }
+
+  function textOf(el) {
+    var c = el.cloneNode(true);
+    var skip = c.querySelectorAll(".ai-badge,.tr,[data-tts-skip]");
+    for (var i = 0; i < skip.length; i++) skip[i].parentNode.removeChild(skip[i]);
+    return c.textContent.replace(/[「」『』]/g, " ").replace(/\s+/g, " ").trim();
+  }
+
+  function attr(el, name) {
+    var h = el.closest ? el.closest("[" + name + "]") : (el.hasAttribute(name) ? el : null);
+    return h ? h.getAttribute(name) : null;
+  }
+
+  function play(sel, lang, btn) {
+    stop();
+    var token = st.run, units = unitsOf(sel), i = 0;
+    if (!units.length) return;
+    st.current = sel;
+    markButton(btn);
+    function next(ms) { if (token === st.run) { clearTimeout(st.dog); setTimeout(step, ms); } }
+    function step() {
+      if (token !== st.run) return;
+      clearMark();
+      if (i >= units.length) { st.utter = null; markButton(null); st.current = null; msg(""); return; }
+      var el = units[i++], text = textOf(el);
+      if (!text) { step(); return; }
+      var sv = selectedVoice();
+      if (sv && base(sv.lang) !== base(lang)) sv = byHint(lang, DEFAULT_HINT[base(lang)]) || voicesFor(lang)[0] || null;
+      var hint = attr(el, "data-voice"), uri = attr(el, "data-voice-uri");
+      var vo = (uri && byURI(uri)) || (hint && byHint(lang, hint)) || sv;
+      var utter = new SpeechSynthesisUtterance(text);
+      if (vo) utter.voice = vo;        // 규칙 1: 음성을 지정하면 lang 생략
+      else utter.lang = lang;          // 폴백일 때만 lang
+      var unitRate = parseFloat(attr(el, "data-rate"));
+      utter.rate = Math.min(2, Math.max(0.5, (unitRate > 0 ? unitRate : 1) * st.rate));
+      utter.pitch = 1.0;               // 고정
+      var p = parseInt(el.getAttribute("data-pause"), 10);
+      var pause = isNaN(p) ? 120 : p;
+      utter.onend = function () { clearTimeout(st.dog); setTimeout(step, pause); };   // 규칙 2: 다음 단위
+      utter.onerror = function () { next(120); };
+      st.utter = utter;                // 참조를 잡아 두어야 onend가 사라지지 않음
+      el.classList.add("dsc-speaking");
+      msg("읽는 중 " + i + "/" + units.length);
+      clearTimeout(st.dog);            // onend가 끝내 오지 않을 때를 대비한 감시
+      st.dog = setTimeout(function () { if (token === st.run) { S.cancel(); next(120); } },
+        8000 + text.length * 400 / utter.rate);
+      if (S.paused) S.resume();
+      S.speak(utter);
+    }
+    setTimeout(step, 60);              // cancel 직후 바로 speak하면 Safari가 삼킴
+  }
+
+  function fillVoices() {
+    var sel = st.panel.querySelector(".dsc-voice");
+    if (!sel) return;
+    var keep = sel.value, list = voicesFor(st.lang);
+    sel.innerHTML = "";
+    list.forEach(function (v) {
+      var o = d.createElement("option");
+      o.value = v.voiceURI; o.textContent = label(v);
+      sel.appendChild(o);
+    });
+    var def = byHint(st.lang, DEFAULT_HINT[base(st.lang)]) || list[0];
+    if (keep && list.some(function (v) { return v.voiceURI === keep; })) sel.value = keep;
+    else if (def) sel.value = def.voiceURI;
+    if (!list.length) {
+      var o = d.createElement("option");
+      o.value = ""; o.textContent = "기본 음성 (" + st.lang + ")";
+      sel.appendChild(o);
+      msg("이 기기에서 " + st.lang + " 음성 목록을 아직 받지 못했습니다. 기본 음성으로 읽습니다.");
+    } else msg("");
+    try { d.dispatchEvent(new CustomEvent("dsc-voices")); } catch (e) {}   // 카드별 성우 상자가 목록을 받아 갑니다
+  }
+
+  function disable(text) {
+    var b = d.querySelectorAll(".dsc-play,.dsc-tts button,.dsc-tts select");
+    for (var i = 0; i < b.length; i++) b[i].disabled = true;
+    msg(text);
+  }
+
+  function init() {
+    st.panel = d.querySelector(".dsc-tts");
+    if (!st.panel) return;
+    st.lang = st.panel.getAttribute("data-tts-lang") || "ko-KR";
+    if (!S || !w.SpeechSynthesisUtterance) { disable("이 브라우저는 낭독을 지원하지 않습니다."); return; }
+    var rate = st.panel.querySelector(".dsc-rate");
+    if (rate) { st.rate = parseFloat(rate.value) || 1.0;
+      rate.addEventListener("change", function () { st.rate = parseFloat(rate.value) || 1.0; stop(); }); }
+    var sel = st.panel.querySelector(".dsc-voice");
+    if (sel) sel.addEventListener("change", stop);       // 규칙 4: 바꾸면 즉시 멈춤
+    var sb = st.panel.querySelector(".dsc-stop");
+    if (sb) sb.addEventListener("click", stop);
+    d.addEventListener("click", function (e) {
+      var btn = e.target.closest && e.target.closest(".dsc-play");
+      if (!btn || btn.disabled) return;
+      var target = btn.getAttribute("data-target");
+      if (!target) return;
+      if (st.current === target) { stop(); return; }
+      play(target, btn.getAttribute("data-lang") || st.lang, btn);
+    });
+    loadVoices().then(function (v) { st.voices = v || []; fillVoices(); });
+    // iOS는 음성 목록을 늦게 채우기도 합니다. 올 때마다 다시 채웁니다.
+    S.addEventListener("voiceschanged", function () { st.voices = S.getVoices(); fillVoices(); });
+    w.addEventListener("pagehide", stop);   // stop() 안에서 speechSynthesis.cancel()
+  }
+
+  w.DSC = w.DSC || {};
+  w.DSC.tts = { stop: stop, play: play, version: "1.0.0",
+    voiceFor: function (lang, hint) { return byHint(lang, hint); },
+    voices: function (lang) { return voicesFor(lang || st.lang); },
+    label: label };
+  if (d.readyState === "loading") d.addEventListener("DOMContentLoaded", init); else init();
+})(window, document);
+</script>
+</body>
+</html>
